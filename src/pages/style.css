@@ -1,0 +1,278 @@
+
+#myTab{
+    font-size: 1.2rem;
+}
+
+.card-group{
+    border: 1px solid rgba(0, 0, 0, 0.137);
+    border-radius: 6px;
+    padding-bottom: 1px;
+    padding: 1rem;
+}
+.colums-group-padding{
+    /* margin-top: 1rem; */
+    padding-bottom: 3rem;
+    /* padding: 0.5%; */
+}
+.scollview-table{
+    width: 100%;
+    overflow-x: auto;
+    background-color: white;
+}
+
+
+.font-table{
+    /* font-size: 0.8rem; */
+    background-color: rgba(48, 138, 133, 0.288);
+}
+.search-pd{
+    margin-left: -1rem;
+}
+
+
+.sz-screen{
+    position: relative;
+}
+
+
+@media (min-width: 1150px){
+    .position-modal{
+        position: absolute;
+        transform: translate(-30%);
+    }
+    .respon-dropdows{
+        display: none;
+    }
+    .group-event-table{
+        position: absolute;
+        right: 2%;
+    }
+    .li-link-border{
+        border-radius: 12px;
+        border: 1px solid rgba(0, 0, 0, 0.205);
+        /* width: 7rem; */
+        margin-left: 1rem;
+     }
+
+     .mb-res{
+        display: none;
+     }
+}
+
+@media (max-width: 1150px){
+    .scollview-table{
+        overflow: scroll;
+        width: 100%;
+        height: 100%;
+    }
+    .modal-content{
+        width: fit-content;
+    }
+    .position-modal{
+        width: fit-content;
+    }
+    
+    .respon-l{
+        display: flex;
+    }
+    .respon-dropdows{
+        margin: 2%;
+    }
+    .label-font-12{
+        font-size: 14px;
+    }
+
+    .group-event-table{
+        margin-top: 2%;
+        padding: 1%;
+    }
+    .windows-res{
+        display: none;
+    }
+
+}
+.fade{
+    background-color: rgba(0, 0, 0, 0.329);
+}
+
+.form-group{
+    padding-bottom: 3%;
+}
+
+ /* pagination */
+.flex {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto
+}
+
+.pagination,
+ .jsgrid .jsgrid-pager {
+     display: flex;
+     padding-left: 0;
+     list-style: none;
+     border-radius: 0.25rem
+ }
+ 
+ .page-link {
+     color: black
+ }
+
+ .pagination.pagination-rounded-flat .page-item {
+     margin: 0 .25rem
+ }
+ 
+
+
+ .page-link{
+    border-radius: 100%;
+ }
+
+.card-body-text{
+    margin: 10px;
+    font-size: large;
+    color: #0899D4;
+}
+
+.card-body-left{
+    margin: 15px;
+}
+
+.light{
+    margin-left: 72% ;
+    padding: 0.1rem;
+    font-size: 0.9vw;
+    border-bottom-left-radius: vw;
+    background-color: white
+}
+
+.light-one{
+    margin-left: 60% ;
+    padding: 0.1rem;
+    font-size: 0.9vw;
+    border-bottom-left-radius: vw;
+    background-color: white
+}
+
+/* .nav-link{
+    margin: 1rem
+} */
+.active{
+    background-color: #08b5d4;
+    color: white;
+}
+
+li{
+    list-style-type: none ;
+    z-index: 2;
+}
+.number-right{
+    z-index: 3;
+    text-align: end;
+}
+
+.border-bt{
+    border-bottom: 2px solid black;
+}
+
+.number-block{
+    margin-left: 0%;
+    block-size: 3rem;
+    border: 1px solid gray;
+    border-radius: 10px;
+    text-align: center;
+    font-size: large;
+}
+
+.bt{
+    color: green;
+}
+
+.btn-time{
+  text-align: end;
+}
+
+.border-input-box {
+    border-radius: 10px;
+    margin-left: 10%;
+    block-size: 2.5rem;
+
+}
+
+.tb-near {
+    width: 30rem;
+}
+
+.float-left{
+    float:left;
+}
+
+.btn-time-center{
+    text-align: center;
+}
+
+.text-success{
+    color: green;
+}
+
+.text-danger{
+    color:red;
+}
+
+.col-table-4{
+    min-width: 10rem;
+}
+
+.value-select-option{
+    color: white;
+    max-width: 50px;
+}
+.select-option-pad{
+    background-color: rgba(12, 172, 164, 0.301);
+}
+.custom-file-input{
+    width: 7rem;
+    display: none;
+}
+/* 
+.custom-file-input {
+    color: transparent;
+    width: 7.5rem;
+  }
+  .custom-file-input::-webkit-file-upload-button {
+    visibility: hidden;
+  }
+  .custom-file-input::before {
+    content: 'ດຶງ file excel';
+    color: black;
+    display: inline-block;
+    background: -webkit-linear-gradient(top, #ffffff, #b4ee99);
+    border: 1px solid #999;
+    border-radius: 50px;
+    padding: 5px 8px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+    text-shadow: 1px 1px #fff;
+    font-weight: 700;
+    font-size: 12pt;
+  }
+  .custom-file-input:hover::before {
+    border-color: black;
+  }
+  .custom-file-input:active {
+    outline: 0;
+  }
+  .custom-file-input:active::before {
+    background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9); 
+  }
+  
+  body {
+    padding: 20px;
+  }
+
+  .sz-screen{
+    display: flex;
+    align-items: center;
+  } */
