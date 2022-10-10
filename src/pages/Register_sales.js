@@ -100,7 +100,7 @@ const Register_sales = () => {
                                     <tr>
                                         <th>{x++}</th>
                                         <td className="col-table-4">{item.MachineId.NumMachine}</td>
-                                        <td className="col-table-4">{item.unitId.UnitId === null || item.unitId.UnitId}</td>
+                                        <td className="col-table-4">{item.unitId == null || item.unitId.UnitId == null || item.unitId.UnitId == "null" || item.unitId.UnitId == "underfine" ? "ວ່າງ" : item.unitId.UnitId }</td>
                                         <td className="col-table-4">{item.Vendor_code}</td>
                                         <td className="col-table-4">{item.MachineId.MachineReference}</td>
                                         <td className="col-table-4">{item.MachineId.version_Machine_Num}</td>

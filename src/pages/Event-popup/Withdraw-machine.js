@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useReducer, useState } from "react";
+import Swal from "sweetalert2";
 
 export default function WD_machine () {
 

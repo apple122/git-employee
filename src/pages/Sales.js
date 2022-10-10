@@ -45,7 +45,7 @@ const Salses = () => {
                     </div>
                 </div>
             </div>
-            <Combobox value={selectedPerson} onChange={setSelectedPerson}>
+            {/* <Combobox value={selectedPerson} onChange={setSelectedPerson}>
                 <Combobox.Input onChange={(event) => setQuery(event.target.value)} />
                 <Combobox.Options>
                     {filteredPeople.map((person) => (
@@ -54,7 +54,7 @@ const Salses = () => {
                     </Combobox.Option>
                     ))}
                 </Combobox.Options>
-            </Combobox>
+            </Combobox> */}
                 <div>
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#remove-machince"><i class="bi bi-cloud-download-fill"></i> ຖອນເຄື່ອງຂາຍ</button>
                 </div>&nbsp;
