@@ -91,7 +91,7 @@ const Header = () => {
                             <Link to="/Register_sales" class="navbar-brand navbar-light-active" onClick={refreshPage}><i class="bi bi-r-square-fill"></i> ລົງທະບຽນຄົນຂາຍ</Link>
                         </ul>
                         <ul class="container-fluid confluid-active">
-                            <Link to="/History_revoke" class="navbar-brand navbar-light-active" onClick={refreshPage}><i class="bi bi-arrows-collapse"></i> ຖອນເຄື່ອງ</Link>
+                            <Link to="/Sales" class="navbar-brand navbar-light-active" onClick={refreshPage}><i class="bi bi-arrows-collapse"></i> ຖອນເຄື່ອງ</Link>
                         </ul>
                         <ul class="container-fluid confluid-active">
                             <Link to="/Move" class="navbar-brand navbar-light-active" onClick={refreshPage}><i class="bi bi-arrow-repeat"></i> ຍ້າຍເຄື່ອງ</Link>

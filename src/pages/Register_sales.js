@@ -15,6 +15,7 @@ const Register_sales = () => {
         axios.get('http://localhost:3001/Register/getRegister').then((res) => {
             setRegister(res.data.reverse())
             setRedeuce()
+            console.log(res.data)
         })
     }, [reducer])
 
@@ -99,7 +100,7 @@ const Register_sales = () => {
                                     <tr>
                                         <th>{x++}</th>
                                         <td className="col-table-4">{item.MachineId.NumMachine}</td>
-                                        <td className="col-table-4">{item.unitId.UnitId}</td>
+                                        <td className="col-table-4">{item.unitId.UnitId === null || item.unitId.UnitId}</td>
                                         <td className="col-table-4">{item.Vendor_code}</td>
                                         <td className="col-table-4">{item.MachineId.MachineReference}</td>
                                         <td className="col-table-4">{item.MachineId.version_Machine_Num}</td>
@@ -120,12 +121,12 @@ const Register_sales = () => {
                                         </td>
                                     </tr>
                                 )
-                            }): getRegister.map((item) => {
+                            }): getRegister.map((item, index) => {
                                 return (
                                     <tr>
                                         <th>{x++}</th>
                                         <td className="col-table-4">{item.MachineId.NumMachine}</td>
-                                        <td className="col-table-4">{item.unitId.UnitId === "" && ("sad")}{item.unitId.UnitId === item.unitId.UnitId && (item.unitId.UnitId)}</td>
+                                        <td className="col-table-4">{item.unitId == null || item.unitId.UnitId == null || item.unitId.UnitId == "null" || item.unitId.UnitId == "underfine" ? "ວ່າງ" : item.unitId.UnitId }</td>
                                         <td className="col-table-4">{item.Vendor_code}</td>
                                         <td className="col-table-4">{item.MachineId.MachineReference}</td>
                                         <td className="col-table-4">{item.MachineId.version_Machine_Num}</td>
@@ -141,8 +142,8 @@ const Register_sales = () => {
                                         <td className="col-table-4">{item.percentageId.percentage} %</td>
                                         <td className="col-table-4">Useranme</td>
                                         <td class="float-center">
-                                            <Link className="btn btn-info"><i class="bi bi-pencil-square"></i></Link>
-                                            <Link onClick={(e) => Delete(item._id)} className="btn btn-danger"><i class="bi bi-x-diamond-fill"></i></Link>
+                                        <Link className="btn btn-info"><i class="bi bi-pencil-square"></i></Link>
+                                        <Link onClick={(e) => Delete(item._id)} className="btn btn-danger"><i class="bi bi-x-diamond-fill"></i></Link>
                                         </td>
                                     </tr>
                                 )

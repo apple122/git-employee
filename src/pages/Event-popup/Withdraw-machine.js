@@ -1,9 +1,11 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useReducer, useState } from "react";
 
 export default function WD_machine () {
+
     return (
         <>
-        <div class="modal fade" id="WD_machine" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="remove-machince" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                 <div class="modal-header">
@@ -21,7 +23,7 @@ export default function WD_machine () {
                                         <input type="text" className="form-control" placeholder="ກະລຸນາປ່ອນ ລະຫັດຜູ້ຂາຍ"/>
                                     </div>
                                 </div>
-
+                                
                                 <div className="form-group">
                                     <label>ລຸ້ນຂອງເຄື່ອງພິມ</label>
                                     <div className="input-group">
@@ -38,7 +40,7 @@ export default function WD_machine () {
                                     </div>
                                 </div>
                                 <div className="row">
-                                <div className="col-md-4">
+                                <div className="col-md-6">
                                 <div className="form-group">
                                     <label>ສະຖານະ</label>
                                     <div class="input-group">
@@ -47,7 +49,7 @@ export default function WD_machine () {
                                     </div>
                                 </div>
                                 </div>
-                                <div className="col-md-4">
+                                <div className="col-md-6">
                                 <div className="form-group">
                                     <label>ວັນທີເປີດໃຊ້ງານ</label>
                                     <div class="input-group">
@@ -96,8 +98,8 @@ export default function WD_machine () {
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-x-diamond-fill"></i> ຖອນ</button>
-                    <button type="button" class="btn btn-primary"><i class="bi bi-cloud-download-fill"></i> ກັບຄືນ </button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-x-diamond-fill"></i> ຍ້ອນກັບ</button>
+                    <button type="button" class="btn btn-primary"><i class="bi bi-cloud-download-fill"></i> ຖອນ </button>
                 </div>
                 </div>
             </div>

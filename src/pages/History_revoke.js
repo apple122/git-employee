@@ -10,22 +10,21 @@ const History_revoke = () => {
         <>
         <div className="container-content colums-group-padding">
         <div className="container-full">
-            <div class="card-body colums-group-padding">
-                <div className="col-4">
+            <div class="card-body row colums-group-padding search-pd">
+                <div className="col-md-4">
                     <input type="search" class="form-control float-start col-md-4" placeholder="ຄົ້ນຫາ"/>
                 </div>
-                <div className="col-12">
-                    <ul class="nav light" >
-                        <li class="nav-item" role="presentation">
-                            <Link to="./" class="nav-link active li-link-border" id="history-revoke " >ປະຫວັດຖອນ</Link>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <Link to="/Sales" class="nav-link li-link-border" id="sales" >ຍອດຂາຍ 0</Link>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <Link to="/Manage_revoke" class="nav-link li-link-border" id="all" >ທັງຫມົດ</Link>
-                        </li>
-                    </ul>
+                <div className="col-md-8">
+                    <div class="nav group-event-table">
+                        <div className="nav respon-ul-link label-font-12 item-align-end">
+                            <div class="nav-item position-right li-link-border-mb" role="presentation">
+                                <Link to="/Sales" class="nav-link li-link-border respon-li" id="no_submit" >ຖອນເຄື່ອງ</Link>
+                            </div>
+                            <div class="nav-item position-right li-link-border-mb" role="presentation">
+                                <Link to="/History_revoke" class="nav-link active li-link-border respon-li" id="all">ປະຫວັດຖອນ</Link>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 

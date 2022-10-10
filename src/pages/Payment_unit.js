@@ -57,7 +57,7 @@ const Payment_unit = () => {
                             </select>
                         </div>&nbsp;
                         {/* <div className="col-md-4"></div> */}
-                        <div className="col-md-2">
+                        <div className="col-md-4">
                             <button className="btn btn-info" data-bs-toggle="modal" data-bs-target="#Pour_unit"><i class="bi bi-download"></i> ຖອກເງິນໜ່ວຍ</button>
                         </div>
                     </div>
