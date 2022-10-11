@@ -100,8 +100,8 @@ const Unit = () => {
                                     return (
                                         <tr className="hover-table" key={item.id}>
                                             <th scope="row">{x++}</th>
+                                            <td>{item.Unit_Num}</td>
                                             <td>{item.nameUnit}</td>
-                                            <td>{item.UnitId}</td>
                                             <td>{item.phone}</td>
                                             <td>{item.selectBranch}</td>
                                             <td>
@@ -114,8 +114,8 @@ const Unit = () => {
                                         return (
                                             <tr className="hover-table" key={item.id}>
                                                 <th scope="row">{x++}</th>
+                                                <td>{item.Unit_Num}</td>
                                                 <td>{item.nameUnit}</td>
-                                                <td>{item.UnitId}</td>
                                                 <td>{item.phone}</td>
                                                 <td>{item.selectBranch}</td>
                                                 <td>

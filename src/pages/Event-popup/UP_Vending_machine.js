@@ -4,6 +4,7 @@ import { Button, Modal } from 'react-bootstrap';
 import Swal from "sweetalert2";
 import '../../services/enpiot'
 
+
 export default function UP_Vending_machine (props) {
     const propsUID = props.id;
 
@@ -61,6 +62,7 @@ export default function UP_Vending_machine (props) {
         })
     }
 
+
     const [show, setShow] = useState(false)
     const handleClose = () => setShow(false)
     const handleShow = () => setShow(true)
@@ -105,7 +107,7 @@ export default function UP_Vending_machine (props) {
                                 <input type="text" className="form-control" name="version_Machine_Print" value={version_Machine_Print} onChange={(e) => setversion_Machine_Print(e.target.value)} placeholder="ກະລຸນາປ່ອນ ລຸ່ນເຄື່ອງພີມ" required/>
                             </div>
                         </div>
-                        <div className="form-group col-md-12">
+                        {/* <div className="form-group col-md-12">
                             <label>ສະຖານະ</label>
                             <div className="input-group">
                                 <span className="input-group-text"><i class="bi bi-code-slash"></i></span>
@@ -115,7 +117,7 @@ export default function UP_Vending_machine (props) {
                                     <option value="ວ່າງ" className="bg-warning value-select-option">ວ່າງ</option>
                                 </select>
                             </div>
-                        </div>
+                        </div> */}
                     </div> 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" onClick={handleClose} data-bs-dismiss="modal"><i class="bi bi-x-diamond-fill"></i> Cancel</button>

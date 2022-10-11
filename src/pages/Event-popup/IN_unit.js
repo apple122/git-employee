@@ -44,7 +44,7 @@ export default function IN_manage_data () {
                         <label>ເລກໜ່ວຍ</label>
                         <div className="input-group">
                             <span className="input-group-text"><i class="bi bi-hash"></i></span>
-                            <input type="number" className="form-control" name="nameUnit" value={createUnit.nameUnit} onChange={handleChange} placeholder="ກະລຸນາປ່ອນ ເລກໜ່ວຍ" required/>
+                            <input type="number" className="form-control" name="Unit_Num" value={createUnit.Unit_Num} onChange={handleChange} placeholder="ກະລຸນາປ່ອນ ເລກໜ່ວຍ" required/>
                         </div>
                     </div>
 
@@ -52,7 +52,7 @@ export default function IN_manage_data () {
                         <label>ໜ່ວຍ</label>
                         <div className="input-group">
                             <span className="input-group-text"><i class="bi bi-telephone-fill"></i></span>
-                            <input type="text" className="form-control" name="UnitId" value={createUnit.UnitId} onChange={handleChange} placeholder="ກະລຸນາປ່ອນ ໜ່ວຍ" required/>
+                            <input type="text" className="form-control" name="nameUnit" value={createUnit.nameUnit} onChange={handleChange} placeholder="ກະລຸນາປ່ອນ ໜ່ວຍ" required/>
                         </div>
                     </div>
 

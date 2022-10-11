@@ -1,40 +1,4 @@
 
-#myTab{
-    font-size: 1.2rem;
-}
-
-.card-group{
-    border: 1px solid rgba(0, 0, 0, 0.137);
-    border-radius: 6px;
-    padding-bottom: 1px;
-    padding: 1rem;
-}
-.colums-group-padding{
-    /* margin-top: 1rem; */
-    padding-bottom: 3rem;
-    /* padding: 0.5%; */
-}
-.scollview-table{
-    width: 100%;
-    overflow-x: auto;
-    background-color: white;
-}
-
-
-.font-table{
-    /* font-size: 0.8rem; */
-    background-color: rgba(48, 138, 133, 0.288);
-}
-.search-pd{
-    margin-left: -1rem;
-}
-
-
-.sz-screen{
-    position: relative;
-}
-
-
 @media (min-width: 1150px){
     .position-modal{
         position: absolute;
@@ -97,6 +61,44 @@
      }
 
 }
+
+
+#myTab{
+    font-size: 1.2rem;
+}
+
+.card-group{
+    border: 1px solid rgba(0, 0, 0, 0.137);
+    border-radius: 6px;
+    padding-bottom: 1px;
+    padding: 1rem;
+}
+.colums-group-padding{
+    /* margin-top: 1rem; */
+    padding-bottom: 3rem;
+    /* padding: 0.5%; */
+}
+.scollview-table{
+    width: 100%;
+    overflow-x: auto;
+    background-color: white;
+}
+
+
+.font-table{
+    /* font-size: 0.8rem; */
+    background-color: rgba(48, 138, 133, 0.288);
+}
+.search-pd{
+    margin-left: -1rem;
+}
+
+
+.sz-screen{
+    position: relative;
+}
+
+
 .fade{
     background-color: rgba(0, 0, 0, 0.329);
 }
@@ -282,3 +284,30 @@ li{
     display: flex;
     align-items: center;
   } */
+
+  .insert-showinput{
+    border: 1px solid #0899D4;
+    color: #0899D4;
+  }
+
+  .group-renative{
+    position: relative;
+  }
+  .drop-group-position{
+    position: absolute;
+    width: 100%;
+    z-index: 3;
+    background-color: white;
+    padding-bottom: 2%;
+    box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+    border-radius: 6px;
+  }
+  .drop-checked{
+    margin-top: 1%;
+    padding: 0.5% 2%;
+    background-color: white;
+    border-bottom: 1px solid rgba(2, 70, 70, 0.096);
+  }
+  .drop-checked:hover {
+    background-color: aliceblue;
+  }

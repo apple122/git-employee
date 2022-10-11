@@ -39,18 +39,15 @@ export default function IN_Sales () {
     const [MachineId, setMachineId] = useState(null)
     const [unitId, setunitId] = useState(null)
 
-
     const [ createregister, setregister ] = useState({}) 
     const handleChange = (e) => {
         const { name, value } = e.target
         setregister({...createregister, [name]: value})
-        console.log(createregister)
     }
 
     async function getregister () {
         try {
             const data = await axios.get('http://localhost:3001/register/getregister')
-            console.log(data.data)
         } catch (error) {
             
         }
@@ -63,7 +60,6 @@ export default function IN_Sales () {
         try {
             const data = await axios.get('http://localhost:3001/WithDraw/WithDrawById/63367403d94af431c2715b91')
             setGetusernameUID(data.data._id)
-            console.log(data.data._id)
         } catch (error) {
             
         }
@@ -76,29 +72,32 @@ export default function IN_Sales () {
     async function onSubmit () {
 
         try {
+            const token = localStorage.getItem("token")
             const datas = {
                 Vendor_code: Vendor_code,
-                VendorType: VendorType,
+                VendorType: Nameprecen,
                 name: name,
-                age:  age,
+                age: age,
                 Occupation: Occupation,
                 phone: phone,
                 Province: Province,
                 District: District,
                 Village: Village,
-                percentageId: precenID,
+                percentageId: UIDprecen,
                 userNameId: useID,
                 MachineId: MachineId,
                 unitId: unitId
             } 
-            console.log({VendorType, Vendor_code, name, age, Occupation, phone, Province, District, Village, precenID, useID, MachineId, unitId})
-            const data = await axios.post('http://localhost:3001/register/vendorRegister', datas )
+            console.log({Vendor_code, Nameprecen, name, age, Occupation, phone, Province, District, Village, UIDprecen, useID, MachineId, unitId})
+            console.log(token)
+            const data = await axios.post('http://localhost:3001/register/vendorRegister', datas , {params : {authorization : token}})
             if(data.status == 200){
-                console.log("INsert OK")
+                console.log("Insert OK")
+                console.log(data.data)
                 getregister()
             }
         } catch (error) {
-            console.log(error)
+            console.log(error.message)
         }
     }
 
@@ -115,8 +114,20 @@ export default function IN_Sales () {
                     showConfirmButton: false,
                     timer: 1500
                 })
-            }).catch(() => {alert(createregister)})
+            }).catch((error) => {alert(createregister)})
         )
+    }
+
+
+
+    const [ Nameprecen, setNameprecen ] = useState(null)
+    const [ UIDprecen, setUIDprecen ] = useState(null)
+    console.log(Nameprecen, UIDprecen)
+    function ShowVendorType (UID_users) {
+        axios.get(`http://localhost:3001/percentage/getPercenTageById/${UID_users}`).then((res) => {
+            setNameprecen(res.data.name)
+            setUIDprecen(res.data._id)
+        })
     }
 
     return (
@@ -190,7 +201,7 @@ export default function IN_Sales () {
                                     <label>ປະເພດຜູ້ຂາຍ</label>
                                     <div className="input-group">
                                         <span className="input-group-text"><i class="bi bi-person-lines-fill"></i></span>
-                                        <select className="form-control"  onChange={(e)=> setVendorType(e.target.value)} onClick={(e) => setPrecen(e.target.value)} required>
+                                        <select className="form-control" onChange={(e) => ShowVendorType(e.target.value)} required>
                                             <option>ປະເພດຜູ້ຂາຍ</option>
                                             {GETPercentage.map((performance) => {
                                                 return (
@@ -231,7 +242,7 @@ export default function IN_Sales () {
                                 <div className="form-group">
                                     <label>ເມືອງ</label>
                                     <div class="input-group">
-                                        <span class="input-group-text"><i class="bi bi-telephone-plus-fill"></i></span>
+                                        <span class="input-group-text"><i class="bi bi-house"></i></span>
                                         <input type="text" aria-label="First name" class="form-control"  onChange={(e)=> setDistrict(e.target.value)} placeholder="ກະລຸນາປ່ອນ ເມືອງ" required/>
                                     </div>
                                 </div>
@@ -239,7 +250,7 @@ export default function IN_Sales () {
                                 <div className="form-group">
                                     <label>ແຂວງ</label>
                                     <div class="input-group">
-                                        <span class="input-group-text"><i class="bi bi-telephone-plus-fill"></i></span>
+                                        <span class="input-group-text"><i class="bi bi-house"></i></span>
                                         <input type="text" aria-label="First name" class="form-control" onChange={(e)=> setProvince(e.target.value)} placeholder="ກະລຸນາປ່ອນ ແຂວງ" required/>
                                     </div>
                                 </div>

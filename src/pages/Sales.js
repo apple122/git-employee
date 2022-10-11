@@ -1,29 +1,12 @@
 import React, { useEffect, useReducer, useState } from "react";
-import { Combobox } from '@headlessui/react'
 import { Link } from "react-router-dom";
 import './style.css'
 import History_revoke from "./History_revoke";
 import Withdraw_machine from "./Event-popup/Withdraw-machine"
 import axios from "axios";
 
-const people = [
-    'Durward Reynolds',
-    'Kenton Towne',
-    'Therese Wunsch',
-    'Benedict Kessler',
-    'Katelyn Rohan',
-  ]
-
 const Salses = () => {
-    const [selectedPerson, setSelectedPerson] = useState(people[0])
-    const [query, setQuery] = useState('')
-  
-    const filteredPeople =
-      query === ''
-        ? people
-        : people.filter((person) => {
-            return person.toLowerCase().includes(query.toLowerCase())
-          })
+
     return (
         <>
         <div className="container-content colums-group-padding">
@@ -45,20 +28,10 @@ const Salses = () => {
                     </div>
                 </div>
             </div>
-            {/* <Combobox value={selectedPerson} onChange={setSelectedPerson}>
-                <Combobox.Input onChange={(event) => setQuery(event.target.value)} />
-                <Combobox.Options>
-                    {filteredPeople.map((person) => (
-                    <Combobox.Option key={person} value={person}>
-                        {person}
-                    </Combobox.Option>
-                    ))}
-                </Combobox.Options>
-            </Combobox> */}
                 <div>
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#remove-machince"><i class="bi bi-cloud-download-fill"></i> ຖອນເຄື່ອງຂາຍ</button>
                 </div>&nbsp;
-                <div class="card colums-group-padding">
+                <div class="card colums-group-padding scollview-table">
                         <table className="table table-striped">
                             <thead>
                                 <tr>
@@ -70,7 +43,6 @@ const Salses = () => {
                                     <th scope="col">ວັນທີ່ລົງທະບຽນ</th>
                                     <th scope="col">ຊື່ພະນັກງານຜູ້ຖອນ</th>
                                     <th scope="col">ສາເຫດການຖອນເຄື່ອງ</th>
-                                    <th scope="col">ຈັດການ</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -79,11 +51,10 @@ const Salses = () => {
                                     <td>44938</td>
                                     <td>LENOVO</td>
                                     <td>LENOVO</td>
-                                    <td>LENOVO</td>
-                                    <td>LENOVO</td>
-                                    <td><button type="input" class="Btn-flex btn btn-outline-secondary btn-sm">107$</button></td>     
                                     <td> <a class="label btn btn-success btn-sm">ໃຊ້ງານ</a></td>       
-                                    <td><button type="input" class="Btn-flex btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#WD_machine">ຖອນ</button> </td>                    
+                                    <td>LENOVO</td>
+                                    <td>LENOVO</td>
+                                    <td><button type="input" class="Btn-flex btn btn-outline-secondary btn-sm">ສາເຫດ</button></td>     
                                 </tr>
                                 </tbody>
                         </table>

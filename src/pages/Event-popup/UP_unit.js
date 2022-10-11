@@ -8,13 +8,13 @@ export default function UP_unit (props) {
     const propsUID = props.id
     console.log(propsUID)
 
-    const [UnitId, setUnitId] = useState('')
+    const [Unit_Num, setUnitId] = useState('')
     const [phone, setphone] = useState('')
     const [nameUnit, setnameUnit] = useState('')
     const [selectBranch, setselectBranch] = useState('')
     useEffect(() => {
         axios.get(`http://localhost:3001/unit/GetUnitById/${propsUID}`).then((res) => {
-            setUnitId(res.data.UnitId)
+            setUnitId(res.data.Unit_Num)
             setphone(res.data.phone)
             setnameUnit(res.data.nameUnit)
             setselectBranch(res.data.selectBranch)
@@ -24,7 +24,7 @@ export default function UP_unit (props) {
     const Updatemanage = (e) => {
         e.preventDefault()
         const formData = {
-            UnitId: UnitId,
+            Unit_Num: Unit_Num,
             phone: phone,
             nameUnit: nameUnit,
             selectBranch: selectBranch,
@@ -75,10 +75,10 @@ export default function UP_unit (props) {
                 </div>
                 <div class="row modal-body">
                     <div className="form-group col-md-6">
-                        <label>ຊື່ແລະນາມສະກຸນ</label>
+                        <label>ເລກໜ່ວຍ</label>
                         <div className="input-group">
                             <span className="input-group-text"><i class="bi bi-person-video2"></i></span>
-                            <input type="text" className="form-control" name="nameUnit" value={nameUnit} onChange={(e) => setnameUnit(e.target.value)} placeholder="ກະລຸນາປ່ອນ ຊື່ແລະນາມສະກຸນ" required/>
+                            <input type="text" className="form-control" name="Unit_Num" value={Unit_Num} onChange={(e) => setUnitId(e.target.value)} placeholder="ກະລຸນາປ່ອນ ຊື່ແລະນາມສະກຸນ" required/>
                         </div>
                     </div>
                     <div className="form-group col-md-6">
@@ -92,7 +92,7 @@ export default function UP_unit (props) {
                         <label>ໜ່ວຍ</label>
                         <div className="input-group">
                             <span className="input-group-text"><i class="bi bi-hash"></i></span>
-                            <input type="text" className="form-control" name="UnitId" value={UnitId} onChange={(e) => setUnitId(e.target.value)} placeholder="ກະລຸນາປ່ອນ ໜ່ວຍ" required/>
+                            <input type="text" className="form-control" name="nameUnit" value={nameUnit} onChange={(e) => setnameUnit(e.target.value)} placeholder="ກະລຸນາປ່ອນ ໜ່ວຍ" required/>
                         </div>
                     </div>
                     <div className="form-group col-md-6">
