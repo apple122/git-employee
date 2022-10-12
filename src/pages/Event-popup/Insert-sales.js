@@ -43,23 +43,24 @@ export default function IN_Sales () {
     const handleChange = (e) => {
         const { name, value } = e.target
         setregister({...createregister, [name]: value})
+        console.log(createregister)
     }
 
     async function getregister () {
         try {
             const data = await axios.get('http://localhost:3001/register/getregister')
+            console.log(data.data)
         } catch (error) {
             
         }
     }
-    
-
 
     const [getusenameID , setGetusernameUID] = useState([])
     async function getUsername () {
         try {
             const data = await axios.get('http://localhost:3001/WithDraw/WithDrawById/63367403d94af431c2715b91')
             setGetusernameUID(data.data._id)
+            console.log(data.data._id)
         } catch (error) {
             
         }
@@ -73,61 +74,42 @@ export default function IN_Sales () {
 
         try {
             const token = localStorage.getItem("token")
+
             const datas = {
                 Vendor_code: Vendor_code,
-                VendorType: Nameprecen,
+                VendorType: VendorType,
                 name: name,
-                age: age,
+                age:  age,
                 Occupation: Occupation,
                 phone: phone,
                 Province: Province,
                 District: District,
                 Village: Village,
-                percentageId: UIDprecen,
-                userNameId: useID,
+                percentageId: precenID,
+                
                 MachineId: MachineId,
                 unitId: unitId
             } 
-            console.log({Vendor_code, Nameprecen, name, age, Occupation, phone, Province, District, Village, UIDprecen, useID, MachineId, unitId})
-            console.log(token)
-            const data = await axios.post('http://localhost:3001/register/vendorRegister', datas , {params : {authorization : token}})
+            console.log({VendorType, Vendor_code, name, age, Occupation, phone, Province, District, Village, precenID, MachineId, unitId})
+            const data = await axios.post('http://localhost:3001/register/vendorRegister', datas ,{ headers : {authorization : token}} )
             if(data.status == 200){
-                console.log("Insert OK")
-                console.log(data.data)
+                console.log("INsert OK")
                 getregister()
             }
+
+            const data_uodate = {
+                status: "ໃຊ້ງານ",
+                DateMachine : new Date(),
+            }
+            axios.put(`http://localhost:3001/machine/updateMachine/${MachineId}`, data_uodate)
+
         } catch (error) {
-            console.log(error.message)
+            console.log(error)
         }
     }
 
     const Submit = (e) => {
         e.preventDefault()
-        setregister(
-            axios.post('http://localhost:3001/register/vendorRegister', createregister).then((res) => {
-                console.log(res)
-                Swal.fire({
-                    position: 'top-end',
-                    width: '400px',
-                    icon: 'success',
-                    title: 'ບັນທືກຂໍ້ມູນສຳເລັດ',
-                    showConfirmButton: false,
-                    timer: 1500
-                })
-            }).catch((error) => {alert(createregister)})
-        )
-    }
-
-
-
-    const [ Nameprecen, setNameprecen ] = useState(null)
-    const [ UIDprecen, setUIDprecen ] = useState(null)
-    console.log(Nameprecen, UIDprecen)
-    function ShowVendorType (UID_users) {
-        axios.get(`http://localhost:3001/percentage/getPercenTageById/${UID_users}`).then((res) => {
-            setNameprecen(res.data.name)
-            setUIDprecen(res.data._id)
-        })
     }
 
     return (
@@ -155,7 +137,9 @@ export default function IN_Sales () {
                                     <label>ລະຫັດຜູ້ຂາຍ</label>
                                     <div className="input-group">
                                         <span className="input-group-text"><i class="bi bi-asterisk"></i></span>
-                                        <input type="number" min="0" className="form-control" onChange={(e)=> setVendor_code(e.target.value)}  placeholder="ກະລຸນາປ່ອນ ລະຫັດຜູ້ຂາຍ"/>
+                                        <input  type="number" className="form-control" onChange={(e) => setVendor_code(e.target.value)} placeholder="ລະຫັດຜູ້ຂາຍ" />
+                                         
+                                  
                                     </div>
                                 </div>
 
@@ -201,7 +185,7 @@ export default function IN_Sales () {
                                     <label>ປະເພດຜູ້ຂາຍ</label>
                                     <div className="input-group">
                                         <span className="input-group-text"><i class="bi bi-person-lines-fill"></i></span>
-                                        <select className="form-control" onChange={(e) => ShowVendorType(e.target.value)} required>
+                                        <select className="form-control"  onChange={(e)=> setVendorType(e.target.value)} onClick={(e) => setPrecen(e.target.value)} required>
                                             <option>ປະເພດຜູ້ຂາຍ</option>
                                             {GETPercentage.map((performance) => {
                                                 return (
@@ -242,7 +226,7 @@ export default function IN_Sales () {
                                 <div className="form-group">
                                     <label>ເມືອງ</label>
                                     <div class="input-group">
-                                        <span class="input-group-text"><i class="bi bi-house"></i></span>
+                                        <span class="input-group-text"><i class="bi bi-telephone-plus-fill"></i></span>
                                         <input type="text" aria-label="First name" class="form-control"  onChange={(e)=> setDistrict(e.target.value)} placeholder="ກະລຸນາປ່ອນ ເມືອງ" required/>
                                     </div>
                                 </div>
@@ -250,12 +234,12 @@ export default function IN_Sales () {
                                 <div className="form-group">
                                     <label>ແຂວງ</label>
                                     <div class="input-group">
-                                        <span class="input-group-text"><i class="bi bi-house"></i></span>
+                                        <span class="input-group-text"><i class="bi bi-telephone-plus-fill"></i></span>
                                         <input type="text" aria-label="First name" class="form-control" onChange={(e)=> setProvince(e.target.value)} placeholder="ກະລຸນາປ່ອນ ແຂວງ" required/>
                                     </div>
                                 </div>
                                 {/* <input type="text"  onChange={(e)=> setPrecen(e.target.value)} placeholder="precenID"/> */}
-                                <input type="hidden" value={getusenameID} onChange={(e)=> setUserid(e.target.value)} placeholder="UserID"/>
+                                {/* <input type="hidden" value={getusenameID} onChange={(e)=> setUserid(e.target.value)} placeholder="UserID"/> */}
 
                             </div>
                             

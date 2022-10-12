@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useReducer, useState } from "react";
 import Swal from "sweetalert2";
+import Moment from 'react-moment'
+import { format } from 'date-format'
 
 const WD_machine = () => {
 
@@ -20,6 +22,7 @@ const WD_machine = () => {
     const [ MachineReference, setMachineReference ] = useState([])
     const [ version_Machine_Print, setversion_Machine_Print ] = useState([])
     const [ status, setstatus ] = useState([])
+    const [ DateMachine, SetDateMachine ] = useState([])
     const onCheck = (Checkitem) => {
         setvalue(Checkitem)
         console.log('Search', Checkitem)
@@ -28,8 +31,10 @@ const WD_machine = () => {
             setMachineReference(res.data.MachineReference)
             setversion_Machine_Print(res.data.version_Machine_Print)
             setstatus(res.data.status)
+            SetDateMachine(res.data.DateMachine)
         })   
     }
+    console.log(DateMachine)
 
     async function Insert_pass () {
         const { value: password } = await Swal.fire({
@@ -49,6 +54,8 @@ const WD_machine = () => {
           }
     }
 
+    // console.log(format('hh:mm:ss.SSS', new Date()))
+
     return (
         <>
         <div class="modal fade" id="remove-machince" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -62,7 +69,6 @@ const WD_machine = () => {
                     <form>
                         <div className="row">
                             <div className="col-md-6">
-                                
 
                                 <div className="form-group">
                                     <label>ລະຫັດຜູ້ຂາຍ</label>
@@ -92,7 +98,7 @@ const WD_machine = () => {
                                     <label>ວັນທີເປີດໃຊ້ງານ</label>
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="bi bi-calendar-check-fill"></i></span>
-                                        <input type="date" aria-label="First name" class="form-control"/>
+                                        <input type="text" aria-label="First name" value={DateMachine} class="form-control"/>
                                     </div>
                                 </div>
                                
@@ -137,7 +143,7 @@ const WD_machine = () => {
                                         <label>ສະຖານະ</label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="bi bi-toggle-off"></i></span>
-                                            <input type="text" aria-label="First name" class="form-control" value={status} placeholder="ໃຊ້ງານ" readOnly/>
+                                            <input type="text" aria-label="First name" class="form-control" value={status} readOnly/>
                                         </div>
                                     </div>
                                 </div>

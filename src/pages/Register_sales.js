@@ -4,9 +4,9 @@ import './style.css'
 import IN_Sales from './Event-popup/Insert-sales'
 import axios from "axios";
 import Swal from "sweetalert2";
-
+import { useNavigate  } from "react-router-dom";
 const Register_sales = () => {
-
+    const navigate = useNavigate();
     let x = 1
 
     const [ reducer, setRedeuce ] = useReducer(x => x + 1, 0)
@@ -15,9 +15,8 @@ const Register_sales = () => {
         axios.get('http://localhost:3001/Register/getRegister').then((res) => {
             setRegister(res.data.reverse())
             setRedeuce()
-            console.log(res.data)
         })
-    }, [])
+    }, [reducer])
 
     const [value, setValue] = useState('')
     const [tableFiller, setTablefiller] = useState([])
@@ -38,7 +37,7 @@ const Register_sales = () => {
     const Delete = (_id) => {
         
         Swal.fire({
-            title: 'ທ່ານຕ້ອງການລົບືນີ້ແທ້ຫຼືບໍ່?',
+            title: 'ທ່ານຕ້ອງການລົບຂໍ້ມູນນີ້ແທ້ຫຼືບໍ່?',
             text: "ກົນ Yes, delete! ເພືອລົບ ຫຼື ກົບ Cancel ເພືອຍົກເລີກ!",
             icon: 'warning',
             showCancelButton: true,
@@ -57,6 +56,23 @@ const Register_sales = () => {
             }
           })
     }
+
+
+       async function GetToken() {
+           
+         const token = localStorage.getItem("token")
+         if(!token) {
+                     
+            navigate("/login")
+  
+         }
+
+       }
+
+ useEffect(() => {
+    GetToken();
+ },[])
+
     return (
         <>
             <div className="container-content colums-group-padding">
@@ -95,16 +111,16 @@ const Register_sales = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                            {value.length > 0 ? tableFiller.map((item) => {
+                            {value.length > 0 ? tableFiller.map((item ,index ) => {
                                 return (
-                                    <tr>
+                                    <tr key={index}>
                                         <th>{x++}</th>
-                                        <td className="col-table-4">{item.MachineId == null || item.MachineId.NumMachine == null || item.MachineId.NumMachine == "null" || item.MachineId.NumMachine == "underfine" ? "ຂໍ້ມູນຖືກລົບ" : item.MachineId.NumMachine }</td>
-                                        <td className="col-table-4">{item.unitId == null || item.unitId.UnitId == null || item.unitId.UnitId == "null" || item.unitId.UnitId == "underfine" ? "ຂໍ້ມູນຖືກລົບ" : item.unitId.UnitId }</td>
+                                        <td className="col-table-4">{item.MachineId == null ? "" : item.MachineId.NumMachine}</td>
+                                        <td className="col-table-4">{item.unitId == null  ? "" : item.unitId.UnitId}</td>
                                         <td className="col-table-4">{item.Vendor_code}</td>
-                                        <td className="col-table-4">{item.MachineId == null || item.MachineId.MachineReference == "null" || item.MachineId.MachineReference == "underfine" ? "ຂໍ້ມູນຖືກລົບ" : item.MachineId.MachineReference}</td>
-                                        <td className="col-table-4">{item.MachineId == null || item.MachineId.version_Machine_Num == "null" || item.MachineId.version_Machine_Num == "underfine" ? "ວ່າຂໍ້ມູນຖືກລົບງ" : item.MachineId.version_Machine_Num}</td>
-                                        <td className="col-table-4">{item.MachineId == null || item.MachineId.version_Machine_Print == "null" || item.MachineId.version_Machine_Print == "underfine" ? "ຂໍ້ມູນຖືກລົບ" : item.MachineId.version_Machine_Print}</td>
+                                        <td className="col-table-4">{item.MachineId == null ? "" :  item.MachineId.MachineReference}</td>
+                                        <td className="col-table-4">{item.MachineId == null ? "" :    item.MachineId.version_Machine_Num}</td>
+                                        <td className="col-table-4">{ item.MachineId == null ? "" :  item.MachineId.version_Machine_Print}</td>
                                         <td className="col-table-4">{item.name}</td>
                                         <td className="col-table-4">{item.age}</td>
                                         <td className="col-table-4">{item.phone}</td>
@@ -113,24 +129,24 @@ const Register_sales = () => {
                                         <td className="col-table-4">{item.Village}</td>
                                         <td className="col-table-4">Name</td>
                                         <td className="col-table-4">{item.VendorType}</td>
-                                        <td className="col-table-4">{item.percentageId == null || item.percentageId.percentage == "null" || item.percentageId.percentage == "underfine" ? "ຂໍ້ມູນຖືກລົບ" : item.percentageId.percentage} %</td>
+                                        <td className="col-table-4">{item.percentageId == null ? "" : item.percentageId.percentage} %</td>
                                         <td className="col-table-4">Useranme</td>
                                         <td class="float-center">
-                                        <Link className="btn btn-info"><i class="bi bi-pencil-square"></i></Link>
-                                        <Link onClick={(e) => Delete(item._id)} className="btn btn-danger"><i class="bi bi-x-diamond-fill"></i></Link>
+                                            <Link className="btn btn-info"><i class="bi bi-pencil-square"></i></Link>
+                                            <Link onClick={(e) => Delete(item._id)} className="btn btn-danger"><i class="bi bi-x-diamond-fill"></i></Link>
                                         </td>
                                     </tr>
                                 )
-                            }): getRegister.map((item, index) => {
+                            }): getRegister.map((item , index) => {
                                 return (
-                                    <tr>
+                                    <tr key={index}>
                                         <th>{x++}</th>
-                                        <td className="col-table-4">{item.MachineId == null || item.MachineId.NumMachine == null || item.MachineId.NumMachine == "null" || item.MachineId.NumMachine == "underfine" ? "ຂໍ້ມູນຖືກລົບ" : item.MachineId.NumMachine }</td>
-                                        <td className="col-table-4">{item.unitId == null || item.unitId.UnitId == null || item.unitId.UnitId == "null" || item.unitId.UnitId == "underfine" ? "ຂໍ້ມູນຖືກລົບ" : item.unitId.UnitId }</td>
+                                        <td className="col-table-4">{ item.MachineId == null ? "" : item.MachineId.NumMachine}</td>
+                                        <td className="col-table-4">{item.unitId == null ? "" : item.unitId.nameUnit}</td>
                                         <td className="col-table-4">{item.Vendor_code}</td>
-                                        <td className="col-table-4">{item.MachineId == null || item.MachineId.MachineReference == "null" || item.MachineId.MachineReference == "underfine" ? "ຂໍ້ມູນຖືກລົບ" : item.MachineId.MachineReference}</td>
-                                        <td className="col-table-4">{item.MachineId == null || item.MachineId.version_Machine_Num == "null" || item.MachineId.version_Machine_Num == "underfine" ? "ຂໍ້ມູນຖືກລົບ" : item.MachineId.version_Machine_Num}</td>
-                                        <td className="col-table-4">{item.MachineId == null || item.MachineId.version_Machine_Print == "null" || item.MachineId.version_Machine_Print == "underfine" ? "ຂໍ້ມູນຖືກລົບ" : item.MachineId.version_Machine_Print}</td>
+                                        <td className="col-table-4">{ item.MachineId == null ? "" :  item.MachineId.MachineReference}</td>
+                                        <td className="col-table-4">{ item.MachineId == null ? "" : item.MachineId.version_Machine_Num}</td>
+                                        <td className="col-table-4">{ item.MachineId == null ? "" :  item.MachineId.version_Machine_Print}</td>
                                         <td className="col-table-4">{item.name}</td>
                                         <td className="col-table-4">{item.age}</td>
                                         <td className="col-table-4">{item.phone}</td>
@@ -138,12 +154,12 @@ const Register_sales = () => {
                                         <td className="col-table-4">{item.District}</td>
                                         <td className="col-table-4">{item.Village}</td>
                                         <td className="col-table-4">Name</td>
-                                        <td className="col-table-4">{item.VendorType}</td>
-                                        <td className="col-table-4">{item.percentageId == null || item.percentageId.percentage == "null" || item.percentageId.percentage == "underfine" ? "ຂໍ້ມູນຖືກລົບ" : item.percentageId.percentage} %</td>
+                                        <td className="col-table-4">{item.percentageId.name}</td>
+                                        <td className="col-table-4">{item.percentageId.percentage} %</td>
                                         <td className="col-table-4">Useranme</td>
                                         <td class="float-center">
-                                        <Link className="btn btn-info"><i class="bi bi-pencil-square"></i></Link>
-                                        <Link onClick={(e) => Delete(item._id)} className="btn btn-danger"><i class="bi bi-x-diamond-fill"></i></Link>
+                                            <Link className="btn btn-info"><i class="bi bi-pencil-square"></i></Link>
+                                            <Link onClick={(e) => Delete(item._id)} className="btn btn-danger"><i class="bi bi-x-diamond-fill"></i></Link>
                                         </td>
                                     </tr>
                                 )

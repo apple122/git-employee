@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
+import DB from '../../services/enpiot'
 import Swal from "sweetalert2";
 import '../../services/enpiot'
 
@@ -14,7 +15,7 @@ export default function IN_manage_data () {
     const Submit = (e) => {
         e.preventDefault()
         setCreatePercentage(
-            axios.post('http://localhost:3001/percentage/createPercentage', CreatePercentage).then((res) => {
+            axios.post(DB.URL + DB.PostcreatePercentage, CreatePercentage).then((res) => {
                 console.log(res)
                 Swal.fire({
                     position: 'top-end',

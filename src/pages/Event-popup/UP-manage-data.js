@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useReducer, useState } from "react";
 import { Button, Modal } from 'react-bootstrap';
+import DB from '../../services/enpiot'
 import Swal from "sweetalert2";
 import '../../services/enpiot'
 
@@ -12,7 +13,7 @@ export default function Up_manage_data (props) {
     const [percentage, setpercentage] = useState('')
     
     useEffect(() => {
-        axios.get(`http://localhost:3001/percentage/getPercenTageById/${propsUID}`).then((res) => {
+        axios.get(DB.URL + DB.UIDPercentage + propsUID).then((res) => {
             setname(res.data.name)
             setpercentage(res.data.percentage)
         })
@@ -24,7 +25,7 @@ export default function Up_manage_data (props) {
             name: name,
             percentage: percentage
         }
-        axios.put(`http://localhost:3001/percentage/updatePercentage/${propsUID}`, formData).then((res) => {
+        axios.put(DB.URL + DB.PutPercentage + propsUID , formData).then((res) => {
             Swal.fire({
                 position: 'top-end',
                 width: '400px',

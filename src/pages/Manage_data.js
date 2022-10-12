@@ -1,5 +1,6 @@
 import React, { useEffect, useReducer, useState } from "react";
 import { Link } from "react-router-dom";
+import DB from '../services/enpiot'
 import './style.css'
 import Inert_Manage_data from './Event-popup/Insert-manage-data'
 import Up_manage_data from "./Event-popup/UP-manage-data";
@@ -13,7 +14,7 @@ const Manage_data = () => {
     const [ reducer, setRedeuce ] = useReducer(x => x + 1, 0)
     const [GETPercentage, setGETPercentage] = useState([])
     useEffect(() => {
-        axios.get('http://localhost:3001/percentage/getPercentage').then((res) => {
+        axios.get(DB.URL + DB.GetPercentage).then((res) => {
             setGETPercentage(res.data.reverse())
             setRedeuce()
         })
@@ -46,7 +47,7 @@ const Manage_data = () => {
             confirmButtonText: 'Yes, delete it!'
           }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`http://localhost:3001/percentage/DeletePercentage/${_id}`).then((res) => {
+                axios.delete(DB.URL + DB.DePercentage + _id).then((res) => {
                     Swal.fire(
                         'ລົບຂໍ້ມູນສຳເລັດ!',
                         'Your file has been deleted.',
