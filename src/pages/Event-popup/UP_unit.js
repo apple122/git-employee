@@ -74,34 +74,46 @@ export default function UP_unit (props) {
                     <button type="button" onClick={handleClose} class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="row modal-body">
-                    <div className="form-group col-md-6">
-                        <label>ເລກໜ່ວຍ</label>
-                        <div className="input-group">
-                            <span className="input-group-text"><i class="bi bi-person-video2"></i></span>
-                            <input type="text" className="form-control" name="Unit_Num" value={Unit_Num} onChange={(e) => setUnitId(e.target.value)} placeholder="ກະລຸນາປ່ອນ ຊື່ແລະນາມສະກຸນ" required/>
+                    <div className="col-md-6">
+
+                        <div className="form-group">
+                            <label>ເລກໜ່ວຍ</label>
+                            <div className="input-group">
+                                <span className="input-group-text"><i class="bi bi-person-video2"></i></span>
+                                <input type="text" className="form-control" name="Unit_Num" value={Unit_Num} onChange={(e) => setUnitId(e.target.value)} placeholder="ກະລຸນາປ່ອນ ຊື່ແລະນາມສະກຸນ" required/>
+                            </div>
                         </div>
-                    </div>
-                    <div className="form-group col-md-6">
-                        <label>ເບີໂທ</label>
-                        <div className="input-group">
-                            <span className="input-group-text"><i class="bi bi-telephone-fill"></i></span>
-                            <input type="number" min="0" className="form-control" name="phone" value={phone} onChange={(e) => setphone(e.target.value)} placeholder="ກະລຸນາປ່ອນ ເບີໂທ" required/>
+
+                        <div className="form-group">
+                            <label>ເບີໂທ</label>
+                            <div className="input-group">
+                                <span className="input-group-text"><i class="bi bi-telephone-fill"></i></span>
+                                <input type="number" min="0" className="form-control" name="phone" value={phone} onChange={(e) => setphone(e.target.value)} placeholder="ກະລຸນາປ່ອນ ເບີໂທ" required/>
+                            </div>
                         </div>
+
                     </div>
-                    <div className="form-group col-md-6">
-                        <label>ໜ່ວຍ</label>
-                        <div className="input-group">
-                            <span className="input-group-text"><i class="bi bi-hash"></i></span>
-                            <input type="text" className="form-control" name="nameUnit" value={nameUnit} onChange={(e) => setnameUnit(e.target.value)} placeholder="ກະລຸນາປ່ອນ ໜ່ວຍ" required/>
+                    
+                    <div className="col-md-6">
+                        
+                        <div className="form-group">
+                            <label>ໜ່ວຍ</label>
+                            <div className="input-group">
+                                <span className="input-group-text"><i class="bi bi-hash"></i></span>
+                                <input type="text" className="form-control" name="nameUnit" value={nameUnit} onChange={(e) => setnameUnit(e.target.value)} placeholder="ກະລຸນາປ່ອນ ໜ່ວຍ" required/>
+                            </div>
                         </div>
-                    </div>
-                    <div className="form-group col-md-6">
-                        <label>ສາຂາ</label>
-                        <div className="input-group">
-                            <span className="input-group-text"><i class="bi bi-shop-window"></i></span>
-                            <input type="text" className="form-control" name="selectBranch" value={selectBranch} onChange={(e) => setselectBranch(e.target.value)} placeholder="ກະລຸນາປ່ອນ ສາຂາ" required/>
+
+                        <div className="form-group">
+                            <label>ສາຂາ</label>
+                            <div className="input-group">
+                                <span className="input-group-text"><i class="bi bi-shop-window"></i></span>
+                                <input type="text" className="form-control" name="selectBranch" value={selectBranch} onChange={(e) => setselectBranch(e.target.value)} placeholder="ກະລຸນາປ່ອນ ສາຂາ" required/>
+                            </div>
                         </div>
+                        
                     </div>
+                    
                 </div> 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" onClick={handleClose}><i class="bi bi-x-diamond-fill"></i> Cancel</button>

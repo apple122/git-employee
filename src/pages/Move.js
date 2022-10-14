@@ -17,18 +17,20 @@ const Move= () => {
                         <table className="table table-striped">
                             <thead>
                                 <tr>
-                                    <th scope="col">ລະຫັດຜູ້ຂາຍ</th>
+                                    <th scope="col">ລຳດັບ</th>
+                                    <th scope="col">ເລກທີ່ເຄື່ອງຂາຍເລກ</th>
                                     <th scope="col">ເລກອ້າງອີງ</th>
                                     <th scope="col">ລຸ້ນຂອງເຄື່ອງຂາຍເລກ</th>
                                     <th scope="col">ລຸ້ນຂອງເຄື່ອງພິມ</th>
                                     <th scope="col">ວັນທີ</th>
                                     <th scope="col">ຫນ່ວຍເກົ່າ</th>
                                     <th scope="col">ຫນ່ວຍໃຫມ່</th>
-                                    <th scope="col">ຈັດການ</th>
+                                    <th scope="col">ຊື່ພະນັກງານຜູ້ທີຍ້າຍເຄື່ອງ</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
+                                    <th>1</th>
                                     <th>21809234</th>
                                     <td>44938</td>
                                     <td>LENOVO</td>
@@ -36,7 +38,7 @@ const Move= () => {
                                     <td>13/09/2021</td>
                                     <td><button type="button" class="lable btn btn-warning btn-sm">15</button></td>     
                                     <td><button type="button" class="lable btn btn-success btn-sm">8</button></td>       
-                                    <td><button type="input" class="Btn-flex btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#Move_machine">ຍ້າຍ</button> </td>                    
+                                    <td>ອາລິນ</td>                    
                                 </tr>
                                 <tr>
                                     <th>21809234</th>

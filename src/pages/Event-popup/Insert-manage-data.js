@@ -39,19 +39,25 @@ export default function IN_manage_data () {
                     <h4 class="modal-title" id="exampleModalLabel"><strong>ເພີມຂໍ້ມູນ ເປີເຊັນ</strong></h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="row modal-body">
-                    <div className="form-group col-md-6">
-                        <label>ປະເພດຜູ້ຂາຍ</label>
-                        <div className="input-group">
-                            <span className="input-group-text"><i class="bi bi-person-video2"></i></span>
-                            <input type="text" className="form-control" name="name" value={CreatePercentage.name} onChange={handleChange} placeholder="ກະລຸນາປ່ອນ ປະເພດຜູ້ຂາຍ" required/>
+                <div class="modal-body">
+                    <div className="row">
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label>ປະເພດຜູ້ຂາຍ</label>
+                                <div className="input-group">
+                                    <span className="input-group-text"><i class="bi bi-person-video2"></i></span>
+                                    <input type="text" className="form-control" name="name" value={CreatePercentage.name} onChange={handleChange} placeholder="ກະລຸນາປ່ອນ ປະເພດຜູ້ຂາຍ" required/>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div className="form-group col-md-6">
-                        <label>ຈຳນວນ ເປີເຊັນ</label>
-                        <div className="input-group">
-                            <span className="input-group-text"><i class="bi bi-percent"></i></span>
-                            <input type="number" min="0" className="form-control" name="percentage" value={CreatePercentage.percentage} onChange={handleChange} placeholder="ກະລຸນາປ່ອນ ເປີເຊັນ" required/>
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label>ຈຳນວນ ເປີເຊັນ</label>
+                                <div className="input-group">
+                                    <span className="input-group-text"><i class="bi bi-percent"></i></span>
+                                    <input type="number" min="0" className="form-control" name="percentage" value={CreatePercentage.percentage} onChange={handleChange} placeholder="ກະລຸນາປ່ອນ ເປີເຊັນ" required/>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div> 

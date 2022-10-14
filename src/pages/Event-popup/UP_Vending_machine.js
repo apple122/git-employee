@@ -79,34 +79,44 @@ export default function UP_Vending_machine (props) {
                         <button type="button" onClick={handleClose} class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="row modal-body">
-                        <div className="form-group col-md-6">
-                            <label>ເລກທີເຄື່ອງຂາຍເລກ</label>
-                            <div className="input-group">
-                                <span className="input-group-text"><i class="bi bi-hash"></i></span>
-                                <input type="number" min="0" className="form-control" name="NumMachine" value={NumMachine} onChange={(e) => setNumMachine(e.target.value)} placeholder="ກະລຸນາປ່ອນ ປະເພດຜູ້ຂາຍ" required/>
+                        <div className="col-md-6">
+                            
+                            <div className="form-group">
+                                <label>ເລກທີເຄື່ອງຂາຍເລກ</label>
+                                <div className="input-group">
+                                    <span className="input-group-text"><i class="bi bi-hash"></i></span>
+                                    <input type="number" min="0" className="form-control" name="NumMachine" value={NumMachine} onChange={(e) => setNumMachine(e.target.value)} placeholder="ກະລຸນາປ່ອນ ປະເພດຜູ້ຂາຍ" required/>
+                                </div>
                             </div>
-                        </div>
-                        <div className="form-group col-md-6">
-                            <label>ເລກອ້າງອິງ</label>
-                            <div className="input-group">
-                                <span className="input-group-text"><i class="bi bi-hash"></i></span>
-                                <input type="number" min="0" className="form-control" name="MachineReference" value={MachineReference} onChange={(e) => setMachineReference(e.target.value)} placeholder="ກະລຸນາປ່ອນ ເລກອ້າງອິງ" required/>
+                            <div className="form-group">
+                                <label>ເລກອ້າງອິງ</label>
+                                <div className="input-group">
+                                    <span className="input-group-text"><i class="bi bi-hash"></i></span>
+                                    <input type="number" min="0" className="form-control" name="MachineReference" value={MachineReference} onChange={(e) => setMachineReference(e.target.value)} placeholder="ກະລຸນາປ່ອນ ເລກອ້າງອິງ" required/>
+                                </div>
                             </div>
+                           
                         </div>
-                        <div className="form-group col-md-6">
-                            <label>ລຸ່ນເຄື່ອງຂາຍ</label>
-                            <div className="input-group">
-                                <span className="input-group-text"><i class="bi bi-tablet"></i></span>
-                                <input type="text" className="form-control" name="version_Machine_Num" value={version_Machine_Num} onChange={(e) => setversion_Machine_Num(e.target.value)} placeholder="ກະລຸນາປ່ອນ ລຸ່ນເຄື່ອງຂາຍ" required/>
+                    
+                        <div className="col-md-6">
+
+                            <div className="form-group">
+                                <label>ລຸ່ນເຄື່ອງຂາຍ</label>
+                                <div className="input-group">
+                                    <span className="input-group-text"><i class="bi bi-tablet"></i></span>
+                                    <input type="text" className="form-control" name="version_Machine_Num" value={version_Machine_Num} onChange={(e) => setversion_Machine_Num(e.target.value)} placeholder="ກະລຸນາປ່ອນ ລຸ່ນເຄື່ອງຂາຍ" required/>
+                                </div>
                             </div>
-                        </div>
-                        <div className="form-group col-md-6">
-                            <label>ລຸ່ນເຄື່ອງພີມ</label>
-                            <div className="input-group">
-                                <span className="input-group-text"><i class="bi bi-printer-fill"></i></span>
-                                <input type="text" className="form-control" name="version_Machine_Print" value={version_Machine_Print} onChange={(e) => setversion_Machine_Print(e.target.value)} placeholder="ກະລຸນາປ່ອນ ລຸ່ນເຄື່ອງພີມ" required/>
+                            <div className="form-group">
+                                <label>ລຸ່ນເຄື່ອງພີມ</label>
+                                <div className="input-group">
+                                    <span className="input-group-text"><i class="bi bi-printer-fill"></i></span>
+                                    <input type="text" className="form-control" name="version_Machine_Print" value={version_Machine_Print} onChange={(e) => setversion_Machine_Print(e.target.value)} placeholder="ກະລຸນາປ່ອນ ລຸ່ນເຄື່ອງພີມ" required/>
+                                </div>
                             </div>
+                           
                         </div>
+
                         {/* <div className="form-group col-md-12">
                             <label>ສະຖານະ</label>
                             <div className="input-group">

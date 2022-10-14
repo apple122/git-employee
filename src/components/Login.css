@@ -7,14 +7,11 @@
     margin: 0%;
     font-family: 'Phetsarath OT', sans-serif;
     /* font-size: 1vw; */
+    transition: all 5s;
 
 }
-body{
-    background: linear-gradient(-45deg, #fff,#1D0AF6, #082ED4, #1575EB, #0899D4, #0AF0F6);
-    background-size: 300% 400%;
-    width: 100%;
-    opacity: 1;
-}
+
+
 #image {
     width: 50%;
     transform: translate(50%);
@@ -115,12 +112,7 @@ body{
     /* font-size: 1vw; */
 
 }
-body{
-    background: linear-gradient(-45deg, #fff,#1D0AF6, #082ED4, #1575EB, #0899D4, #0AF0F6);
-    background-size: 300% 400%;
-    width: 100%;
-    opacity: 1;
-}
+
 #image {
     width: 50%;
     transform: translate(50%);
@@ -183,13 +175,13 @@ body{
     display: flex;
     position: absolute;
     z-index: -1;
-    padding: 15%;
+    padding: 15% 10%;
 }
 .item1-bac{
     display: flex;
     border: 2px solid #000000;
-    width: 160px;
-    height: 160px;
+    width: 140px;
+    height: 140px;
     border-radius: 50px;
     transform: skew(-45deg, 45deg);
     z-index: 2;
@@ -197,8 +189,8 @@ body{
 .item2-bac{
     display: flex;
     border: 2px solid #000000;
-    width: 160px;
-    height: 160px;
+    width: 140px;
+    height: 140px;
     border-radius: 50px;
     transform: skew(-45deg, 45deg);
     z-index: 1;

@@ -70,18 +70,22 @@ export default function Up_manage_data (props) {
                     <button type="button"  onClick={handleClose} class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="row modal-body">
-                    <div className="form-group col-md-6">
-                        <label>ປະເພດຜູ້ຂາຍ</label>
-                        <div className="input-group">
-                            <span className="input-group-text"><i class="bi bi-person-video2"></i></span>
-                            <input type="text" className="form-control" value={name} onChange={(e) => setname(e.target.value)} placeholder="ກະລຸນາປ່ອນ ປະເພດຜູ້ຂາຍ" required/>
+                    <div className="col-md-6">
+                        <div className="form-group">
+                            <label>ປະເພດຜູ້ຂາຍ</label>
+                            <div className="input-group">
+                                <span className="input-group-text"><i class="bi bi-person-video2"></i></span>
+                                <input type="text" className="form-control" value={name} onChange={(e) => setname(e.target.value)} placeholder="ກະລຸນາປ່ອນ ປະເພດຜູ້ຂາຍ" required/>
+                            </div>
                         </div>
                     </div>
-                    <div className="form-group col-md-6">
-                        <label>ຈຳນວນ ເປີເຊັນ</label>
-                        <div className="input-group">
-                            <span className="input-group-text"><i class="bi bi-percent"></i></span>
-                            <input type="number" min="0" className="form-control" value={percentage} onChange={(e) => setpercentage(e.target.value)} placeholder="ກະລຸນາປ່ອນ ເປີເຊັນ" required/>
+                    <div className="col-md-6">
+                        <div className="form-group">
+                            <label>ຈຳນວນ ເປີເຊັນ</label>
+                            <div className="input-group">
+                                <span className="input-group-text"><i class="bi bi-percent"></i></span>
+                                <input type="number" min="0" className="form-control" value={percentage} onChange={(e) => setpercentage(e.target.value)} placeholder="ກະລຸນາປ່ອນ ເປີເຊັນ" required/>
+                            </div>
                         </div>
                     </div>
                 </div> 

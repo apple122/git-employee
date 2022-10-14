@@ -8,8 +8,8 @@ import Router from './Routers/Router'
 function App() {
   return (
     <>
-      {/* <Header />
-      <Router/> */}
+      <Header />
+      <Router/>
       {/* <Login/> */}
     </>
   );

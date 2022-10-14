@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState, AsyncStorage } from "react";
+import { Link, useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
 import Logo from '../assets/imgs/sbs-logo-update-8.gif'
 import Logo_item1 from '../assets/imgs/machine-8.gif'
@@ -9,10 +9,11 @@ import axios from "axios";
 
 const Login = () => {
 
+    const Localtion_login = useLocation().pathname
+
     const [ login, setLogin ] = useState([])
     useEffect(() => {
         axios.get('http://localhost:3001/user/getUser').then((res) => {
-            console.log(res.data)
         })
     })
 
@@ -27,16 +28,31 @@ const Login = () => {
             const data = await axios.post('http://localhost:3001/user/login', dataform )
             if(data.status == 200){
                 localStorage.setItem("token" , data.data)
-                console.log("Login success")
+                alert("Login success")
+                window.location='/Home_app'
+
             }
         } catch (error) {
-            console.log(error)
+            alert("ຊື່ຜູ້ໃຊ້ ຫຼື ລະຫັດຜ່ານບໍ່ຖືກຕ້ອງ")
+            window.location='/Login'
+            AsyncStorage.removeItem('token')
         }
     }
 
     return (
-        <>
-          <div className="container">
+        <div className="backgroup-body" style={{
+            background: "linear-gradient(-45deg, #fff,#1D0AF6, #082ED4, #1575EB, #0899D4, #0AF0F6)",
+            "background-size": "300% 400%",
+            width: "100%",
+            height: "min-content",
+            opacity: "1",
+            "padding-bottom": "100%",
+            position: "absolute",
+            top: "0",
+            "z-index": "-2",
+            "padding-right" : "6%"
+        }}>
+          <div className="container" >
             <div className="row">
                 <div className="col-md-6">
                     <div className="group-columns">
@@ -73,7 +89,7 @@ const Login = () => {
                 </div>
             </div>
           </div>
-        </>
+        </div>
     )
 }
 

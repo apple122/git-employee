@@ -4,15 +4,39 @@ import './style.css'
 import History_revoke from "./History_revoke";
 import Withdraw_machine from "./Event-popup/Withdraw-machine"
 import axios from "axios";
+import DB from '../services/enpiot'
 
 const Salses = () => {
+    const [showWithdraw, setshowWithdraw] = useState([])
+    useEffect(() => {
+        axios.get(DB.URL+DB.GetWithDraw).then((res) => {
+            setshowWithdraw(res.data.reverse())
+
+        })
+    }) 
+
+    const [value, setValue] = useState('')
+    const [tableFiller, setTablefiller] = useState([])
+
+    const fillterData = (e) => {
+        if(e.target.value != ""){
+            setValue(e.target.value);
+            const fillterTable = showWithdraw.filter(o => Object.keys(o).some(k => 
+                String(o[k]).toLowerCase().includes(e.target.value.toLowerCase())
+                ));
+                setTablefiller([...fillterTable])
+        }else{
+            setValue(e.target.value);
+            setshowWithdraw([...showWithdraw])
+        }
+    }
 
     return (
         <>
         <div className="container-content colums-group-padding">
             <div class="card-body row colums-group-padding search-pd">
                 <div className="col-md-4">
-                    <input type="search" class="form-control float-start col-md-4" placeholder="ຄົ້ນຫາ"/>
+                    <input type="search" onChange={fillterData} class="form-control float-start col-md-4" placeholder="ຄົ້ນຫາ"/>
                 </div>
                 <div className="col-md-8">
                     <div class="nav group-event-table">
@@ -32,32 +56,56 @@ const Salses = () => {
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#remove-machince"><i class="bi bi-cloud-download-fill"></i> ຖອນເຄື່ອງຂາຍ</button>
                 </div>&nbsp;
                 <div class="card colums-group-padding scollview-table">
-                        <table className="table table-striped">
-                            <thead>
+                    <table className="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">ລຳດັບ</th>
+                                <th scope="col">ລະຫັດຜູ້ຂາຍ</th>
+                                <th scope="col">ເລກອ້າງອີງ</th>
+                                <th scope="col">ລຸ້ນຂອງເຄື່ອງຂາຍເລກ</th>
+                                <th scope="col">ລຸ້ນຂອງເຄື່ອງພິມ</th>
+                                <th scope="col">ສະຖານະ</th>
+                                <th scope="col">ວັນທີ່ລົງທະບຽນ</th>
+                                <th scope="col">ຊື່ພະນັກງານຜູ້ຖອນ</th>
+                                <th scope="col">ສາເຫດການຖອນເຄື່ອງ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {value.length > 0 ? tableFiller.map((item) => {
+                            return (
                                 <tr>
-                                    <th scope="col">ລະຫັດຜູ້ຂາຍ</th>
-                                    <th scope="col">ເລກອ້າງອີງ</th>
-                                    <th scope="col">ລຸ້ນຂອງເຄື່ອງຂາຍເລກ</th>
-                                    <th scope="col">ລຸ້ນຂອງເຄື່ອງພິມ</th>
-                                    <th scope="col">ສະຖານະ</th>
-                                    <th scope="col">ວັນທີ່ລົງທະບຽນ</th>
-                                    <th scope="col">ຊື່ພະນັກງານຜູ້ຖອນ</th>
-                                    <th scope="col">ສາເຫດການຖອນເຄື່ອງ</th>
+                                    <th>1</th>
+                                    <th>{item.Vendor_code}</th>
+                                    <td>{item.Machine_Reference_Num}</td>
+                                    <td>{item.version_Machine_sell_Num}</td>
+                                    <td>{item.version_Machine_Print}</td>
+                                    <td> <a class="label btn btn-success btn-sm">{item.status_Machine}</a></td>       
+                                    <td>{item.DateRegister}</td>
+                                    <td>LENOVO</td>
+                                    <td>{item.withdrawal_event}</td>     
                                 </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th>21809234</th>
-                                    <td>44938</td>
-                                    <td>LENOVO</td>
-                                    <td>LENOVO</td>
-                                    <td> <a class="label btn btn-success btn-sm">ໃຊ້ງານ</a></td>       
-                                    <td>LENOVO</td>
-                                    <td>LENOVO</td>
-                                    <td><button type="input" class="Btn-flex btn btn-outline-secondary btn-sm">ສາເຫດ</button></td>     
-                                </tr>
-                                </tbody>
-                        </table>
+                            )
+                            }): showWithdraw.map((item, index) => {
+                                return (
+                                    <tr>
+                                        <th>1</th>
+                                        <th>{item.Vendor_code}</th>
+                                        <td>{item.Machine_Reference_Num}</td>
+                                        <td>{item.version_Machine_sell_Num}</td>
+                                        <td>{item.version_Machine_Print}</td>
+                                        <td> {item.status_Machine === "ວ່າງ" && (<a class="label btn btn-warning btn-sm">ວ່າງ</a>) } {item.status_Machine === "ໃຊ້ງານ" && (<a class="label btn btn-success btn-sm">ໃຊ້ງານ</a>) }</td>       
+                                        <td>{item.DateRegister}</td>
+                                        <td>LENOVO</td>
+                                        <td>{item.withdrawal_event}</td>     
+                                    </tr>
+
+                                )
+
+                            })
+                        }
+                            
+                        </tbody>
+                    </table>
                 </div>
                     <div class="card-body colums-group-padding">
                         <div className="col-12">

@@ -103,8 +103,10 @@
     background-color: rgba(0, 0, 0, 0.329);
 }
 
+
+
 .form-group{
-    padding-bottom: 3%;
+    margin-bottom: 2%;
 }
 
  /* pagination */
@@ -181,6 +183,14 @@ li{
 
 .border-bt{
     border-bottom: 2px solid black;
+}
+.border-green {
+    border: 1px solid green;
+    color: green;
+}
+.border-overflow {
+    border: 1px solid rgb(255, 255, 255);
+    opacity: 1;
 }
 
 .number-block{
@@ -304,6 +314,8 @@ li{
   }
   .drop-checked{
     margin-top: 1%;
+    font-size: 20px;
+    color: #0899D4;
     padding: 0.5% 2%;
     background-color: white;
     border-bottom: 1px solid rgba(2, 70, 70, 0.096);

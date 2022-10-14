@@ -15,7 +15,9 @@ const Register_sales = () => {
         axios.get('http://localhost:3001/Register/getRegister').then((res) => {
             setRegister(res.data.reverse())
             setRedeuce()
+            GetToken();
         })
+        
     }, [reducer])
 
     const [value, setValue] = useState('')
@@ -35,6 +37,7 @@ const Register_sales = () => {
     }
     
     const Delete = (_id) => {
+        GetToken();
         
         Swal.fire({
             title: 'ທ່ານຕ້ອງການລົບຂໍ້ມູນນີ້ແທ້ຫຼືບໍ່?',
@@ -63,7 +66,7 @@ const Register_sales = () => {
          const token = localStorage.getItem("token")
          if(!token) {
                      
-            navigate("/login")
+            navigate("/Login")
   
          }
 
@@ -115,11 +118,11 @@ const Register_sales = () => {
                                 return (
                                     <tr key={index}>
                                         <th>{x++}</th>
-                                        <td className="col-table-4">{item.MachineId == null ? "" : item.MachineId.NumMachine}</td>
-                                        <td className="col-table-4">{item.unitId == null  ? "" : item.unitId.UnitId}</td>
+                                        <td className="col-table-4">{ item.MachineId == null ? "" : item.MachineId.NumMachine}</td>
+                                        <td className="col-table-4">{item.unitId == null ? "" : item.unitId.nameUnit}</td>
                                         <td className="col-table-4">{item.Vendor_code}</td>
-                                        <td className="col-table-4">{item.MachineId == null ? "" :  item.MachineId.MachineReference}</td>
-                                        <td className="col-table-4">{item.MachineId == null ? "" :    item.MachineId.version_Machine_Num}</td>
+                                        <td className="col-table-4">{ item.MachineId == null ? "" :  item.MachineId.MachineReference}</td>
+                                        <td className="col-table-4">{ item.MachineId == null ? "" : item.MachineId.version_Machine_Num}</td>
                                         <td className="col-table-4">{ item.MachineId == null ? "" :  item.MachineId.version_Machine_Print}</td>
                                         <td className="col-table-4">{item.name}</td>
                                         <td className="col-table-4">{item.age}</td>
@@ -127,10 +130,10 @@ const Register_sales = () => {
                                         <td className="col-table-4">{item.Province}</td>
                                         <td className="col-table-4">{item.District}</td>
                                         <td className="col-table-4">{item.Village}</td>
-                                        <td className="col-table-4">Name</td>
-                                        <td className="col-table-4">{item.VendorType}</td>
-                                        <td className="col-table-4">{item.percentageId == null ? "" : item.percentageId.percentage} %</td>
-                                        <td className="col-table-4">Useranme</td>
+                                        <td className="col-table-4">{ item.MachineId == null ? "" :  item.MachineId.DateMachine}</td>
+                                        <td className="col-table-4">{item.percentageId.name}</td>
+                                        <td className="col-table-4">{item.percentageId.percentage} %</td>
+                                        <td className="col-table-4">{item.userNameId == null ? "" : item.userNameId.fullname}</td>
                                         <td class="float-center">
                                             <Link className="btn btn-info"><i class="bi bi-pencil-square"></i></Link>
                                             <Link onClick={(e) => Delete(item._id)} className="btn btn-danger"><i class="bi bi-x-diamond-fill"></i></Link>
@@ -153,10 +156,10 @@ const Register_sales = () => {
                                         <td className="col-table-4">{item.Province}</td>
                                         <td className="col-table-4">{item.District}</td>
                                         <td className="col-table-4">{item.Village}</td>
-                                        <td className="col-table-4">Name</td>
+                                        <td className="col-table-4">{ item.MachineId == null ? "" :  item.MachineId.DateMachine}</td>
                                         <td className="col-table-4">{item.percentageId.name}</td>
                                         <td className="col-table-4">{item.percentageId.percentage} %</td>
-                                        <td className="col-table-4">Useranme</td>
+                                        <td className="col-table-4">{item.userNameId == null ? "" : item.userNameId.fullname}</td>
                                         <td class="float-center">
                                             <Link className="btn btn-info"><i class="bi bi-pencil-square"></i></Link>
                                             <Link onClick={(e) => Delete(item._id)} className="btn btn-danger"><i class="bi bi-x-diamond-fill"></i></Link>

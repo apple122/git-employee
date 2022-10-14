@@ -1,9 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import Moment from 'moment';
 
 export default function IN_Sales () {
-
+    
     const [GETPercentage, setGETPercentage] = useState([])
     useEffect(() => {
         axios.get('http://localhost:3001/percentage/getPercentage').then((res) => {
@@ -86,7 +87,6 @@ export default function IN_Sales () {
                 District: District,
                 Village: Village,
                 percentageId: precenID,
-                
                 MachineId: MachineId,
                 unitId: unitId
             } 
@@ -99,9 +99,10 @@ export default function IN_Sales () {
 
             const data_uodate = {
                 status: "ໃຊ້ງານ",
-                DateMachine : new Date(),
+                DateMachine : Moment().format('YYYY-MM-DD'),
             }
             axios.put(`http://localhost:3001/machine/updateMachine/${MachineId}`, data_uodate)
+            console.log(data_uodate)
 
         } catch (error) {
             console.log(error)
@@ -157,9 +158,9 @@ export default function IN_Sales () {
                                         <span className="input-group-text"><i class="bi bi-hash"></i></span>
                                         <select className="form-control"  onChange={(e)=> setMachineId(e.target.value)} required>
                                             <option>ເລກທີ່ເຄື່ອງຂາຍເລກ</option>
-                                            {GETCreateMachine.map((machine) => {
+                                            {GETCreateMachine.map((machine, index) => {
                                                 return(
-                                                    <option value={machine._id}>{machine.NumMachine}</option>
+                                                    <option key={!index == "ໃຊ້ງານ"} value={machine._id}>{machine.NumMachine}</option>
                                                 )
                                             })}
                                         </select>

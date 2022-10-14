@@ -2,9 +2,16 @@ import React, { useState } from "react";
 import './Header.css'
 import Logo from '../assets/imgs/sbs-logo-update-8.gif'
 import Swal from 'sweetalert2'
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Header = () => {
+
+  // const token_check = localStorage.getItem('token')
+  // if(!token_check ){
+  //   window.location="/Login"
+  // }
+
+  const Login_lo = useLocation().pathname
 
   const [hidd, sethide] = useState()
   function toggle_abrs(){
@@ -35,11 +42,8 @@ const Header = () => {
             reverseButtons: true
           }).then((result) => {
             if (result.isConfirmed) {
-              swalWithBootstrapButtons.fire(
-                'ອອກຈາກລະບົບ!',
-                'Your file has been Logout.',
-                'success'
-              )
+                window.location='/Login'
+                localStorage.removeItem('token')
             } else if (
               /* Read more about handling dismissals below */
               result.dismiss === Swal.DismissReason.cancel
@@ -56,7 +60,7 @@ const Header = () => {
 
     return (
         <>
-            <nav className="nav-bar-header header-bar">
+            <nav className={`nav-bar-header header-bar ${Login_lo == "/Login" ? "d-none" : ""}`}>
                 <ul class="nav margin-nav-header">
                     <li className="nav-item disnone">
                       <a class="nav-link" onClick={toggle_abrs}><label><i class="bi bi-menu-button-wide-fill"></i></label></a>
@@ -79,7 +83,7 @@ const Header = () => {
                 </div>
             </nav>
             
-            <div className="nav left-bar float-left" style={hidd}>
+            <div className={`nav left-bar float-left ${Login_lo == "/Login" ? "d-none" : ""}`} style={hidd}>
                 <img src={Logo} width="50%" height="10%" className="Image-logo"/>
                 <div className="nav-bar list-item-bar">
                     {/* <!-- As a link --> */}
