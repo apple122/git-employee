@@ -5,14 +5,16 @@ import Salses from "./Sales";
 import Manage_revoke from "./Manage_revoke";
 import DB from '../services/enpiot'
 import axios from "axios";
+import Moment from "moment";
 
 
 const History_revoke = () => {
+    let x = 1
 
     const [showWithdraw, setshowWithdraw] = useState([])
     useEffect(() => {
         axios.get(DB.URL+DB.GetWithDraw).then((res) => {
-            setshowWithdraw(res.data)
+            setshowWithdraw(res.data.reverse())
 
         })
     }) 
@@ -37,7 +39,7 @@ const History_revoke = () => {
         <>
         <div className="container-content colums-group-padding">
         <div className="container-full">
-            <div class="card-body row colums-group-padding search-pd">
+            <div class="card-body colums-group-padding search-pd">
                 <div className="col-md-4">
                     <input type="search" onChange={fillterData} class="form-control float-start col-md-4" placeholder="ຄົ້ນຫາ"/>
                 </div>
@@ -55,6 +57,7 @@ const History_revoke = () => {
                 </div>
             </div>
 
+            <label className="p-2 btn" style={{color: "green", "font-size": "18px"}}>ຂໍ້ມູນລວມ <strong>( {showWithdraw.length} )</strong></label>
             <div class="card colums-group-padding scollview-table">
                 <table className="table table-striped">
                     <thead>
@@ -74,29 +77,29 @@ const History_revoke = () => {
                     {value.length > 0 ? tableFiller.map((item) => {
                         return (
                             <tr>
-                                <th>1</th>
-                                <th>{item.Vendor_code}</th>
+                                <th>{x++}</th>
+                                <th>{item.Vendor_code == null ? "" : item.Vendor_code.Vendor_code}</th>
                                 <td>{item.Machine_Reference_Num}</td>
-                                <td>{item.version_Machine_sell_Num}</td>
+                                <td>{item.version_Machine_sell_Num.substring(7)}</td>
                                 <td>{item.version_Machine_Print}</td>
-                                <td> <a class="label btn btn-success btn-sm">{item.status_Machine}</a></td>       
-                                <td>{item.DateRegister}</td>
-                                <td>LENOVO</td>
-                                <td>{item.withdrawal_event}</td>     
+                                <td> {item.status_Machine === "ວ່າງ" && (<a class="label btn btn-warning btn-sm">ວ່າງ</a>) } {item.status_Machine === "ໃຊ້ງານ" && (<a class="label btn btn-success btn-sm">ໃຊ້ງານ</a>) }</td>       
+                                <td>{Moment(item.DateRegister).format("YYYY-MM-DD")}</td>
+                                <th>{item.userId == null ? "" : item.userId.fullname}</th>
+                                <td>{item.withdrawal_event}</td>       
                             </tr>
                         )
                         }): showWithdraw.map((item, index) => {
                             return (
                                 <tr>
-                                    <th>1</th>
-                                    <th>{item.Vendor_code}</th>
+                                    <th>{x++}</th>
+                                    <th>{item.Vendor_code == null ? "" : item.Vendor_code.Vendor_code}</th>
                                     <td>{item.Machine_Reference_Num}</td>
-                                    <td>{item.version_Machine_sell_Num}</td>
+                                    <td>{item.version_Machine_sell_Num.substring(7)}</td>
                                     <td>{item.version_Machine_Print}</td>
-                                    <td> <a class="label btn btn-success btn-sm">{item.status_Machine}</a></td>       
-                                    <td>{item.DateRegister}</td>
-                                    <td>LENOVO</td>
-                                    <td>{item.withdrawal_event}</td>     
+                                    <td> {item.status_Machine === "ວ່າງ" && (<a class="label btn btn-warning btn-sm">ວ່າງ</a>) } {item.status_Machine === "ໃຊ້ງານ" && (<a class="label btn btn-success btn-sm">ໃຊ້ງານ</a>) }</td>       
+                                    <td>{Moment(item.DateRegister).format("YYYY-MM-DD")}</td>
+                                    <th>{item.userId == null ? "" : item.userId.fullname}</th>
+                                    <td>{item.withdrawal_event}</td>       
                                 </tr>
 
                             )

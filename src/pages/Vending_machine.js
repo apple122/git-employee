@@ -39,12 +39,12 @@ const Vending_machine = () => {
         
         Swal.fire({
             title: 'ທ່ານຕ້ອງການລົບຂໍ້ມູນນີ້ແທ້ຫຼືບໍ່?',
-            text: "ກົນ Yes, delete! ເພືອລົບ ຫຼື ກົບ Cancel ເພືອຍົກເລີກ!",
+            text: "ຂໍ້ມູນນີ້ມີການເຊື່ອມໂຍງກັບຂໍ້ມູນອືນໆ ກະລຸນາກອດສອບໃຫ້ແນ່ໃຈກອນຈະລົບ!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
+            confirmButtonText: 'ລົບຂໍ້ມູນ!'
           }).then((result) => {
             if (result.isConfirmed) {
                 axios.delete(`http://localhost:3001/machine/DeleteMachine/${_id}`).then((res) => {
@@ -79,8 +79,8 @@ const Vending_machine = () => {
                         <div className="col-4">
                             <input type="search" class="form-control float-start col-md-4" value={value} onChange={fillterData} placeholder="ຄົ້ນຫາ"/>
                         </div>
-                        <div className="col-12">
-                            <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#IN_Vending_machine"><i class="bi bi-cloud-download-fill"></i> ເພີມຂໍ້ມູນ</button>
+                        <div className="col-12 ">
+                            <div class="float-end"><IN_Vending_machine/></div>
                         </div>
                     </div>
 
@@ -152,7 +152,6 @@ const Vending_machine = () => {
                 </div>
             </div>
             {/* Event-popup */}
-            <IN_Vending_machine/>
             {/* Event-popup */}
 
         </>

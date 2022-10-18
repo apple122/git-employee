@@ -1,19 +1,24 @@
 import React, { useEffect, useReducer, useState } from "react";
 import { Link } from "react-router-dom";
 import './style.css'
-import History_revoke from "./History_revoke";
 import Withdraw_machine from "./Event-popup/Withdraw-machine"
 import axios from "axios";
 import DB from '../services/enpiot'
+import Moment from 'moment';
+
 
 const Salses = () => {
+    let x = 1
+
     const [showWithdraw, setshowWithdraw] = useState([])
+    const [ Numberdata, setNumberdata ] = useState('')
+    const [ DaTE, setDaTE ] = useState([])
     useEffect(() => {
         axios.get(DB.URL+DB.GetWithDraw).then((res) => {
             setshowWithdraw(res.data.reverse())
-
+            setNumberdata(res.data.length)
         })
-    }) 
+    })
 
     const [value, setValue] = useState('')
     const [tableFiller, setTablefiller] = useState([])
@@ -31,30 +36,32 @@ const Salses = () => {
         }
     }
 
+    const today = Moment().format('YYYY-MM-DD')
+
     return (
         <>
         <div className="container-content colums-group-padding">
-            <div class="card-body row colums-group-padding search-pd">
-                <div className="col-md-4">
-                    <input type="search" onChange={fillterData} class="form-control float-start col-md-4" placeholder="ຄົ້ນຫາ"/>
-                </div>
-                <div className="col-md-8">
-                    <div class="nav group-event-table">
-                        <div className="nav respon-ul-link label-font-12 item-align-end">
-                            <div class="nav-item position-right li-link-border-mb" role="presentation">
-                                <Link to="/Sales" class="nav-link li-link-border active respon-li" id="no_submit" >ຖອນເຄື່ອງ</Link>
+            <div class="card-body colums-group-padding search-pd">
+                <div className="row">
+                    <div className="col-md-4">
+                        <input type="search" onChange={fillterData} class="form-control float-start col-md-4" placeholder="ຄົ້ນຫາ"/>
+                    </div>
+                    <div className="col-md-2"><Withdraw_machine/></div>
+                    <div className="col-md-6">
+                        <div class="nav group-event-table">
+                            <div className="nav respon-ul-link label-font-12 item-align-end">
+                                <div class="nav-item position-right li-link-border-mb" role="presentation">
+                                    <Link to="/Sales" class="nav-link li-link-border active respon-li" id="no_submit" >ຖອນເຄື່ອງ</Link>
+                                </div>
+                                <div class="nav-item position-right li-link-border-mb" role="presentation">
+                                    <Link to="/History_revoke" class="nav-link li-link-border respon-li" id="all">ປະຫວັດຖອນ</Link>
+                                </div>
+                                        
                             </div>
-                            <div class="nav-item position-right li-link-border-mb" role="presentation">
-                                <Link to="/History_revoke" class="nav-link li-link-border respon-li" id="all">ປະຫວັດຖອນ</Link>
-                            </div>
-                                    
                         </div>
                     </div>
                 </div>
             </div>
-                <div>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#remove-machince"><i class="bi bi-cloud-download-fill"></i> ຖອນເຄື່ອງຂາຍ</button>
-                </div>&nbsp;
                 <div class="card colums-group-padding scollview-table">
                     <table className="table table-striped">
                         <thead>
@@ -71,31 +78,31 @@ const Salses = () => {
                             </tr>
                         </thead>
                         <tbody>
-                        {value.length > 0 ? tableFiller.map((item) => {
+                        {value.length > 0 ? tableFiller.filter((e) => Moment(e.createdAt).format("YYYY-MM-DD") === today).map((item) => {
                             return (
                                 <tr>
-                                    <th>1</th>
-                                    <th>{item.Vendor_code}</th>
+                                    <th>{x++}</th>
+                                    <th>{item.Vendor_code == null ? "" : item.Vendor_code.Vendor_code}</th>
                                     <td>{item.Machine_Reference_Num}</td>
-                                    <td>{item.version_Machine_sell_Num}</td>
+                                    <td>{item.version_Machine_sell_Num.substring(7)}</td>
                                     <td>{item.version_Machine_Print}</td>
-                                    <td> <a class="label btn btn-success btn-sm">{item.status_Machine}</a></td>       
-                                    <td>{item.DateRegister}</td>
-                                    <td>LENOVO</td>
+                                    <td> {item.status_Machine === "ວ່າງ" && (<a class="label btn btn-warning btn-sm">ວ່າງ</a>) } {item.status_Machine === "ໃຊ້ງານ" && (<a class="label btn btn-success btn-sm">ໃຊ້ງານ</a>) }</td>       
+                                    <td>{Moment(item.DateRegister).format("YYYY-MM-DD")}</td>
+                                    <th>{item.userId == null ? "" : item.userId.fullname}</th>
                                     <td>{item.withdrawal_event}</td>     
                                 </tr>
                             )
-                            }): showWithdraw.map((item, index) => {
+                            }): showWithdraw.filter((e) => Moment(e.createdAt).format("YYYY-MM-DD") === today).map((item, index) => {
                                 return (
                                     <tr>
-                                        <th>1</th>
-                                        <th>{item.Vendor_code}</th>
+                                        <th>{x++}</th>
+                                        <th>{item.Vendor_code == null ? "" : item.Vendor_code.Vendor_code}</th>
                                         <td>{item.Machine_Reference_Num}</td>
-                                        <td>{item.version_Machine_sell_Num}</td>
+                                        <td>{item.version_Machine_sell_Num.substring(7)}</td>
                                         <td>{item.version_Machine_Print}</td>
                                         <td> {item.status_Machine === "ວ່າງ" && (<a class="label btn btn-warning btn-sm">ວ່າງ</a>) } {item.status_Machine === "ໃຊ້ງານ" && (<a class="label btn btn-success btn-sm">ໃຊ້ງານ</a>) }</td>       
-                                        <td>{item.DateRegister}</td>
-                                        <td>LENOVO</td>
+                                        <td>{Moment(item.DateRegister).format("YYYY-MM-DD")}</td>
+                                        <th>{item.userId == null ? "" : item.userId.fullname}</th>
                                         <td>{item.withdrawal_event}</td>     
                                     </tr>
 
@@ -135,7 +142,6 @@ const Salses = () => {
 
         </div>
 
-        <Withdraw_machine/>
 
         </>
        

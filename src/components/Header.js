@@ -1,15 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import './Header.css'
 import Logo from '../assets/imgs/sbs-logo-update-8.gif'
 import Swal from 'sweetalert2'
 import { Link, useLocation } from "react-router-dom";
+import axios from "axios";
+import DB from '../services/enpiot'
 
 const Header = () => {
 
-  // const token_check = localStorage.getItem('token')
-  // if(!token_check ){
-  //   window.location="/Login"
-  // }
+  const [ UserUFullanem, setUIDname ] = useState()
+  const token = localStorage.getItem("token")
+  useEffect(() => {
+    axios.get(DB.URL + DB.Profile ,{ headers : {authorization : token}}).then((res) => {
+        setUIDname(res.data[0].fullname)
+    })
+  }, [])
+
+  const token_check = localStorage.getItem('token')
 
   const Login_lo = useLocation().pathname
 
@@ -43,21 +50,14 @@ const Header = () => {
           }).then((result) => {
             if (result.isConfirmed) {
                 window.location='/Login'
-                localStorage.removeItem('token')
+                localStorage.clear()
             } else if (
               /* Read more about handling dismissals below */
               result.dismiss === Swal.DismissReason.cancel
-            ) {
-              swalWithBootstrapButtons.fire(
-                'Cancelled',
-                'Your imaginary file is safe :)',
-                'error'
-              )
-            }
+            ) {}
           })
     }
     
-
     return (
         <>
             <nav className={`nav-bar-header header-bar ${Login_lo == "/Login" ? "d-none" : ""}`}>
@@ -66,15 +66,7 @@ const Header = () => {
                       <a class="nav-link" onClick={toggle_abrs}><label><i class="bi bi-menu-button-wide-fill"></i></label></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"><i class="bi bi-house-fill"></i> Ali ພະນັກງານ</a>
-                    </li>
-                    <li class="nav-item item-active">
-                      <select class="form-control selectpicker" id="select-country" data-live-search="true">
-                        <option data-tokens="">ເລືອກສາຂາ</option>
-                        <option data-tokens="china">ນາຊາຍທອງ</option>
-                        <option data-tokens="malayasia">ສົງເປື່ອຍ</option>
-                        <option data-tokens="singapore">Singapore</option>
-                      </select>
+                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"><i class="bi bi-person-video"></i> Staff: {UserUFullanem}</a>
                     </li>
                 </ul>
                 <div className="row search-float-left">

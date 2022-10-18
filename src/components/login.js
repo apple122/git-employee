@@ -14,6 +14,7 @@ const Login = () => {
     const [ login, setLogin ] = useState([])
     useEffect(() => {
         axios.get('http://localhost:3001/user/getUser').then((res) => {
+            console.log(res.data)
         })
     })
 
@@ -25,12 +26,11 @@ const Login = () => {
                 "username" : username,
                 "password" : Password
             }
-            const data = await axios.post('http://localhost:3001/user/login', dataform )
+            const data = await axios.post('http://localhost:3001/user/login', dataform)
             if(data.status == 200){
                 localStorage.setItem("token" , data.data)
                 alert("Login success")
-                window.location='/Home_app'
-
+                window.location='/Manage_data'
             }
         } catch (error) {
             alert("ຊື່ຜູ້ໃຊ້ ຫຼື ລະຫັດຜ່ານບໍ່ຖືກຕ້ອງ")
@@ -45,7 +45,6 @@ const Login = () => {
             "background-size": "300% 400%",
             width: "100%",
             height: "min-content",
-            opacity: "1",
             "padding-bottom": "100%",
             position: "absolute",
             top: "0",

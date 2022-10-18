@@ -1,18 +1,34 @@
 import axios from "axios";
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useReducer, useState, Component } from "react";
+import { Button, Modal } from 'react-bootstrap';
 import Swal from "sweetalert2";
 import Moment from 'moment';
 import DB from "../../services/enpiot"
+import Select from 'react-select';
+import swal from "sweetalert";
+
+
 
 const WD_machine = () => {
+    
+    const [ UserUID, setUIDname ] = useState()
+    const token = localStorage.getItem("token")
+    useEffect(() => {
+      axios.get(DB.URL + DB.Profile ,{ headers : {authorization : token}}).then((res) => {
+          setUIDname(res.data[0]._id)
+      })
+    }, [])
+
+    const [selectedOption, setSelectedOption] = useState(null);
 
     const [ showEvent, setShowevent ] = useState([])
     useEffect(() => {
-        axios.get('http://localhost:3001/machine/getMachine').then((res) => {
-            setShowevent(res.data)
+        axios.get(DB.URL + DB.GetRegister).then((res) => {
+            setShowevent(res.data.reverse())
         })
+     
     },[])
-    
+
     const [ value, setvalue ] = useState('')
     const onChange = (event) => {
         setvalue(event.target.value)
@@ -24,17 +40,29 @@ const WD_machine = () => {
     const [ status, setstatus ] = useState([])
     const [ DateMachine, SetDateMachine ] = useState([])
     const [ uidmachine, setuidmachine ] = useState([])
-    const onCheck = (Checkitem) => {
-        setvalue(Checkitem)
-        console.log('Search', Checkitem)
-        axios.get(`http://localhost:3001/Machine/getByNumMachine/${Checkitem}`).then((res) => {
+    const [ NumMachine, setNumMachine ] = useState([])
+    const [ Vendor_code, setVendor_code ] = useState([])
+    const [ REUID, setREUID ] = useState([])
+    const [ DateRegister, setDateRe ] = useState([])
+ 
+    
+    if(selectedOption){
+        axios.get(DB.URL + DB.UGNMachine + selectedOption.label).then((res) => {
             setgetversion_Machine_Num(res.data.version_Machine_Num)
             setMachineReference(res.data.MachineReference)
             setversion_Machine_Print(res.data.version_Machine_Print)
             setstatus(res.data.status)
             SetDateMachine(res.data.DateMachine)
             setuidmachine(res.data._id)
-        })   
+            setNumMachine(res.data.NumMachine)
+        }) 
+        axios.get(DB.URL + DB.UIDRegister + selectedOption.value).then((res) => {
+            setVendor_code(res.data.Vendor_code)
+            setREUID(res.data._id)
+            setDateRe(res.data.DateRegister)
+        })
+    }else{
+
     }
 
     async function Insert_pass () {
@@ -55,11 +83,6 @@ const WD_machine = () => {
           }
     }
 
-    const currentDate = new Date(DateMachine, "YYYY/mm/dd")
-    const formatDate = Moment().format('DD-MM-YYYY')
-
-    // console.log(formatDate)
-
     const [createWithdraw, setWithdraw] = useState([])
     const [updatemachine, setupdatemachine] = useState([])
 
@@ -69,72 +92,71 @@ const WD_machine = () => {
         console.log(createWithdraw)
     }
 
-    const token = localStorage.getItem("token")
     const data_uodate = {
         status: "ວ່າງ",
     }
     const onSubmit = (e) =>{
         e.preventDefault()
         setWithdraw(
-            axios.post(DB.URL+DB.PostWithDraw , createWithdraw ).then((res) => {
-                alert("Success")
+            axios.post(DB.URL+DB.PostWithDraw , createWithdraw).then((res) => {
+                swal("ບັນທືກຂໍ້ມູນສຳເລັດ!", "You clicked the button!", "success")
+                .then((value) => {
+                    window.location.reload(false)
+                });
             }),
             axios.put( DB.URL+DB.PutMachine +uidmachine , data_uodate).then((res) => {
                 console.log(res)
-                alert("Machince")
             })
 
-        ).catch(() => {alert("erorr")})
+        )
     }
 
+    const [show, setShow] = useState(false)
+    const handleClose = () => setShow(false)
+    const handleShow = () => setShow(true)
 
     return (
         <>
-        <div class="modal fade" id="remove-machince" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <form onSubmit={onSubmit} method="POST">
-            <div class="modal-dialog modal-xl">
+        <Button onClick={handleShow}><i class="bi bi-cloud-download-fill"></i> ຖອນເຄື່ອງຂາຍ</Button>
+        <Modal show={show} onHide={handleClose}>
+        <form onSubmit={onSubmit} method="POST">
+            <div class="modal-xl position-modal">
                 <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">ຖອນເຄື່ອງ</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" onClick={handleClose} class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    
                     <div className="row">
                         <div className="col-md-6">
                             <div className="form-group group-renative">
                                 <label>ເລກທີ່ເຄື່ອງຂາຍເລກ ທີ່ຈະຖອນ</label>
-                                <div className="input-group">
-                                    <input className="form-control insert-showinput" value={value} onChange={onChange} placeholder="ປ້ອນເລກເຄື່ອງຂາຍ ທີ່ຈະຖອນ"/>
-                                    <span className="btn btn-warning input-group-text" onClick={() => onCheck(value)}>ກວດສອບ</span>
-                                </div>
-                                <div className="dropdown drop-group-position">
-                                    {showEvent.filter(item => {
-                                        const Checkitem = value.toLowerCase()
-                                        const NumMachine = item.NumMachine.toLowerCase()
-
-                                        return Checkitem && NumMachine.startsWith(Checkitem) && NumMachine !== Checkitem
-                                    })
-                                    .map((item) => (
-                                        <li onClick={() => onCheck(item.NumMachine)} className="dropdown-row drop-checked">{item.NumMachine}</li>
-                                    ))}
-                                </div>
+                                <Select
+                                    defaultValue={selectedOption}
+                                    onChange={setSelectedOption}
+                                    options={
+                                        showEvent.filter((e) => e.MachineId == null ? "" : e.MachineId.status === "ໃຊ້ງານ").map((item)=>(
+                                            {value: item._id, label: item.MachineId.NumMachine}
+                                        ))
+                                    }
+                                />
                             </div>
-                            <input type="hidden" onChange={handleChange} value={createWithdraw.NumMachine = value} name="NumMachine"/>
+                            <input type="hidden" onChange={handleChange} value={createWithdraw.NumMachine = NumMachine} name="NumMachine"/>
 
                             <div className="form-group">
                                 <label>ລະຫັດຜູ້ຂາຍ</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-person-lines-fill"></i></span>
-                                    <input type="text" onChange={handleChange} value={createWithdraw.Vendor_code} name="Vendor_code" className="form-control" placeholder="ກະລຸນາປ່ອນ ລະຫັດຜູ້ຂາຍ"/>
+                                    <input type="text" className="form-control" value={Vendor_code} placeholder="ກະລຸນາປ່ອນ ລະຫັດຜູ້ຂາຍ" required readOnly/>
                                 </div>
+                                <input type="hidden" onChange={handleChange} value={createWithdraw.Vendor_code = REUID} name="Vendor_code"/>
                             </div>
 
                             <div className="form-group">
                                 <label>ສາເຫດການຖອນ</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-journal-check"></i></span>
-                                    <textarea type="text" onChange={handleChange} value={createWithdraw.withdrawal_event} name="withdrawal_event"  aria-label="First name" class="form-control" placeholder="ສາເຫດການຖອນ" style={{border: "1px solide green"}}/>
+                                    <textarea type="text" onChange={handleChange} value={createWithdraw.withdrawal_event} name="withdrawal_event" required aria-label="First name" class="form-control" placeholder="ສາເຫດການຖອນ" style={{border: "1px solide green"}}/>
                                 </div>
                             </div>
 
@@ -142,8 +164,11 @@ const WD_machine = () => {
                                 <div className="form-group">
                                     <label>ສະຖານະ</label>
                                     <div class="input-group">
-                                        <span class="input-group-text border-green"><i class="bi bi-toggle-off"></i></span>
-                                        <input type="text"  onChange={handleChange} value={createWithdraw.status_Machine = "ວ່າງ"} name="status_Machine" aria-label="First name" class="form-control border-green"  readOnly/>
+                                        <span class="input-group-text border-green"><i class="bi bi-toggle-on"></i></span>
+                                        <input type="text" value="ໃຊ້ງານ" aria-label="First name" class="form-control border-green" required readOnly/>
+
+                                        <input type="hidden" onChange={handleChange} value={createWithdraw.status_Machine = "ວ່າງ"} name="status_Machine"/>
+                                        <input type="hidden" onChange={handleChange} value={createWithdraw.userId = UserUID} name="userId"/>
                                     </div>
                                 </div>
                             </div>
@@ -155,7 +180,7 @@ const WD_machine = () => {
                                 <label>ລຸ້ນຂອງເຄື່ອງຂາຍເລກ</label>
                                 <div className="input-group">
                                     <span className="input-group-text border-overflow"><i class="bi bi-hash"></i></span>
-                                    <input type="text" aria-label="First name" value={createWithdraw.version_Machine_sell_Num = version_Machine_Num}  onChange={handleChange}  name="version_Machine_sell_Num" readOnly class="form-control border-overflow"/>
+                                    <input type="text" aria-label="First name" value={createWithdraw.version_Machine_sell_Num = version_Machine_Num}  onChange={handleChange}  name="version_Machine_sell_Num" required readOnly class="form-control border-overflow"/>
                                 </div>
                             </div>
 
@@ -163,7 +188,7 @@ const WD_machine = () => {
                                 <label>ລຸ້ນຂອງເຄື່ອງພິມ</label>
                                 <div className="input-group">
                                     <span className="input-group-text border-overflow"><i class="bi bi-printer-fill"></i></span>
-                                    <input type="text" aria-label="First name" value={createWithdraw.version_Machine_Print = version_Machine_Print} onChange={handleChange}  name="version_Machine_Print" readOnly class="form-control border-overflow"/>
+                                    <input type="text" aria-label="First name" value={createWithdraw.version_Machine_Print = version_Machine_Print} onChange={handleChange}  name="version_Machine_Print" required readOnly class="form-control border-overflow"/>
                                 </div>
                             </div>
 
@@ -172,7 +197,7 @@ const WD_machine = () => {
                                     <label>ເລກທີອ້າງອີງ</label>
                                     <div class="input-group">
                                         <span class="input-group-text border-overflow"><i class="bi bi-hash"></i></span>
-                                        <input type="text" aria-label="First name" value={createWithdraw.Machine_Reference_Num = MachineReference} onChange={handleChange}  name="Machine_Reference_Num" readOnly class="form-control border-overflow"/>
+                                        <input type="text" aria-label="First name" value={createWithdraw.Machine_Reference_Num = MachineReference} onChange={handleChange}  name="Machine_Reference_Num" required readOnly class="form-control border-overflow"/>
                                     </div>
                                 </div>
                             
@@ -182,7 +207,7 @@ const WD_machine = () => {
                                 <label>ວັນທີການລົງທະບຽນ</label>
                                 <div class="input-group">
                                     <span class="input-group-text border-overflow"><i class="bi bi-calendar-check-fill"></i></span>
-                                    <input type="text" aria-label="First name" value={createWithdraw.DateRegister = DateMachine} onChange={handleChange}  name="DateRegister" class="form-control border-overflow" readOnly/>
+                                    <input type="text" aria-label="First name" value={createWithdraw.DateRegister = Moment(DateRegister).format("YYYY-MM-DD")} onChange={handleChange}  name="DateRegister" class="form-control border-overflow" required readOnly/>
                                 </div>
                             </div>
 
@@ -190,7 +215,7 @@ const WD_machine = () => {
                                 <label>ວັນທີເປີດໃຊ້ງານ</label>
                                 <div class="input-group">
                                     <span class="input-group-text border-overflow"><i class="bi bi-calendar-check-fill"></i></span>
-                                    <input type="text" aria-label="First name" value={createWithdraw.DateRegister = DateMachine} onChange={handleChange}  name="DateRegister" class="form-control border-overflow" readOnly/>
+                                    <input type="text" aria-label="First name" value={createWithdraw.DateRegister = Moment(DateRegister).format("YYYY-MM-DD")} onChange={handleChange}  name="DateRegister" class="form-control border-overflow" required readOnly/>
                                 </div>
                             </div>
                             
@@ -200,13 +225,13 @@ const WD_machine = () => {
                     
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-x-diamond-fill"></i> ຍ້ອນກັບ</button>
+                    <button type="button" onClick={handleClose} class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-x-diamond-fill"></i> ຍ້ອນກັບ</button>
                     <button type="submit" class="btn btn-primary" ><i class="bi bi-cloud-download-fill"></i> ຖອນ </button>
                 </div>
                 </div>
             </div>
             </form>
-        </div>
+        </Modal>
         </>
     )
 }

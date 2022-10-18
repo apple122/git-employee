@@ -1,6 +1,5 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import Home_app from '../Home-app'
 import Manage_data from "../pages/Manage_data";
 import Register_sales from "../pages/Register_sales";
 import History_revoke from "../pages/History_revoke";
@@ -40,8 +39,6 @@ const router = () => {
             <Route path="/Report_machine" element={<Report_machine/>}/>
             <Route path="/Vending_machine" element={<Vending_machine/>}/>
             <Route path="/Unit" element={<Unit/>}/>
-            <Route path="/Home_app" element={<Home_app/>}/>
-
 
             <Route path="/Login" element={<Login/>}/>
         </Routes>

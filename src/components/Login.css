@@ -7,7 +7,6 @@
     margin: 0%;
     font-family: 'Phetsarath OT', sans-serif;
     /* font-size: 1vw; */
-    transition: all 5s;
 
 }
 
@@ -132,8 +131,8 @@
     transform: skew(-15deg, 15deg);
 }
 #logo-item2 {
-    width: 75%;
     margin-top: 15%;
+    margin-left: -5%;
 }
 
 

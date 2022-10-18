@@ -1,10 +1,13 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Swal from "sweetalert2";
 import Moment from 'moment';
+import Select from 'react-select';
+import swal from 'sweetalert';
+
 
 export default function IN_Sales () {
-    
+
     const [GETPercentage, setGETPercentage] = useState([])
     useEffect(() => {
         axios.get('http://localhost:3001/percentage/getPercentage').then((res) => {
@@ -25,6 +28,7 @@ export default function IN_Sales () {
             setgetunit(res.data)
         })
     }, [])
+
 
     const [ useID, setUserid] = useState(null)
     const [ precenID, setPrecen] = useState(false)
@@ -71,7 +75,10 @@ export default function IN_Sales () {
         getUsername()
     },[])
 
+
     async function onSubmit () {
+
+        
 
         try {
             const token = localStorage.getItem("token")
@@ -87,26 +94,29 @@ export default function IN_Sales () {
                 District: District,
                 Village: Village,
                 percentageId: precenID,
-                MachineId: MachineId,
-                unitId: unitId
+                MachineId: MachineId.value,
+                unitId: unitId.value,
+                DateRegister: Moment().format('YYYY-MM-DD')
             } 
-            console.log({VendorType, Vendor_code, name, age, Occupation, phone, Province, District, Village, precenID, MachineId, unitId})
             const data = await axios.post('http://localhost:3001/register/vendorRegister', datas ,{ headers : {authorization : token}} )
             if(data.status == 200){
-                console.log("INsert OK")
-                getregister()
+                swal("ບັນທືກຂໍ້ມູນສຳເລັດ!", "You clicked the button!", "success")
+                .then((value) => {
+                    window.location.reload(false)
+                });
             }
 
             const data_uodate = {
                 status: "ໃຊ້ງານ",
                 DateMachine : Moment().format('YYYY-MM-DD'),
             }
-            axios.put(`http://localhost:3001/machine/updateMachine/${MachineId}`, data_uodate)
-            console.log(data_uodate)
+            axios.put(`http://localhost:3001/machine/updateMachine/${MachineId.value}`, data_uodate)
 
         } catch (error) {
-            console.log(error)
+            alert("ທ່ານປ່ອນຂໍ້ມູນບໍ່ຄົບຖ້ວນ ຫຼື ຂໍ້ມູນມີການໃຊ້ງານແລ້ວ")
         }
+
+
     }
 
     const Submit = (e) => {
@@ -124,131 +134,124 @@ export default function IN_Sales () {
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                        <div className="row">
-                            <div className="col-md-6">
-                                <div className="form-group">
-                                    <label>ຊື່ ແລະ ນາມສະກຸນ</label>
-                                    <div className="input-group">
-                                        <span className="input-group-text"><i class="bi bi-person-lines-fill"></i></span>
-                                        <input type="text" className="form-control" onChange={(e)=> setname(e.target.value)} placeholder="ກະລຸນາປ່ອນ ຊື່ ແລະ ນາມສະກຸນ" required/>
-                                    </div>
+                    <div className="row">
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label>ຊື່ ແລະ ນາມສະກຸນ</label>
+                                <div className="input-group">
+                                    <span className="input-group-text"><i class="bi bi-person-lines-fill"></i></span>
+                                    <input type="text" className="form-control" value={name} onChange={(e)=> setname(e.target.value)} placeholder="ກະລຸນາປ່ອນ ຊື່ ແລະ ນາມສະກຸນ" required/>
                                 </div>
-
-                                <div className="form-group">
-                                    <label>ລະຫັດຜູ້ຂາຍ</label>
-                                    <div className="input-group">
-                                        <span className="input-group-text"><i class="bi bi-asterisk"></i></span>
-                                        <input  type="number" className="form-control" onChange={(e) => setVendor_code(e.target.value)} placeholder="ລະຫັດຜູ້ຂາຍ" />
-                                         
-                                  
-                                    </div>
-                                </div>
-
-                                <div className="form-group">
-                                    <label>ອາຍຸ</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="bi bi-calendar-check"></i></span>
-                                        <input type="number" min="0" aria-label="First name" onChange={(e)=> setage(e.target.value)}  class="form-control" placeholder="ກະລຸນາປ່ອນ ອາຍຸ" required/>
-                                    </div>
-                                </div>
-
-                                <div className="form-group">
-                                    <label>ເລກທີ່ເຄື່ອງຂາຍເລກ</label>
-                                    <div className="input-group">
-                                        <span className="input-group-text"><i class="bi bi-hash"></i></span>
-                                        <select className="form-control"  onChange={(e)=> setMachineId(e.target.value)} required>
-                                            <option>ເລກທີ່ເຄື່ອງຂາຍເລກ</option>
-                                            {GETCreateMachine.map((machine, index) => {
-                                                return(
-                                                    <option key={!index == "ໃຊ້ງານ"} value={machine._id}>{machine.NumMachine}</option>
-                                                )
-                                            })}
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div className="form-group">
-                                    <label>ໜ່ວຍ</label>
-                                    <div className="input-group">
-                                        <span className="input-group-text"><i class="bi bi-hash"></i></span>
-                                        <select className="form-control"  onChange={(e)=> setunitId(e.target.value)} required>
-                                            <option>ໜ່ວຍ</option>
-                                            {getunit.map((unit) => {
-                                                return (
-                                                    <option value={unit._id}>{unit.nameUnit}</option>
-                                                )
-                                            })}
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div className="form-group">
-                                    <label>ປະເພດຜູ້ຂາຍ</label>
-                                    <div className="input-group">
-                                        <span className="input-group-text"><i class="bi bi-person-lines-fill"></i></span>
-                                        <select className="form-control"  onChange={(e)=> setVendorType(e.target.value)} onClick={(e) => setPrecen(e.target.value)} required>
-                                            <option>ປະເພດຜູ້ຂາຍ</option>
-                                            {GETPercentage.map((performance) => {
-                                                return (
-                                                    <option value={performance._id}>{performance.name}</option>
-                                                )
-                                            })}
-                                        </select>
-                                    </div>
-                                </div>
-
                             </div>
-                            <div className="col-md-6">
 
-                                <div className="form-group">
-                                    <label>ອາຊິບ</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="bi bi-percent"></i></span>
-                                        <input type="text" aria-label="First name" onChange={(e)=> setOccupation(e.target.value)} class="form-control" placeholder="ກະລຸນາປ່ອນ ອາຊິບ" required/>
-                                    </div>
+                            <div className="form-group">
+                                <label>ລະຫັດຜູ້ຂາຍ</label>
+                                <div className="input-group">
+                                    <span className="input-group-text"><i class="bi bi-asterisk"></i></span>
+                                    <input  type="number" className="form-control" value={Vendor_code} onChange={(e) => setVendor_code(e.target.value)} placeholder="ລະຫັດຜູ້ຂາຍ" required/>
+                                        
+                                
                                 </div>
-
-                                <div className="form-group">
-                                    <label>ເບີໂທ</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="bi bi-telephone-plus-fill"></i></span>
-                                        <input type="number" min="0" aria-label="First name" class="form-control" onChange={(e)=> setphone(e.target.value)} placeholder="ກະລຸນາປ່ອນ ເບີໂທ" required/>
-                                    </div>
-                                </div>
-
-                                <div className="form-group">
-                                    <label>ບ້ານ</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="bi bi-house"></i></span>
-                                        <input type="text" aria-label="First name" class="form-control"  onChange={(e)=> setVillage(e.target.value)} placeholder="ກະລຸນາປ່ອນ ບ້ານ" required/>
-                                    </div>
-                                </div>
-
-                                <div className="form-group">
-                                    <label>ເມືອງ</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="bi bi-telephone-plus-fill"></i></span>
-                                        <input type="text" aria-label="First name" class="form-control"  onChange={(e)=> setDistrict(e.target.value)} placeholder="ກະລຸນາປ່ອນ ເມືອງ" required/>
-                                    </div>
-                                </div>
-
-                                <div className="form-group">
-                                    <label>ແຂວງ</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="bi bi-telephone-plus-fill"></i></span>
-                                        <input type="text" aria-label="First name" class="form-control" onChange={(e)=> setProvince(e.target.value)} placeholder="ກະລຸນາປ່ອນ ແຂວງ" required/>
-                                    </div>
-                                </div>
-                                {/* <input type="text"  onChange={(e)=> setPrecen(e.target.value)} placeholder="precenID"/> */}
-                                {/* <input type="hidden" value={getusenameID} onChange={(e)=> setUserid(e.target.value)} placeholder="UserID"/> */}
-
                             </div>
-                            
+
+                            <div className="form-group">
+                                <label>ອາຍຸ</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-calendar-check"></i></span>
+                                    <input type="number" min="0" aria-label="First name" value={age} onChange={(e)=> setage(e.target.value)}  class="form-control" placeholder="ກະລຸນາປ່ອນ ອາຍຸ" required/>
+                                </div>
+                            </div>
+
+                            <div className="form-group">
+                                <label>ເລກທີ່ເຄື່ອງຂາຍເລກ</label>
+                                <Select
+                                    defaultValue={MachineId}
+                                    onChange={setMachineId}
+                                    options={
+                                        GETCreateMachine.filter((e) => e.status === "ວ່າງ").map((item)=>(
+                                            {value: item._id, label: item.NumMachine}
+                                        ))
+                                    }
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label>ໜ່ວຍ</label>
+                                <Select
+                                    defaultValue={unitId}
+                                    onChange={setunitId}
+                                    options={
+                                        getunit.map((item)=>(
+                                            {value: item._id, label: item.nameUnit}
+                                        ))
+                                    }
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label>ປະເພດຜູ້ຂາຍ</label>
+                                <div className="input-group">
+                                    <span className="input-group-text"><i class="bi bi-person-lines-fill"></i></span>
+                                    <select className="form-control"  onChange={(e)=> setVendorType(e.target.value)} onClick={(e) => setPrecen(e.target.value)} required>
+                                        <option>ປະເພດຜູ້ຂາຍ</option>
+                                        {GETPercentage.map((performance) => {
+                                            return (
+                                                <option value={performance._id}>{performance.name}</option>
+                                            )
+                                        })}
+                                    </select>
+                                </div>
+                            </div>
+
                         </div>
+                        <div className="col-md-6">
+
+                            <div className="form-group">
+                                <label>ອາຊິບ</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-percent"></i></span>
+                                    <input type="text" aria-label="First name" onChange={(e)=> setOccupation(e.target.value)} class="form-control" placeholder="ກະລຸນາປ່ອນ ອາຊິບ" required/>
+                                </div>
+                            </div>
+
+                            <div className="form-group">
+                                <label>ເບີໂທ</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-telephone-plus-fill"></i></span>
+                                    <input type="number" min="0" aria-label="First name" class="form-control" onChange={(e)=> setphone(e.target.value)} placeholder="ກະລຸນາປ່ອນ ເບີໂທ" required/>
+                                </div>
+                            </div>
+
+                            <div className="form-group">
+                                <label>ບ້ານ</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-house"></i></span>
+                                    <input type="text" aria-label="First name" class="form-control"  onChange={(e)=> setVillage(e.target.value)} placeholder="ກະລຸນາປ່ອນ ບ້ານ" required/>
+                                </div>
+                            </div>
+
+                            <div className="form-group">
+                                <label>ເມືອງ</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-house"></i></span>
+                                    <input type="text" aria-label="First name" class="form-control"  onChange={(e)=> setDistrict(e.target.value)} placeholder="ກະລຸນາປ່ອນ ເມືອງ" required/>
+                                </div>
+                            </div>
+
+                            <div className="form-group">
+                                <label>ແຂວງ</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-house"></i></span>
+                                    <input type="text" aria-label="First name" class="form-control" onChange={(e)=> setProvince(e.target.value)} placeholder="ກະລຸນາປ່ອນ ແຂວງ" required/>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-x-diamond-fill"></i> Close</button>
-                    <button onClick={onSubmit} className="btn btn-primary"><i class="bi bi-cloud-download-fill"></i> ບັນທືກຂໍ້ມູນ </button>
+                    <button type="submit" onClick={onSubmit} className="btn btn-primary"><i class="bi bi-cloud-download-fill"></i> ບັນທືກຂໍ້ມູນ </button>
                 </div>
                 </form>
 

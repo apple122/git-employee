@@ -2,11 +2,9 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Button, Modal } from 'react-bootstrap';
 import Swal from "sweetalert2";
-import '../../services/enpiot'
 
 export default function UP_unit (props) {
     const propsUID = props.id
-    console.log(propsUID)
 
     const [Unit_Num, setUnitId] = useState('')
     const [phone, setphone] = useState('')

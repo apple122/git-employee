@@ -39,12 +39,12 @@ const Manage_data = () => {
     const Delete = (_id) => {
         Swal.fire({
             title: 'ທ່ານຕ້ອງການລົບຂໍ້ມູນນີ້ແທ້ຫຼືບໍ່?',
-            text: "ກົນ Yes, delete! ເພືອລົບ ຫຼື ກົບ Cancel ເພືອຍົກເລີກ!",
+            text: "ຂໍ້ມູນນີ້ມີການເຊື່ອມໂຍງກັບຂໍ້ມູນອືນໆ ກະລຸນາກອດສອບໃຫ້ແນ່ໃຈກອນຈະລົບ!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
+            confirmButtonText: 'ລົບຂໍ້ມູນ!'
           }).then((result) => {
             if (result.isConfirmed) {
                 axios.delete(DB.URL + DB.DePercentage + _id).then((res) => {
@@ -57,6 +57,16 @@ const Manage_data = () => {
             }
           })
     }
+
+
+      const [ UIDusername, setUIDname ] = useState([])
+      const token = localStorage.getItem("token")
+      useEffect(() => {
+        axios.get("http://localhost:3001/user/GetUserProfile" ,{ headers : {authorization : token}}).then((res) => {
+            setUIDname(res.data)
+            console.log(res.data[0].username)
+        })
+      }, [])
 
     return (
         <>
@@ -80,7 +90,7 @@ const Manage_data = () => {
                             <input type="search" class="form-control float-start col-md-4" value={value} onChange={fillterData} placeholder="ຄົ້ນຫາ"/>
                         </div>
                         <div className="col-12">
-                            <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-cloud-download-fill"></i> ເພີມຂໍ້ມູນ</button>
+                            <div className="float-end"><Inert_Manage_data/></div>
                         </div>
                     </div>
 
@@ -130,7 +140,6 @@ const Manage_data = () => {
             </div>
             
             {/* Event-popup */}
-            <Inert_Manage_data/>
             {/* Event-popup */}
 
         </>

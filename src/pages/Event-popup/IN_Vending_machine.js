@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { Button, Modal } from 'react-bootstrap';
 import Swal from "sweetalert2";
 import '../../services/enpiot'
 
@@ -28,15 +29,20 @@ export default function IN_Vending_machine () {
         )
     }
 
+    const [show, setShow] = useState(false)
+    const handleClose = () => setShow(false)
+    const handleShow = () => setShow(true)
+
     return (
         <>
-        <div class="modal fade" id="IN_Vending_machine" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <form onSubmit={Submit}>
-            <div class="modal-dialog modal-xl">
+        <Button onClick={handleShow}><i class="bi bi-cloud-download-fill"></i> ເພີມຂໍ້ມູນ</Button>
+        <Modal show={show} onHide={handleClose}>
+        <form onSubmit={Submit}>
+            <div class="modal-xl position-modal">
                 <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" id="exampleModalLabel"><strong>ເພີມຂໍ້ມູນ ເຄື່ອງຂາຍເລກ</strong></h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" onClick={handleClose} class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="row modal-body">
                     <div className="col-md-6">
@@ -82,13 +88,13 @@ export default function IN_Vending_machine () {
                     <input type="hidden" name="status" value={CreateMachine.status="ວ່າງ"} onChange={handleChange}/>
                 </div> 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-x-diamond-fill"></i> Cancel</button>
+                    <button type="button" onClick={handleClose} class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-x-diamond-fill"></i> Cancel</button>
                     <button type="submit" class="btn btn-primary"><i class="bi bi-cloud-download-fill"></i> ບັນທືກຂໍ້ມູນ</button>
                 </div>
                 </div>
             </div>
             </form>
-        </div>
+        </Modal>
         </>
     )
 }

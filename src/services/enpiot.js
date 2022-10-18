@@ -82,5 +82,6 @@ export default {
 
     // Login 
     Login : '/user/login',
+    Profile: '/user/GetUserProfile'
 }
 
