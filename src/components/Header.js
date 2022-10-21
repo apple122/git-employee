@@ -2,21 +2,27 @@ import React, { useEffect, useState } from "react";
 import './Header.css'
 import Logo from '../assets/imgs/sbs-logo-update-8.gif'
 import Swal from 'sweetalert2'
-import { Link, useLocation } from "react-router-dom";
+import { Await, Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import DB from '../services/enpiot'
+// import bcrypt from 'bcrypt'
 
 const Header = () => {
 
   const [ UserUFullanem, setUIDname ] = useState()
+  const [ UserName, setName ] = useState()
   const token = localStorage.getItem("token")
   useEffect(() => {
     axios.get(DB.URL + DB.Profile ,{ headers : {authorization : token}}).then((res) => {
-        setUIDname(res.data[0].fullname)
+      setUIDname(res.data.fullname)
+      setName(res.data.username)
+      if(res.data.password === res.data.password){
+
+      }else{
+        alert("Not User")
+      }
     })
   }, [])
-
-  const token_check = localStorage.getItem('token')
 
   const Login_lo = useLocation().pathname
 
@@ -25,6 +31,12 @@ const Header = () => {
     const hiddent = { left: "0%" }
     sethide(hiddent)
   }
+
+  function hide_toggle(){
+    const hiddent = { }
+    sethide(hiddent)
+  }
+  
 
   function refreshPage() {
     window.location(true);
@@ -40,12 +52,12 @@ const Header = () => {
           })
           
           swalWithBootstrapButtons.fire({
-            title: 'ທ່ານຕ້ອງການອອກຈາກລະບົບ ຫຼື່ ບໍ່?',
+            title: 'ທ່ານຕ້ອງການອອກຈາກລະບົບ ຫຼື ບໍ່?',
             text: "You won't be able to revert this!",
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonText: 'Yes, Logout it!',
-            cancelButtonText: 'No, cancel!',
+            cancelButtonText: 'cancel!',
+            confirmButtonText: 'ອອກຈາກລະບົບ!',
             reverseButtons: true
           }).then((result) => {
             if (result.isConfirmed) {
@@ -65,7 +77,7 @@ const Header = () => {
                     <li className="nav-item disnone">
                       <a class="nav-link" onClick={toggle_abrs}><label><i class="bi bi-menu-button-wide-fill"></i></label></a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item re-font">
                         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"><i class="bi bi-person-video"></i> Staff: {UserUFullanem}</a>
                     </li>
                 </ul>
@@ -81,22 +93,22 @@ const Header = () => {
                     {/* <!-- As a link --> */}
                     <nav class="navbar nav-active float-start">
                         <ul class="container-fluid confluid-active">
-                            <Link to="/Manage_data" class="navbar-brand navbar-light-active" onClick={refreshPage}><i class="bi bi-kanban-fill"></i> ຈັດການຂໍ້ມູນ</Link>
+                            <Link to="/Manage_data" class="navbar-brand navbar-light-active" onClick={hide_toggle}><i class="bi bi-kanban-fill"></i> ຈັດການຂໍ້ມູນ</Link>
                         </ul>
                         <ul class="container-fluid confluid-active">
-                            <Link to="/Register_sales" class="navbar-brand navbar-light-active" onClick={refreshPage}><i class="bi bi-r-square-fill"></i> ລົງທະບຽນຄົນຂາຍ</Link>
+                            <Link to="/Register_sales" class="navbar-brand navbar-light-active" onClick={hide_toggle}><i class="bi bi-r-square-fill"></i> ລົງທະບຽນຄົນຂາຍ</Link>
                         </ul>
                         <ul class="container-fluid confluid-active">
-                            <Link to="/Sales" class="navbar-brand navbar-light-active" onClick={refreshPage}><i class="bi bi-arrows-collapse"></i> ຖອນເຄື່ອງ</Link>
+                            <Link to="/Sales" class="navbar-brand navbar-light-active" onClick={hide_toggle}><i class="bi bi-arrows-collapse"></i> ຖອນເຄື່ອງ</Link>
                         </ul>
                         <ul class="container-fluid confluid-active">
-                            <Link to="/Move" class="navbar-brand navbar-light-active" onClick={refreshPage}><i class="bi bi-arrow-repeat"></i> ຍ້າຍເຄື່ອງ</Link>
+                            <Link to="/Move" class="navbar-brand navbar-light-active" onClick={hide_toggle}><i class="bi bi-arrow-repeat"></i> ຍ້າຍເຄື່ອງ</Link>
                         </ul>
                         <ul class="container-fluid confluid-active">
-                            <Link to="/Payment_unit" class="navbar-brand navbar-light-active" onClick={refreshPage}><i class="bi bi-cash"></i> ຖອກເງີນ</Link>
+                            <Link to="/Payment_unit" class="navbar-brand navbar-light-active" onClick={hide_toggle}><i class="bi bi-cash"></i> ຖອກເງີນ</Link>
                         </ul>
                         <ul class="container-fluid confluid-active">
-                            <Link to="/Report" class="navbar-brand navbar-light-active" onClick={refreshPage}><i class="bi bi-speedometer2"></i> ລາຍງານ</Link>
+                            <Link to="/Report" class="navbar-brand navbar-light-active" onClick={hide_toggle}><i class="bi bi-speedometer2"></i> ລາຍງານ</Link>
                         </ul>
 
                         <ul class="container-fluid confluid-active">

@@ -95,7 +95,7 @@ const Register_sales = () => {
         <>
             <div className="container-content colums-group-padding">
                 <div className="container-full">
-                    <div class="card-body colums-group-padding search-pd">
+                    <div class="card-body colums-group-padding">
                         <div className="col-4">
                             <input type="search" class="form-control float-start col-md-4" value={value} onChange={fillterData} placeholder="ຄົ້ນຫາ"/>
                         </div>
@@ -129,7 +129,7 @@ const Register_sales = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                            {value.length > 0 ? tableFiller.map((item ,index ) => {
+                            {value.length > 0 ? tableFiller.filter((e) => e.upremove == "ເປິດໃຊ້ງານ").map((item ,index ) => {
                                 return (
                                     <tr key={index}>
                                         <th>{x++}</th>
@@ -155,7 +155,7 @@ const Register_sales = () => {
                                         </td>
                                     </tr>
                                 )
-                            }): getRegister.map((item , index) => {
+                            }): getRegister.filter((e) => e.upremove == null).map((item , index) => {
                                 return (
                                     <tr key={index}>
                                         <th>{x++}</th>

@@ -18,6 +18,7 @@ import Report_machine from "../pages/Event-popup/Report-machine";
 import Unit from "../pages/Unit";
 import Vending_machine from "../pages/Vending_machine";
 import Login from "../components/login";
+import History_Move from "../pages/History_Move";
 
 const router = () => {
     return (
@@ -25,6 +26,7 @@ const router = () => {
             <Route path="/Manage_data" element={<Manage_data/>}/>
             <Route path="/Register_sales" element={<Register_sales/>}/>
             <Route path="/History_revoke" element={<History_revoke/>}/>
+            <Route path="/History_Move" element={<History_Move/>}/>
             <Route path="/Move" element={<Move/>}/> 
             <Route path="/Sales" element={<Salses/>}/>
             <Route path="/Manage_revoke" element={<Manage_revoke/>}/>

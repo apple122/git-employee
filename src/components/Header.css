@@ -2,6 +2,12 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css");
 @import url(//db.onlinewebfonts.com/c/938a9833b7244d806eca3349487c68ba?family=Phetsarath+OT);
 
+@media (max-width: 404px){
+    .re-font{
+        font-size: 20px;
+        padding-top: 1%;
+    }
+}
 
 @media (max-width: 558px){
     /* .toggle{
@@ -40,6 +46,7 @@
         /* font-size: 0rem; */
         left: -100rem;
       }
+      
     *{
         padding: 0%;
         margin: 0%;
@@ -202,7 +209,10 @@
 /* respon mobile  */
 
 @media (max-width: 1250px){
-
+    .navbar-brand{
+        background-color: #0899D4;
+        font-size: 12px;
+    }
     *{
         padding: 0%;
         margin: 0%;
@@ -264,6 +274,7 @@
     .confluid-active{
         margin-top: 2%;
     }
+    
     .navbar-light-active:hover{
         background-color: #ffffffd2;
     }

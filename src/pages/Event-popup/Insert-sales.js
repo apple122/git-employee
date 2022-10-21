@@ -78,8 +78,6 @@ export default function IN_Sales () {
 
     async function onSubmit () {
 
-        
-
         try {
             const token = localStorage.getItem("token")
 
@@ -87,7 +85,7 @@ export default function IN_Sales () {
                 Vendor_code: Vendor_code,
                 VendorType: VendorType,
                 name: name,
-                age:  age,
+                age: age,
                 Occupation: Occupation,
                 phone: phone,
                 Province: Province,
@@ -96,8 +94,10 @@ export default function IN_Sales () {
                 percentageId: precenID,
                 MachineId: MachineId.value,
                 unitId: unitId.value,
+                upremove: 'ເປິດໃຊ້ງານ',
                 DateRegister: Moment().format('YYYY-MM-DD')
             } 
+            console.log(datas)
             const data = await axios.post('http://localhost:3001/register/vendorRegister', datas ,{ headers : {authorization : token}} )
             if(data.status == 200){
                 swal("ບັນທືກຂໍ້ມູນສຳເລັດ!", "You clicked the button!", "success")
@@ -148,9 +148,7 @@ export default function IN_Sales () {
                                 <label>ລະຫັດຜູ້ຂາຍ</label>
                                 <div className="input-group">
                                     <span className="input-group-text"><i class="bi bi-asterisk"></i></span>
-                                    <input  type="number" className="form-control" value={Vendor_code} onChange={(e) => setVendor_code(e.target.value)} placeholder="ລະຫັດຜູ້ຂາຍ" required/>
-                                        
-                                
+                                    <input type="number" className="form-control" value={Vendor_code} onChange={(e) => setVendor_code(e.target.value)} placeholder="ລະຫັດຜູ້ຂາຍ" required/>
                                 </div>
                             </div>
 

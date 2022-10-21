@@ -29,8 +29,28 @@ const Login = () => {
             const data = await axios.post('http://localhost:3001/user/login', dataform)
             if(data.status == 200){
                 localStorage.setItem("token" , data.data)
-                alert("Login success")
-                window.location='/Manage_data'
+                let timerInterval
+                Swal.fire({
+                title: 'ກຳລັງເຂົ້າສູລະບົບ!',
+                html: 'I will close in <b></b> milliseconds.',
+                timer: 2000,
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading()
+                    const b = Swal.getHtmlContainer().querySelector('b')
+                    timerInterval = setInterval(() => {
+                    b.textContent = Swal.getTimerLeft()
+                    }, 100)
+                },
+                willClose: () => {
+                    clearInterval(timerInterval)
+                }
+                }).then((result) => {
+                /* Read more about handling dismissals below */
+                if (result.dismiss === Swal.DismissReason.timer) {
+                    window.location='/Manage_data'
+                }
+                })
             }
         } catch (error) {
             alert("ຊື່ຜູ້ໃຊ້ ຫຼື ລະຫັດຜ່ານບໍ່ຖືກຕ້ອງ")

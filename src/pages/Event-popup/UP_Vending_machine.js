@@ -31,7 +31,6 @@ export default function UP_Vending_machine (props) {
             MachineReference: MachineReference,
             version_Machine_Num: version_Machine_Num,
             version_Machine_Print: version_Machine_Print,
-            status: status,
         }
         axios.put(`http://localhost:3001/machine/updateMachine/${propsUID}`, formData).then((res) => {
             Swal.fire({

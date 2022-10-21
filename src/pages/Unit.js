@@ -83,7 +83,7 @@ const Unit = () => {
                         </div>
                     </div>
 
-                    <div class="card colums-group-padding">
+                    <div class="card colums-group-padding scollview-table">
                         <table className="table table-striped">
                             <thead>
                                 <tr>

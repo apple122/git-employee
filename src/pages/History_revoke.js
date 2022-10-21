@@ -39,7 +39,7 @@ const History_revoke = () => {
         <>
         <div className="container-content colums-group-padding">
         <div className="container-full">
-            <div class="card-body colums-group-padding search-pd">
+            <div class="card-body row colums-group-padding search-pd">
                 <div className="col-md-4">
                     <input type="search" onChange={fillterData} class="form-control float-start col-md-4" placeholder="ຄົ້ນຫາ"/>
                 </div>
@@ -47,17 +47,17 @@ const History_revoke = () => {
                     <div class="nav group-event-table">
                         <div className="nav respon-ul-link label-font-12 item-align-end">
                             <div class="nav-item position-right li-link-border-mb" role="presentation">
-                                <Link to="/Sales" class="nav-link li-link-border respon-li" id="no_submit" >ຖອນເຄື່ອງ</Link>
+                                <Link to="/Sales" class="nav-link li-link-border respon-li btn-sm" id="no_submit" >ຖອນເຄື່ອງ</Link>
                             </div>
                             <div class="nav-item position-right li-link-border-mb" role="presentation">
-                                <Link to="/History_revoke" class="nav-link active li-link-border respon-li" id="all">ປະຫວັດຖອນ</Link>
+                                <Link to="/History_revoke" class="nav-link active li-link-border respon-li btn-sm" id="all">ປະຫວັດຖອນ</Link>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <label className="p-2 btn" style={{color: "green", "font-size": "18px"}}>ຂໍ້ມູນລວມ <strong>( {showWithdraw.length} )</strong></label>
+            <div className=""><strong>ປະຫວັດການຍ້າຍເຄື່ອງ ລວມ ( <label className="color-danger">{showWithdraw.length}</label> ) ທັ້ງໝົດ</strong></div>
             <div class="card colums-group-padding scollview-table">
                 <table className="table table-striped">
                     <thead>

@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useReducer, useState, Component } from "react";
+import React, { useEffect, useState, Component } from "react";
 import { Button, Modal } from 'react-bootstrap';
 import Swal from "sweetalert2";
 import Moment from 'moment';
@@ -8,26 +8,26 @@ import Select from 'react-select';
 import swal from "sweetalert";
 
 
-
 const WD_machine = () => {
     
     const [ UserUID, setUIDname ] = useState()
+    const [ UserName, setName ] = useState()
     const token = localStorage.getItem("token")
     useEffect(() => {
       axios.get(DB.URL + DB.Profile ,{ headers : {authorization : token}}).then((res) => {
-          setUIDname(res.data[0]._id)
+        setUIDname(res.data._id)
+        setName(res.data.username)
       })
     }, [])
 
     const [selectedOption, setSelectedOption] = useState(null);
-
     const [ showEvent, setShowevent ] = useState([])
     useEffect(() => {
         axios.get(DB.URL + DB.GetRegister).then((res) => {
             setShowevent(res.data.reverse())
         })
-     
     },[])
+
 
     const [ value, setvalue ] = useState('')
     const onChange = (event) => {
@@ -65,24 +65,6 @@ const WD_machine = () => {
 
     }
 
-    async function Insert_pass () {
-        const { value: password } = await Swal.fire({
-            title: 'Enter your password',
-            input: 'password',
-            inputLabel: 'Password',
-            inputPlaceholder: 'Enter your password',
-            inputAttributes: {
-              maxlength: 10,
-              autocapitalize: 'off',
-              autocorrect: 'off'
-            }
-          })
-          
-          if (password) {
-            Swal.fire(`Entered password: ${password}`)
-          }
-    }
-
     const [createWithdraw, setWithdraw] = useState([])
     const [updatemachine, setupdatemachine] = useState([])
 
@@ -95,21 +77,76 @@ const WD_machine = () => {
     const data_uodate = {
         status: "ວ່າງ",
     }
+    const upremove_data = {
+        upremove: "ຖອນການໃຊ້ງານ",
+    }
     const onSubmit = (e) =>{
         e.preventDefault()
         setWithdraw(
-            axios.post(DB.URL+DB.PostWithDraw , createWithdraw).then((res) => {
+            axios.post(DB.URL + DB.PostWithDraw , createWithdraw).then((res) => {
                 swal("ບັນທືກຂໍ້ມູນສຳເລັດ!", "You clicked the button!", "success")
                 .then((value) => {
                     window.location.reload(false)
                 });
             }),
-            axios.put( DB.URL+DB.PutMachine +uidmachine , data_uodate).then((res) => {
+
+            axios.put( DB.URL + DB.PutMachine + uidmachine , data_uodate).then((res) => {
+                console.log(res)
+            }),
+
+            axios.put( DB.URL + DB.PutRegister + selectedOption.value , upremove_data).then((res) => {
                 console.log(res)
             })
-
-        )
+          )
     }
+
+    // async function test (){
+    //     const { value: password } = await Swal.fire({
+    //         title: 'Enter your password',
+    //         input: 'password',
+    //         inputLabel: 'Password',
+    //         inputPlaceholder: 'Enter your password',
+    //         inputAttributes: {
+    //           maxlength: 10,
+    //           autocapitalize: 'off',
+    //           autocorrect: 'off'
+    //         }
+    //       })
+          
+    //       if (password) {
+    //         Swal.fire(`Entered password: ${password}`)
+    //       }
+    // }
+
+    // async function Onclick_Sub (){
+    //   const { value: password } = await Swal.fire({
+    //     title: 'ກະລຸນາປ່ອນ ລະຫັດຜ່ານ ເພືອທຳການຖອກເຄື່ອງ',
+    //     input: 'password',
+    //     inputLabel: 'Password',
+    //     inputPlaceholder: 'Enter your password',
+    //     inputAttributes: {
+    //       maxlength: 10,
+    //       autocapitalize: 'off',
+    //       autocorrect: 'off'
+    //     }
+    //   })
+
+    //   try {
+    //     const dataform = {
+    //       "username" : UserName,
+    //       "password" : password
+    //     }
+        
+    //     const data = await axios.post('http://localhost:3001/user/login', dataform)
+    //     if (data) {
+    //       Swal.fire(`Entered password: ${password}`)
+          
+    //     }
+    //   } catch (error) {
+    //     Swal.fire('ລະຫັດຜ່ານບໍ່ຖືກຕ້ອງ ລອງໄໝ່ອີກຄັ້ງ')
+    //   }
+        
+    // }
 
     const [show, setShow] = useState(false)
     const handleClose = () => setShow(false)
@@ -135,7 +172,7 @@ const WD_machine = () => {
                                     defaultValue={selectedOption}
                                     onChange={setSelectedOption}
                                     options={
-                                        showEvent.filter((e) => e.MachineId == null ? "" : e.MachineId.status === "ໃຊ້ງານ").map((item)=>(
+                                        showEvent.filter((e) => e.upremove === null).map((item)=>(
                                             {value: item._id, label: item.MachineId.NumMachine}
                                         ))
                                     }

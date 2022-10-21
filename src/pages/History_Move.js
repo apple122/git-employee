@@ -6,7 +6,7 @@ import axios from "axios";
 import DB from '../services/enpiot'
 import Moment from 'moment';
 
-const Move= () => {
+const History_Move = () => {
 
     let x = 1
 
@@ -43,24 +43,22 @@ const Move= () => {
                 <div className="col-md-4">
                     <input type="search" onChange={fillterData} class="form-control float-start col-md-4" placeholder="ຄົ້ນຫາ"/>
                 </div>
-                <div className="col-md-8">
+                <div className="col-md-6">
                     <div class="nav group-event-table">
                         <div className="nav respon-ul-link label-font-12 item-align-end">
-                            <div class="nav-item position-left li-link-border-mb" role="presentation">
-                                <Move_machine/>
+                            <div class="nav-item position-right li-link-border-mb" role="presentation">
+                                <Link to="/Move" class="nav-link li-link-border respon-li btn-sm" id="no_submit" >ຍ້າຍເຄື່ອງ</Link>
                             </div>
                             <div class="nav-item position-right li-link-border-mb" role="presentation">
-                                <Link to="/Move" class="nav-link li-link-border active respon-li btn-sm" id="no_submit" >ຍ້າຍເຄື່ອງ</Link>
+                                <Link to="/History_Move" class="nav-link li-link-border active respon-li btn-sm" id="all">ປະຫວັດການຍ້າຍເຄື່ອງ</Link>
                             </div>
-                            <div class="nav-item position-right li-link-border-mb" role="presentation">
-                                <Link to="/History_Move" class="nav-link li-link-border respon-li btn-sm" id="all">ປະຫວັດການຍ້າຍເຄື່ອງ</Link>
-                            </div>
+                                    
                         </div>
                     </div>
                 </div>
             </div>
-            <div className=""><strong>ລາຍການການຍ້າຍເຄື່ອງ ລວມ ( <label className="color-danger">{showMoveMachine.filter((e) => Moment(e.createdAt).format("YYYY-MM-DD") === today).length}</label> ) ວັນນີ້</strong></div>
-            <div class="card colums-group-padding scollview-table Pad-move">
+            <div className=""><strong>ປະຫວັດການຍ້າຍເຄື່ອງ ລວມ ( <label className="color-danger">{showMoveMachine.length}</label> ) ທັ້ງໝົດ</strong></div>
+            <div class="card colums-group-padding scollview-table">
                 <table className="table table-striped">
                     <thead>
                         <tr>
@@ -76,7 +74,7 @@ const Move= () => {
                         </tr>
                     </thead>
                     <tbody>
-                    {value.length > 0 ? tableFiller.filter((e) => Moment(e.createdAt).format("YYYY-MM-DD") === today).map((item) => {
+                    {value.length > 0 ? tableFiller.map((item) => {
                         return (
                             <tr>
                                 <th>{x++}</th>
@@ -86,11 +84,11 @@ const Move= () => {
                                 <td>{item.version_Machine_Print}</td>       
                                 <td>{item.Current_Machine_Unit}</td>
                                 <td>{item.Machine_Move_new}</td>       
-                                <td>{Moment(item.DateMove).format("YYYY-MM-DD")}</td>
+                                <td>{Moment(item.DateMove).format("DD-MM-YYYY")}</td>
                                 <th>{item.userId == null ? "" : item.userId.fullname}</th>
                             </tr>
                         )
-                        }): showMoveMachine.filter((e) => Moment(e.createdAt).format("YYYY-MM-DD") === today).map((item, index) => {
+                        }): showMoveMachine.map((item, index) => {
                             return (
                                 <tr>
                                     <th>{x++}</th>
@@ -100,7 +98,7 @@ const Move= () => {
                                     <td>{item.version_Machine_Print}</td>       
                                     <td>{item.Current_Machine_Unit}</td>
                                     <td>{item.Machine_Move_new}</td>       
-                                    <td>{Moment(item.DateMove).format("YYYY-MM-DD")}</td>
+                                    <td>{Moment(item.DateMove).format("DD-MM-YYYY")}</td>
                                     <th>{item.userId == null ? "" : item.userId.fullname}</th>
                                 </tr>
 
@@ -147,4 +145,4 @@ const Move= () => {
        )
 
 }
-export default Move
+export default History_Move
