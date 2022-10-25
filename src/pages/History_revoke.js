@@ -57,7 +57,7 @@ const History_revoke = () => {
                 </div>
             </div>
 
-            <div className=""><strong>ປະຫວັດການຍ້າຍເຄື່ອງ ລວມ ( <label className="color-danger">{showWithdraw.length}</label> ) ທັ້ງໝົດ</strong></div>
+            <div className=""><strong>ປະຫວັດການຖອນເຄື່ອງ ລວມ ( <label className="color-danger">{showWithdraw.length}</label> ) ທັ້ງໝົດ</strong></div>
             <div class="card colums-group-padding scollview-table">
                 <table className="table table-striped">
                     <thead>

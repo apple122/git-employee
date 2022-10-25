@@ -127,12 +127,12 @@ export default function UP_register(props){
                     });
                 })
                 // console.log(data_uodate, data_mc)
-                axios.put(DB.URL + DB.PutMachine + UPMachineId, data_uodate).then((res) =>{
-                    // console.log(res)
+                const Upda_success = axios.put(DB.URL + DB.PutMachine + UPMachineId, data_uodate)
+                if(Upda_success){
                     axios.put(DB.URL + DB.PutMachine + MachineId, data_mc).then((res) => {
                         // console.log(res)
                     })
-                })
+                }
             //   Swal.fire('Saved!', '', 'success')
             } else if (result.isDenied) {
               Swal.fire('Changes are not saved', '', 'info')

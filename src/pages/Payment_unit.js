@@ -23,13 +23,13 @@ const Payment_unit = () => {
                                         <input class="custom-file-input form-control li-link-input" id="import-excel" type="file" />
                                     </div>
                                     <div class="nav-item position-right windows-res" role="presentation">
-                                        <Link to="/No_payment" class="nav-link li-link-border respon-li" id="no_submit" >ບໍ່ໄດ້ຖອກ</Link>
+                                        <Link to="/Payment_unit" class="nav-link active li-link-border respon-li btn-sm" id="submit" >ຖອກເງິນຫນ່ວຍ</Link>
                                     </div>
                                     <div class="nav-item position-right windows-res" role="presentation">
-                                        <Link to="/Payment_unit" class="nav-link active li-link-border respon-li" id="submit" >ຖອກເງິນຫນ່ວຍ</Link>
+                                        <Link to="/Payment_machine" class="nav-link li-link-border respon-li btn-sm" id="all">ຖອກເງິນເຄື່ອງ</Link>
                                     </div>
                                     <div class="nav-item position-right windows-res" role="presentation">
-                                        <Link to="/Payment_machine" class="nav-link li-link-border respon-li" id="all">ຖອກເງິນເຄື່ອງ</Link>
+                                        <Link to="/No_payment" class="nav-link li-link-border respon-li btn-sm" id="no_submit" >ບໍ່ໄດ້ຖອກ</Link>
                                     </div>
                                     &nbsp;
                                     <div class="dropdown position-right mb-res">
@@ -37,9 +37,9 @@ const Payment_unit = () => {
                                             ເລືອກການຈັດການ
                                         </a>
                                         <ul class="dropdown-menu">
-                                            <li><Link to="/No_payment" class="dropdown-item" href="#">ບໍ່ໄດ້ຖອກ</Link></li>
                                             <li><Link to="/Payment_unit" class="dropdown-item active" href="#">ຖອກເງິນຫນ່ວຍ</Link></li>
                                             <li><Link to="/Payment_machine" class="dropdown-item" href="#">ຖອກເງິນເຄື່ອງ</Link></li>
+                                            <li><Link to="/No_payment" class="dropdown-item" href="#">ບໍ່ໄດ້ຖອກ</Link></li>
                                         </ul>
                                     </div>
                                 </div>

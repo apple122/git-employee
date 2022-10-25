@@ -20,6 +20,8 @@ export default function Move_machine () {
 
     const [ showEvent, setShowevent ] = useState([])
     const [ showEventNull, setStatusNull ] = useState([])
+    const [ showUnit, setShowUnit ] = useState([])
+
     useEffect(() => {
         axios.get(DB.URL + DB.Profile ,{ headers : {authorization : token}}).then((res) => {
             setUIDname(res.data.fullname)
@@ -34,6 +36,10 @@ export default function Move_machine () {
         axios.get(DB.URL + DB.GetMachine).then((res) => {
             setStatusNull(res.data.reverse())
         })
+
+        axios.get(DB.URL + DB.GetUnit).then((res) => {
+            setShowUnit(res.data.reverse())
+        })
     }, [])
 
     
@@ -44,9 +50,16 @@ export default function Move_machine () {
     const [ version_Machine_Print, setversion_Machine_Print ] = useState(null)
     const [ UIDMAc, setUIDMAc ] = useState(null)
     const [ UIDREGIST, setREGIST ] = useState()
+    const [ UIDUnit, setUnit ] = useState()
+    const [ NameUnit, setNameUnit ] = useState()
     if(selectedOption){
         axios.get(DB.URL + DB.UIDRegister + selectedOption.value).then((res) => {
             setREGIST(res.data.MachineId)
+            setUnit(res.data.unitId)
+        })
+
+        axios.get(DB.URL + DB.UIDUnit + UIDUnit).then((res) => {
+            setNameUnit(res.data.nameUnit)
         })
 
         axios.get(DB.URL + DB.UIDMachine + UIDREGIST).then((res) => {
@@ -56,57 +69,44 @@ export default function Move_machine () {
         })
     }
 
-    const [ MoveMachineReferencex, setMoveMachineReference ] = useState(null)
-    const [ MoveNumMachine, setMoveNumMachine ] = useState(null)
-    const [ Moveversion_Machine_Num, setMoveversion_Machine_Num ] = useState(null)
-    const [ Moveversion_Machine_Print, setMoveversion_Machine_Print ] = useState(null)
+
+    const [ SUnit_Num, setUnit_Num ] = useState()
+    const [ SnameUnit, setsnameUnit ] = useState()
+    const [ Sphone, setphone ] = useState()
+    const [ SselectBranch, setselectBranch ] = useState()
     if(MoveSelect){
-        axios.get(DB.URL + DB.UIDMachine + MoveSelect.value).then((res) => {
-            setMoveMachineReference(res.data.MachineReference)
-            setMoveNumMachine(res.data.NumMachine)
-            setMoveversion_Machine_Num(res.data.version_Machine_Num)
-            setMoveversion_Machine_Print(res.data.version_Machine_Print)
+        axios.get(DB.URL + DB.UIDUnit + MoveSelect.value).then((res) => {
+            setUnit_Num(res.data.Unit_Num)
+            setsnameUnit(res.data.nameUnit)
+            setphone(res.data.phone)
+            setselectBranch(res.data.selectBranch)
         })
     }
 
     async function OnSubmit () {
         try {
             const dataS = {
-                Number_Machine_Num: MoveNumMachine,
-                Number_Reference: MoveMachineReferencex,
-                version_Machine_sell: MoveSelect.label,
-                Current_Machine_Unit: version_Machine_Num,
-                version_Machine_Print: Moveversion_Machine_Print,
+                Number_Machine_Num: selectedOption.label,
+                Number_Reference: MachineReferencex,
+                version_Machine_sell: version_Machine_Num,
+                Current_Machine_Unit: NameUnit,
+                version_Machine_Print: version_Machine_Print,
                 Machine_Move_new: MoveSelect.label,
                 DateMove: Moment().format("YYYY-MM-DD"),
                 userId: USerUID,
                 registerId: selectedOption.value
             }
 
-            const UpdataS = {
-                MachineId: MoveSelect.value
-            }
-
-            const MacDataMove = {
-                status: "ໃຊ້ງານ"
-            }
-
-            const OptionsS = {
-                status: "ວ່າງ"
+            const ReDataMove = {
+                unitId: MoveSelect.value
             }
 
             const data = await axios.post(DB.URL + DB.PostCreateMoveMachine , dataS)
             if(data.status == 200){
-                axios.put(DB.URL + DB.PutRegister + selectedOption.value , UpdataS)
-                const Sdata = await axios.put(DB.URL + DB.PutMachine + UIDREGIST , OptionsS)
-                if(Sdata.status == 200){
-                    axios.put(DB.URL + DB.PutMachine + MoveSelect.value , MacDataMove).then((res) => {
-                        swal("ຍ້າຍເຄື່ອງຂາຍສຳເລັດ!", "You clicked the button!", "success")
-                        .then((value) => {
-                            window.location.reload(false)
-                        });
-                    })
-                }
+                axios.put(DB.URL + DB.PutRegister + selectedOption.value , ReDataMove)
+                swal("ຍ້າຍໜ່ວຍສຳເລັດ!", "You clicked the button!", "success").then((value) => {
+                    window.location.reload(false)
+                });
             }
         } catch (error) {
             alert("ບັນທືກຂໍ້ມູນຜິດພາດ")
@@ -177,26 +177,26 @@ export default function Move_machine () {
                                 <div className="col-md-6">
 
                                     <div className="form-group">
-                                        <label>ເຄື່ອງຂາຍໃຊ້ປະຈຸບັນ</label>
+                                        <label>ໜ່ວຍປະຈຸບັນ</label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="bi bi-tablet-landscape"></i></span>
-                                            <input type="text" aria-label="First name" value={version_Machine_Num} class="form-control" readOnly/>
+                                            <input type="text" aria-label="First name" value={NameUnit} class="form-control" readOnly/>
                                         </div>
                                     </div>
 
                                     <div className='form-group p-1 btn-time-center'>
-                                        <label><strong>ຍ້າຍໄປເຄື່ອງຂາຍໄໝ່</strong></label><br/>
+                                        <label><strong>ຍ້າຍໄປໜ່ວຍ</strong></label><br/>
                                         <label><i class="bi bi-chevron-bar-down"></i></label>
                                     </div>
 
                                     <div className="form-group">
-                                        <label><i class="bi bi-tablet-landscape-fill"></i> ເລືອກເຄື່ອງຂາຍທີ່ຈະຍ້າຍ</label>
+                                        <label><i class="bi bi-tablet-landscape-fill"></i> ເລືອກໜ່ວຍທີ່ຈະຍ້າຍ</label>
                                         <Select
                                             defaultValue={MoveSelect}
                                             onChange={setMoveSelect}
                                             options={
-                                                showEventNull.filter((e) => e.status === "ວ່າງ").map((item)=>(
-                                                    {value: item._id, label: item.version_Machine_Num} 
+                                                showUnit.map((item)=>(
+                                                    {value: item._id, label: item.nameUnit} 
                                                 ))
                                             }
                                         />
@@ -207,18 +207,18 @@ export default function Move_machine () {
                                             <table class="table">
                                                 <thead>
                                                     <tr>
-                                                    <th scope="col">ເລກທີອ້າງອີງ</th>
-                                                    <th scope="col">ເລກທີ່ເຄື່ອງຂາຍເລກ</th>
-                                                    <th scope="col">ເຄື່ອງຂາຍເລກ</th>
-                                                    <th scope="col">ເຄື່ອງພີມ</th>
+                                                    <th scope="col">ເລກໜ່ວຍ</th>
+                                                    <th scope="col">ໜ່ວຍ</th>
+                                                    <th scope="col">ເບີໂທ</th>
+                                                    <th scope="col">ສາຂາ</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                    <th scope="row">{MoveMachineReferencex}</th>
-                                                    <th>{MoveNumMachine}</th>
-                                                    <td>{Moveversion_Machine_Num}</td>
-                                                    <td>{Moveversion_Machine_Print}</td>
+                                                    <th scope="row">{SUnit_Num}</th>
+                                                    <th>{SnameUnit}</th>
+                                                    <td>{Sphone}</td>
+                                                    <td>{SselectBranch}</td>
                                                     </tr>
                                                     
                                                 </tbody>

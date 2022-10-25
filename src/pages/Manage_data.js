@@ -110,7 +110,7 @@ const Manage_data = () => {
                                         <tr className="hover-table" key={item.id}>
                                             <th scope="row">{x++}</th>
                                             <td>{item.name}</td>
-                                            <td>{item.percentage}</td>
+                                            <td>{item.percentage}%</td>
                                             <td>
                                                 <Up_manage_data id={item._id}/>
                                                 <a href="#" className="btn btn-danger" onClick={() => Delete(item._id)}><i class="bi bi-trash3-fill"></i></a>
@@ -122,7 +122,7 @@ const Manage_data = () => {
                                             <tr className="hover-table" key={index}>
                                                 <th scope="row">{x++}</th>
                                                 <td>{item.name}</td>
-                                                <td>{item.percentage}</td>
+                                                <td>{item.percentage}%</td>
                                                 <td>
                                                     <Up_manage_data id={item._id}/>
                                                     <a href="#" className="btn btn-danger" onClick={() => Delete(item._id)}><i class="bi bi-trash3-fill"></i></a>
