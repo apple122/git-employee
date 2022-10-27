@@ -108,6 +108,9 @@ const Header = () => {
                             <Link to="/Payment_unit" class="navbar-brand navbar-light-active" onClick={hide_toggle}><i class="bi bi-cash"></i> ຖອກເງີນ</Link>
                         </ul>
                         <ul class="container-fluid confluid-active">
+                            <Link to="/Pay_the_reward" class="navbar-brand navbar-light-active" onClick={hide_toggle}><i class="bi bi-speedometer2"></i> ຈ່າຍເງີນລາງວັນ</Link>
+                        </ul>
+                        <ul class="container-fluid confluid-active">
                             <Link to="/Report" class="navbar-brand navbar-light-active" onClick={hide_toggle}><i class="bi bi-speedometer2"></i> ລາຍງານ</Link>
                         </ul>
 

@@ -19,6 +19,7 @@ import Unit from "../pages/Unit";
 import Vending_machine from "../pages/Vending_machine";
 import Login from "../components/login";
 import History_Move from "../pages/History_Move";
+import Pay_the_reward from "../pages/Pay_the_reward"
 
 const router = () => {
     return (
@@ -41,6 +42,7 @@ const router = () => {
             <Route path="/Report_machine" element={<Report_machine/>}/>
             <Route path="/Vending_machine" element={<Vending_machine/>}/>
             <Route path="/Unit" element={<Unit/>}/>
+            <Route path="/Pay_the_reward" element={<Pay_the_reward/>}/>
 
             <Route path="/Login" element={<Login/>}/>
         </Routes>

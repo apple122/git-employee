@@ -24,6 +24,7 @@
     "react-router-dom": "^6.4.1",
     "react-scripts": "5.0.1",
     "react-select": "^5.5.1",
+    "react-to-print": "^2.14.7",
     "reactstrap": "^9.1.4",
     "sweetalert": "^2.1.2",
     "sweetalert2": "^11.4.37",

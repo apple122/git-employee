@@ -34,7 +34,7 @@ const No_payment = () => {
                                             ເລືອກການຈັດການ
                                         </a>
                                         <ul class="dropdown-menu">
-                                            <li><Link to="/Payment_unit" class="dropdown-item" href="#">ຖອກເງິນຫນ່ວຍ</Link></li>
+                                            <li><Link to="/Payment_unit" class="dropdown-item" href="#">ຖອກເງິນ</Link></li>
                                             <li><Link to="/Payment_machine" class="dropdown-item" href="#">ຖອກເງິນເຄື່ອງ</Link></li>
                                             <li><Link to="/No_payment" class="dropdown-item active" href="#">ບໍ່ໄດ້ຖອກ</Link></li>
                                         </ul>

@@ -349,3 +349,11 @@ li{
   .drop-checked:hover {
     background-color: aliceblue;
   }
+
+  .font-size-18 {
+    font-size: 18px;
+  }
+
+  /* #background{
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.334), rgba(156, 218, 224, 0.334), rgba(172, 156, 224, 0.334), rgba(156, 224, 200, 0.334), rgba(255, 255, 255, 0.334));
+  } */

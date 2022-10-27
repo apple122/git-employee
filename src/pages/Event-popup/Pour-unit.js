@@ -46,12 +46,18 @@ export default function Pour_unit () {
 
     // useState Insert 
     const [ Draw, setDraw ] = useState(null)
-    const [ PayMent_Money_ToDay, setPayMent_Money_ToDay ] = useState(null)
+    const [ PayMent_Money_ToDay, setPayMent_Money_ToDay ] = useState(Moment().format("YYYY-MM-DD"))
     const [ Salable_value, setSalable_value ] = useState(null)
     const [ Arrears_Amount, setArrears_Amount ] = useState(null)
-    const [ Pour_Actually_Amount, setPour_Actually_Amount ] = useState(null)
     const [ Pay_Cash, setPay_Cash ] = useState(null)
     const [ Pay_Money_Tranfer, setPay_Money_Tranfer ] = useState(null)
+
+    const Precen = Salable_value * (PrecentPage / 100);
+    const Pour_Actually_Amount = (Salable_value - Arrears_Amount - Precen)
+
+    const han = (Pour_Actually_Amount / 2)
+    const PayMoney = (Pour_Actually_Amount - Pay_Money_Tranfer)
+    const PayCass = (Pour_Actually_Amount - Pay_Money_Tranfer )
 
     async function OnClickSubmit (){
         try {
@@ -60,21 +66,25 @@ export default function Pour_unit () {
                 Draw: Draw,
                 PayMent_Money_ToDay: PayMent_Money_ToDay,
                 Salable_value: Salable_value,
-                Percentage_Sel: Precen,
+                Percentage_Sell: Precen,
                 Arrears_Amount: Arrears_Amount,
                 Pour_Actually_Amount: Pour_Actually_Amount,
-                Pay_Cash: Pay_Cash,
+                Pay_Cash: PayCass,
                 Pay_Money_Tranfer: Pay_Money_Tranfer,
                 userId: UserUID,
                 registerId: SelecOPREIS.value
               }
               console.log(Data)
+              const Datas = await axios.post(DB.URL + DB.PostcreatePourMoney, Data)
+              if(Datas.status == 200){
+                console.log(Data)
+                alert("OK")
+              }
         } catch (error) {
-            
+            alert("KAK")
         }
     }
 
-    const Precen = Salable_value * (PrecentPage / 100);
     const format = (numStr) => {
         if (numStr === '') return '';
         return new Intl.NumberFormat('en-US', {
@@ -90,13 +100,14 @@ export default function Pour_unit () {
         <div class="modal fade" id="Pour_unit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">ຖອກເງິນຫນ່ວຍ</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">ຖອກເງິນຫນ່ວຍ</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                <form onSubmit={Submit}>
 
-                    <form onSubmit={Submit}>
+                    <div class="modal-body">
+
                         <div className="row ">
                             <div className="col-md-4">
                                 <div className="form-group">
@@ -180,7 +191,7 @@ export default function Pour_unit () {
                                             <label>ຍອດຖອກຕົວຈິງ</label>
                                             <div className="input-group">
                                                 <span className="input-group-text text-success">₭</span>
-                                                <NumberFormatBase type="text" min="0" className="form-control text-success" onChange={(e) => setPour_Actually_Amount(e.target.value)} placeholder="ຍອດຖອກຕົວຈິງ"/>
+                                                <NumberFormatBase type="text" min="0" className="form-control text-success" value={Pour_Actually_Amount} placeholder="ຍອດຖອກຕົວຈິງ"/>
                                             </div>
                                         </div>
                                     </div>
@@ -200,7 +211,7 @@ export default function Pour_unit () {
                                     <label>ເງິນສົດ</label>
                                     <div className="input-group">
                                         <span className="input-group-text text-success">₭</span>
-                                        <NumberFormatBase type="text" min="0" className="form-control text-success" onChange={(e) => setPay_Cash(e.target.value)} placeholder="ເງິນສົດ"/>
+                                        <NumberFormatBase type="text" min="0" className="form-control text-success" value={PayCass} onChange={(e) => setPay_Cash(e.target.value)} placeholder="ເງິນສົດ"/>
                                     </div>
                                 </div>
                             </div>
@@ -223,12 +234,13 @@ export default function Pour_unit () {
                                 </div>
                             </div>
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-x-diamond-fill"></i> ບັນທຶກ</button>
-                    <button type="button" onClick={OnClickSubmit} class="btn btn-primary"><i class="bi bi-cloud-download-fill"></i> ກັບຄືນ </button>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-x-diamond-fill"></i> ກັບຄືນ</button>
+                        <button type="submit" onClick={OnClickSubmit} class="btn btn-primary"><i class="bi bi-cloud-download-fill"></i> ບັນທຶກ </button>
+                    </div>
+                </form>
+
                 </div>
             </div>
         </div>
