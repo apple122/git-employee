@@ -78,7 +78,7 @@ const History_revoke = () => {
                         return (
                             <tr>
                                 <th>{x++}</th>
-                                <th>{item.Vendor_code == null ? "" : item.Vendor_code.Vendor_code}</th>
+                                <th>{item.Vendor_code}</th>
                                 <td>{item.Machine_Reference_Num}</td>
                                 <td>{item.version_Machine_sell_Num.substring(7)}</td>
                                 <td>{item.version_Machine_Print}</td>
@@ -92,7 +92,7 @@ const History_revoke = () => {
                             return (
                                 <tr>
                                     <th>{x++}</th>
-                                    <th>{item.Vendor_code == null ? "" : item.Vendor_code.Vendor_code}</th>
+                                    <th>{item.Vendor_code}</th>
                                     <td>{item.Machine_Reference_Num}</td>
                                     <td>{item.version_Machine_sell_Num.substring(7)}</td>
                                     <td>{item.version_Machine_Print}</td>

@@ -129,17 +129,16 @@ const Vending_machine = () => {
                                                 <td>{item.version_Machine_Num}</td>
                                                 <td>{item.version_Machine_Print}</td>
                                                 <td>
-                                                    {
-                                                        item.status === "ວ່າງ" && (<div className="btn btn-warning">{item.status}</div>)
-                                                    }
-                                                    {
-                                                        item.status === "ໃຊ້ງານ" && (<div className="btn btn-success">{item.status}</div>)
-                                                    }
+                                                    {item.status == "false" ? "" : (<div className="btn btn-sm btn-warning">{item.status == "false" ? "" : ("ວ່າງ")}</div>)}
+                                                    {item.status == "true" ? "" : (<div className="btn btn-sm btn-success">{item.status == "true" ? "" : ("ໃຊ້ງານ")}</div>)}
                                                 </td>
                                                 <td>
                                                     <UP_Vending_machine id={item._id}/>&nbsp;
-                                                    <a href="#" className="btn btn-danger" onClick={() => Delete(item._id)}><i class="bi bi-trash3-fill"></i></a>
+                                                    {item.status == "false" ? "" : (
+                                                        <a href="#" className="btn btn-danger" onClick={() => Delete(item._id)}><i class="bi bi-trash3-fill"></i></a>
+                                                    )}
                                                 </td>
+                                                
                                             </tr>
 
                                         )

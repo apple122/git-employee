@@ -9,7 +9,11 @@
     }
 }
 
-@media (max-width: 558px){
+#TimeDate{
+    font-family: 'Noto Sans Lao', sans-serif;
+}
+
+@media (max-width: 572px){
     /* .toggle{
         display: inline;
     } */
@@ -37,6 +41,9 @@
         z-index: 10;
         transform: translate(20%, 20%);
         /* visibility: collapse; */
+    }
+    #TimeDate{
+        display: none;
     }
 }
 

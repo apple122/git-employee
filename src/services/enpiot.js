@@ -9,10 +9,11 @@ export default {
     PostcreatePourMoney : '/pour/createPourMoney',
     PostInstalmanet : '/instalment/createInstalment',
     PostPrize : '/prize/createPrize',
-    PostRegister : '/register/vendorRegister',
+    PostRegister : '/register/createRegister',
     PostUnit : '/unit/createUnit',
     PostUsers : '/user/createUser',
     PostWithDraw : '/withdraw/createWithDraw',
+    PosthistoryUpdatePour : '/pourMoneyUpdate/createhistoryPourMoney',
 
 
     // GET 
@@ -27,6 +28,7 @@ export default {
     GetUnit : '/unit/getunit',
     GetUsers : '/user/getUser',
     GetWithDraw : '/withdraw/getWithDraw',
+    GethistoryUpdatePour : '/pourMoneyUpdate/getdatahistoryPour',
 
 
     // PUT 
@@ -41,6 +43,8 @@ export default {
     PutUnit : '/unit/updateUnit/',
     PutUsers : '/user/updateUser/',
     PutWithDraw : '/withDraw/updateWithDraw/',
+    PuthistoryUpdatePour : '/pourMoneyUpdate/updatePourHistory/',
+
 
 
     // Delete 
@@ -55,6 +59,8 @@ export default {
     DeUnit : '/unit/DeleteUnit/',
     DeUsers : '/user/DeleteUser/',
     DeWithDraw : '/withdraw/DeleteWithDraw/',
+    DehistoryUpdatePour : '/pourMoneyUpdate/deletePourhistory/',
+
 
 
     // GetUID 
@@ -69,6 +75,8 @@ export default {
     UIDUnit : '/unit/GetUnitById/',
     UIDUsers : '/user/getById/',
     UIDWithDraw : ' /WithDraw/WithDrawById/',
+    UIDhistoryUpdatePour : '/pourMoneyUpdate/deletePourhistory/',
+
 
 
     // GetName 
@@ -78,10 +86,14 @@ export default {
     UGNPourMoney : '/pour/findPourMoney/',
     UGNUsers : '',
     UGNWithDraw : '',
+    UGNhistoryUpdatePour : '/pourMoneyUpdate/getByPourId/',
+
     
 
     // Login 
     Login : '/user/login',
-    Profile: '/user/GetUserProfile'
+    Profile: '/user/GetUserProfile',
+
+    StatusMachine: '/machine/GetMachineStatus'
 }
 

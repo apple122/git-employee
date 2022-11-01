@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import Moment from 'moment';
 import Select from 'react-select';
 import swal from 'sweetalert';
+import DB from '../../services/enpiot'
 
 
 export default function IN_Sales () {
@@ -17,7 +18,7 @@ export default function IN_Sales () {
 
     const [GETCreateMachine, setGETCreateMachine] = useState([])
     useEffect(() => {
-        axios.get('http://localhost:3001/machine/getMachine').then((res) => {
+        axios.get(DB.URL + DB.StatusMachine).then((res) => {
             setGETCreateMachine(res.data)
         })
     }, [])
@@ -101,13 +102,13 @@ export default function IN_Sales () {
             const data = await axios.post('http://localhost:3001/register/vendorRegister', datas ,{ headers : {authorization : token}} )
             if(data.status == 200){
                 swal("ບັນທືກຂໍ້ມູນສຳເລັດ!", "You clicked the button!", "success")
-                .then((value) => {
-                    window.location.reload(false)
-                });
+                console.log(data)
+                // .then((value) => {
+                //     window.location.reload(false)
+                // });
             }
 
             const data_uodate = {
-                status: "ໃຊ້ງານ",
                 DateMachine : Moment().format('YYYY-MM-DD'),
             }
             axios.put(`http://localhost:3001/machine/updateMachine/${MachineId.value}`, data_uodate)
@@ -166,7 +167,7 @@ export default function IN_Sales () {
                                     defaultValue={MachineId}
                                     onChange={setMachineId}
                                     options={
-                                        GETCreateMachine.filter((e) => e.status === "ວ່າງ").map((item)=>(
+                                        GETCreateMachine.map((item)=>(
                                             {value: item._id, label: item.NumMachine}
                                         ))
                                     }
@@ -190,7 +191,7 @@ export default function IN_Sales () {
                                 <label>ປະເພດຜູ້ຂາຍ</label>
                                 <div className="input-group">
                                     <span className="input-group-text"><i class="bi bi-person-lines-fill"></i></span>
-                                    <select className="form-control"  onChange={(e)=> setVendorType(e.target.value)} onClick={(e) => setPrecen(e.target.value)} required>
+                                    <select className="form-control" onChange={(e)=> setVendorType(e.target.value)} onClick={(e) => setPrecen(e.target.value)} required>
                                         <option>ປະເພດຜູ້ຂາຍ</option>
                                         {GETPercentage.map((performance) => {
                                             return (

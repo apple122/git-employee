@@ -39,14 +39,10 @@ const Register_sales = () => {
             setRegister([...getRegister])
         }
     }
-    
-    const [ UID_UPMAC, setMacUPD ] = useState()
     const Delete = (_id) => {
         GetToken();
         
-        axios.get(DB.URL + DB.UIDRegister + _id).then((res) => {
-            setMacUPD(res.data.MachineId)
-        })
+      
         Swal.fire({
             title: 'ທ່ານຕ້ອງການລົບຂໍ້ມູນນີ້ແທ້ຫຼືບໍ່?',
             text: "ກົນ Yes, delete! ເພືອລົບ ຫຼື ກົບ Cancel ເພືອຍົກເລີກ!",
@@ -58,19 +54,15 @@ const Register_sales = () => {
           }).then((result) => {
             if (result.isConfirmed) {
                 const data_uodate = {
-                    status: "ວ່າງ",
+                    status: "true"
                 }
-                axios.delete(`http://localhost:3001/register/DeleteRegister/${_id}`).then((res) => {
+                axios.delete(DB.URL + DB.DeRegister + _id).then((res) => {
                     Swal.fire(
                         'ລົບຂໍ້ມູນສຳເລັດ!',
                         'Your file has been deleted.',
                         'success'
-                      )
-                      axios.put(DB.URL + DB.PutMachine + UID_UPMAC, data_uodate).then((res) => {
-                        console.log(res)
-                    })
+                    )
                 })
-
             }
           })
     }
@@ -129,7 +121,7 @@ const Register_sales = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                            {value.length > 0 ? tableFiller.filter((e) => e.upremove == "ເປິດໃຊ້ງານ").map((item ,index ) => {
+                            {value.length > 0 ? tableFiller.filter((e) => e.upremove == null).map((item ,index ) => {
                                 return (
                                     <tr key={index}>
                                         <th>{x++}</th>

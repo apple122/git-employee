@@ -53,14 +53,18 @@ export default function UP_register(props){
         setNameprecen(res.data.name)
     })
 
+   if(MachineId){
     axios.get(DB.URL + DB.UIDMachine + MachineId).then((res) => {
         setNameMac(res.data.NumMachine)
     })
 
+   }
+   if(unitId){
     axios.get(DB.URL + DB.UIDUnit + unitId).then((res) => {
         setNameUnit(res.data.nameUnit)
     })
 
+   }
     // getByID 
 
     const [GETPercentage, setGETPercentage] = useState([])
@@ -74,7 +78,7 @@ export default function UP_register(props){
             setgetunit(res.data)
         })
 
-        axios.get('http://localhost:3001/machine/getMachine').then((res) => {
+        axios.get(DB.URL + DB.StatusMachine).then((res) => {
             setGETCreateMachine(res.data)
         })
 
@@ -103,11 +107,11 @@ export default function UP_register(props){
             unitId: unitId,
         } 
         const data_uodate = {
-            status: "ວ່າງ",
+            status: "true",
         }
 
         const data_mc = {
-            status: "ໃຊ້ງານ",
+            status: "false",
         }
 
         Swal.fire({
@@ -189,7 +193,7 @@ export default function UP_register(props){
                                             <label>ເລກທີ່ເຄື່ອງຂາຍເລກ</label>
                                             <select className="form-control" onChange={(e)=> setMachineId(e.target.value)}>
                                                 <option value={MachineId} style={{"font-size": "16px", "color":"blue"}}>{NameMac}</option>
-                                                {GETCreateMachine.filter((e) => e.status === "ວ່າງ").map((item)=>(
+                                                {GETCreateMachine.map((item)=>(
                                                     <option value={item._id}>{item.NumMachine}</option>
                                                 ))}
 

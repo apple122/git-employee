@@ -84,11 +84,11 @@ const Salses = () => {
                         return (
                             <tr>
                                 <th>{x++}</th>
-                                <th>{item.Vendor_code == null ? "" : item.Vendor_code.Vendor_code}</th>
+                                <th>{item.Vendor_code}</th>
                                 <td>{item.Machine_Reference_Num}</td>
                                 <td>{item.version_Machine_sell_Num}</td>
                                 <td>{item.version_Machine_Print}</td>
-                                <td> {item.status_Machine === "ວ່າງ" && (<a class="label btn btn-warning btn-sm">ວ່າງ</a>) } {item.status_Machine === "ໃຊ້ງານ" && (<a class="label btn btn-success btn-sm">ໃຊ້ງານ</a>) }</td>       
+                                <td><a class="label btn btn-warning btn-sm">ວ່າງ</a></td>       
                                 <td>{Moment(item.DateRegister).format("YYYY-MM-DD")}</td>
                                 <th>{item.userId == null ? "" : item.userId.fullname}</th>
                                 <td>{item.withdrawal_event}</td>     
@@ -98,11 +98,11 @@ const Salses = () => {
                             return (
                                 <tr>
                                     <th>{x++}</th>
-                                    <th>{item.Vendor_code == null ? "" : item.Vendor_code.Vendor_code}</th>
+                                    <th>{item.Vendor_code}</th>
                                     <td>{item.Machine_Reference_Num}</td>
                                     <td>{item.version_Machine_sell_Num}</td>
                                     <td>{item.version_Machine_Print}</td>
-                                    <td> {item.status_Machine === "ວ່າງ" && (<a class="label btn btn-warning btn-sm">ວ່າງ</a>) } {item.status_Machine === "ໃຊ້ງານ" && (<a class="label btn btn-success btn-sm">ໃຊ້ງານ</a>) }</td>       
+                                    <td><a class="label btn btn-warning btn-sm">ວ່າງ</a></td>       
                                     <td>{Moment(item.DateRegister).format("YYYY-MM-DD")}</td>
                                     <th>{item.userId == null ? "" : item.userId.fullname}</th>
                                     <td>{item.withdrawal_event}</td>     

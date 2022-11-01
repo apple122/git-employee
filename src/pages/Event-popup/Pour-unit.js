@@ -4,6 +4,7 @@ import Select from 'react-select';
 import DB from '../../services/enpiot'
 import { NumericFormat, NumberFormatBase } from 'react-number-format';
 import Moment from "moment";
+import Swal from "sweetalert2";
 
 export default function Pour_unit () {
 
@@ -19,19 +20,33 @@ export default function Pour_unit () {
 
     const [ SelectOption, setOption ] = useState([])
     const [ SelecOPREIS, setOptionREGis ] = useState([])
-
+    const [ GetPourMoney, setGetPourMoney ] = useState([])
     const [ ShowEcentUnit, setShowUnit ] = useState([])
     const [ ShowRegister, setREGIS ] = useState([])
+    const [ GetPercentage, setGetPercentage ] = useState([])
     useEffect(() => {
         axios.get(DB.URL + DB.GetUnit).then((res) => {
             setShowUnit(res.data.reverse())
         })
+        axios.get(DB.URL + DB.GetPourMoney).then((res) => {
+            setGetPourMoney(res.data.reverse())
+          })
         if(SelectOption){
             axios.get(DB.URL + DB.GetRegister).then((res) => {
                 setREGIS(res.data.reverse())
             })
+            axios.get(DB.URL + DB.GetPercentage).then((res) => {
+                setGetPercentage(res.data)
+            })
+            
         }
     },[])
+    const LoopQnumber = [...new Set(ShowRegister.filter((e) => e.upremove == "ເປິດໃຊ້ງານ").map(item => item.unitId == null ? "" : item.unitId.Unit_Num))]
+    const LoopDraw = LoopQnumber.map((item) => (
+        {value: item, label: 'ໜ່ວຍ: '+ item}
+    ))
+    const LoopQnumberDrw = [...new Set(GetPourMoney.map(item => item.Draw))]
+    const Max = Math.max(...LoopQnumberDrw)
 
     const [ UIDPrecen, setPrecenUID ] = useState(null)
     const [ PrecentPage, setPrecenPage ] = useState(null)
@@ -45,14 +60,16 @@ export default function Pour_unit () {
     }
 
     // useState Insert 
-    const [ Draw, setDraw ] = useState(null)
+    const [ nameVendor, setnameVendor ] = useState('')
+    const [ Draw, setDraw ] = useState('')
     const [ PayMent_Money_ToDay, setPayMent_Money_ToDay ] = useState(Moment().format("YYYY-MM-DD"))
-    const [ Salable_value, setSalable_value ] = useState(null)
-    const [ Arrears_Amount, setArrears_Amount ] = useState(null)
-    const [ Pay_Cash, setPay_Cash ] = useState(null)
-    const [ Pay_Money_Tranfer, setPay_Money_Tranfer ] = useState(null)
+    const [ Salable_value, setSalable_value ] = useState('')
+    const [ Arrears_Amount, setArrears_Amount ] = useState('')
+    const [ Pay_Cash, setPay_Cash ] = useState('')
+    const [ Pay_Money_Tranfer, setPay_Money_Tranfer ] = useState('')
+    const [ Precent, setPrecent ] = useState('')
 
-    const Precen = Salable_value * (PrecentPage / 100);
+    const Precen = Salable_value * (Precent / 100);
     const Pour_Actually_Amount = (Salable_value - Arrears_Amount - Precen)
 
     const han = (Pour_Actually_Amount / 2)
@@ -72,16 +89,24 @@ export default function Pour_unit () {
                 Pay_Cash: PayCass,
                 Pay_Money_Tranfer: Pay_Money_Tranfer,
                 userId: UserUID,
-                registerId: SelecOPREIS.value
-              }
-              console.log(Data)
-              const Datas = await axios.post(DB.URL + DB.PostcreatePourMoney, Data)
-              if(Datas.status == 200){
-                console.log(Data)
-                alert("OK")
-              }
+                nameVendor: nameVendor,
+                numberpercentage: Precent
+                }
+            console.log(Data)
+            const Datas = await axios.post(DB.URL + DB.PostcreatePourMoney, Data)
+            if(Datas.status == 200){
+                Swal.fire({
+                    position: 'top-end',
+                    width: '400px',
+                    icon: 'success',
+                    title: 'ບັນທືກຂໍ້ມູນສຳເລັດ',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+           
         } catch (error) {
-            alert("KAK")
+            alert(error)
         }
     }
 
@@ -105,19 +130,17 @@ export default function Pour_unit () {
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                 <form onSubmit={Submit}>
-
                     <div class="modal-body">
-
                         <div className="row ">
                             <div className="col-md-4">
                                 <div className="form-group">
-                                    <label>ຫນ່ວຍ</label>
+                                    <label>ເລກທີ່ຫນ່ວຍ</label>
                                     <Select
                                         defaultValue={SelectOption}
                                         onChange={setOption}
                                         options={
-                                            ShowEcentUnit.map((item)=>(
-                                                {value: item._id, label: item.nameUnit}
+                                            ShowEcentUnit.map((item) => (
+                                                {value: item._id, label: 'ເລກທີ່ໜ່ວຍ: ' + item.Unit_Num}
                                             ))
                                         }
                                     />
@@ -126,24 +149,25 @@ export default function Pour_unit () {
 
                             <div className="col-md-4">
                                 <div className="form-group">
-                                    <label>ຜູ້ຂາຍ</label>
+                                    <label>ເລກທີ່ເຄື່ອງຂາຍ</label>
                                     <Select
-                                        defaultValue={SelecOPREIS}
-                                        onChange={setOptionREGis}
+                                        defaultValue={SelectOption}
+                                        onChange={setOption}
                                         options={
-                                            ShowRegister.filter((e)=> e.unitId._id == SelectOption.value).map((item)=>(
-                                                {value: item._id, label: (item.MachineId == null ? "" : item.MachineId.NumMachine)}
+                                            ShowEcentUnit.map((item) => (
+                                                {value: item._id, label: 'ເລກທີ່ໜ່ວຍ: ' + item.Unit_Num}
                                             ))
                                         }
                                     />
                                 </div>
                             </div>
+
                             <div className="col-md-4">
                                 <div className="form-group">
-                                    <label>ງວດທີ ງວດລ່າສຸດ ( <strong className="text-success">1</strong> )</label>
+                                    <label>ງວດທີ ງວດລ່າສຸດ ( <strong className="text-success">{Max}</strong> )</label>
                                     <div className="input-group">
                                         <span className="input-group-text"><i class="bi bi-123"></i></span>
-                                        <input type="number" min="0" className="form-control" onChange={(e) => setDraw(e.target.value)} placeholder="່ປອນງວດທັດໄປ"/>
+                                        <input type="number" min="0" className="form-control" onChange={(e) => setDraw(e.target.value)} placeholder="່ປອນງວດທັດໄປ" required/>
                                     </div>
                                 </div>
                             </div>
@@ -153,34 +177,44 @@ export default function Pour_unit () {
                                     <label>ຊື່ ແລະ ນາມສະກຸນ ( ຫົວໜ້າໜ່ວຍ )</label>
                                     <div className="input-group">
                                         <span className="input-group-text"><i class="bi bi-person-lines-fill"></i></span>
-                                        <input type="text" className="form-control" placeholder="ຊື່ ແລະ ນາມສະກຸນ ຫົວໜ້າໜ່ວຍ"/>
+                                        <input type="text" className="form-control" onChange={(e) => setnameVendor(e.target.value)} placeholder="ຊື່ ແລະ ນາມສະກຸນ ຫົວໜ້າໜ່ວຍ" required/>
                                     </div>
                                 </div>
                             </div>
+
                             <div className="col-md-4">
                                 <div className="form-group">
                                     <label>ວັນທີ</label>
                                     <div className="input-group">
                                         <span className="input-group-text"><i class="bi bi-calendar-check-fill"></i></span>
-                                        <input type="date" className="form-control" onChange={(e) => setPayMent_Money_ToDay(e.target.value)}/>
+                                        <input type="date" className="form-control" value={Moment().format("YYYY-MM-DD")} onChange={(e) => setPayMent_Money_ToDay(e.target.value)} required/>
                                     </div>
                                 </div>
                             </div>
+                            
                             <div className="col-md-8">
                                 <div className="form-group">
                                     <label>ມູນຄ່າຂາຍໄດ້</label>
                                     <div className="input-group">
                                         <span className="input-group-text text-success">₭</span>
-                                        <NumberFormatBase type="text" min="0" className="form-control text-success" onChange={(e) => setSalable_value(e.target.value)} placeholder="ມູນຄ່າຂາຍໄດ້"/>
+                                        <NumberFormatBase type="text" min="0" className="form-control text-success" onChange={(e) => setSalable_value(e.target.value)} placeholder="ມູນຄ່າຂາຍໄດ້" required/>
                                     </div>
                                 </div>
                             </div>
                             <div className="col-md-4">
                                 <div className="form-group">
-                                    <label>ເປີເຊັນຂາຍ( <strong className="text-success">{PrecentPage}%</strong> )</label>
+                                    <label>ເປີເຊັນຂາຍ</label>
                                     <div className="input-group">
-                                        <span className="input-group-text"><i class="bi bi-percent"></i></span>
-                                        <NumberFormatBase type="text" min="0" className="form-control" value={Precen} placeholder="ເປີເຊັນຂາຍ"/>
+                                        {/* <span className="input-group-text"><i class="bi bi-percent"></i></span> */}
+                                        <NumberFormatBase type="text" min="0" className="form-control" value={Precen} placeholder="ເປີເຊັນຂາຍ" required/>
+                                        <select className="input-group-text" onChange={(e) => setPrecent(e.target.value)}>
+                                            <option>ເລືອກ ( % )</option>
+                                            {
+                                                GetPercentage.map((item) => (
+                                                    <option value={item.percentage}>{item.percentage}%</option>
+                                                ))
+                                            }
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -191,7 +225,7 @@ export default function Pour_unit () {
                                             <label>ຍອດຖອກຕົວຈິງ</label>
                                             <div className="input-group">
                                                 <span className="input-group-text text-success">₭</span>
-                                                <NumberFormatBase type="text" min="0" className="form-control text-success" value={Pour_Actually_Amount} placeholder="ຍອດຖອກຕົວຈິງ"/>
+                                                <NumberFormatBase type="text" min="0" className="form-control text-success" value={Pour_Actually_Amount} placeholder="ຍອດຖອກຕົວຈິງ" required/>
                                             </div>
                                         </div>
                                     </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { Link } from "react-router-dom";
 import './style.css'
 import Pour_unit from "./Event-popup/Pour-unit";
@@ -17,6 +17,7 @@ const Payment_unit = () => {
     let L = 1
     let J = 1
 
+    const [ reducer, setRedeuce ] = useReducer(x => x + 1, 0)
     const [ SelectOption, setOption ] = useState([])
     const [ SelectOpUnit, setOptionUnit ] = useState([])
 
@@ -74,7 +75,13 @@ const Payment_unit = () => {
             }
           })
     }
-    
+
+    function OppenWindows () {
+        if(SelectOpUnit && SelectOption){
+            window.open(`/Print-payment-unit/${SelectOpUnit.value}/${SelectOption.value}`,'_blank','width=1200px,height=800px, top=-300');
+        }
+    }
+
     return (
         <>
             <div className="container-content colums-group-padding">
@@ -87,11 +94,10 @@ const Payment_unit = () => {
                             <div class="nav group-event-table">
                                 <div className="nav respon-ul-link label-font-12 item-align-end">
                                     <div class="nav-item position-right" role="presentation">
-                                        <label for="import-excel" className="btn btn-primary label-font-12"><i class="bi bi-filetype-xlsx"></i> Exprot Excel</label>
-                                        <input class="custom-file-input form-control li-link-input" id="import-excel" type="file" />
+                                        <label for="import-excel" className="btn btn-primary label-font-12" onClick={OppenWindows}><i class="bi bi-printer-fill"></i> ອອກບີນ</label>
                                     </div>
                                     <div class="nav-item position-right windows-res" role="presentation">
-                                        <Link to="/Payment_unit" class="nav-link active li-link-border respon-li btn-sm" id="submit" >ຖອກເງິນ</Link>
+                                        <Link to="/Payment_unit" class="nav-link active li-link-border respon-li btn-sm" id="submit" >ຖອກເງິນໜ່ວຍ</Link>
                                     </div>
                                     <div class="nav-item position-right windows-res" role="presentation">
                                         <Link to="/Payment_machine" class="nav-link li-link-border respon-li btn-sm" id="all">ຖອກເງິນເຄື່ອງ</Link>
@@ -105,7 +111,7 @@ const Payment_unit = () => {
                                             ເລືອກການຈັດການ
                                         </a>
                                         <ul class="dropdown-menu">
-                                            <li><Link to="/Payment_unit" class="dropdown-item active" href="#">ຖອກເງິນ</Link></li>
+                                            <li><Link to="/Payment_unit" class="dropdown-item active" href="#">ຖອກເງິນໜ່ວຍ</Link></li>
                                             <li><Link to="/Payment_machine" class="dropdown-item" href="#">ຖອກເງິນເຄື່ອງ</Link></li>
                                             <li><Link to="/No_payment" class="dropdown-item" href="#">ບໍ່ໄດ້ຖອກ</Link></li>
                                         </ul>
@@ -116,7 +122,7 @@ const Payment_unit = () => {
                     </div>
 
                     <div class="row card-body">
-                        <div className="col-md-2"><h4><strong>ຖອກເງິນ</strong></h4></div>
+                        <div className="col-md-2"><h4><strong>ຖອກເງິນໜ່ວຍ</strong></h4></div>
                         <div className="col-md-3">
                             <div className="input-group d-flex justify-content-end">
                                 <span className="input-group-text">ງວດ</span>
@@ -129,7 +135,7 @@ const Payment_unit = () => {
                         </div>
                         <div className="col-md-3">
                             <div className="input-group">
-                                <span className="input-group-text">ເລກທີ່ເຄື່ອງຂາຍ</span>
+                                <span className="input-group-text">ເລກທີ່ໜ່ວຍ</span>
                                 <Select
                                     defaultValue={SelectOpUnit}
                                     onChange={setOptionUnit}
@@ -143,14 +149,14 @@ const Payment_unit = () => {
                         </div>
                         {/* <div className="col-md-4"></div> */}
                         <div className="col-md-2">
-                            <button className="btn btn-info" data-bs-toggle="modal" data-bs-target="#Pour_unit"><i class="bi bi-download"></i> ຖອກເງິນ</button>
+                            <button className="btn btn-info" data-bs-toggle="modal" data-bs-target="#Pour_unit"><i class="bi bi-download"></i> ຖອກເງິນໜ່ວຍ</button>
                         </div>
                     </div>
                     <div class="card colums-group-padding scollview-table">
                         <table className="table table-striped">
                             <thead>
                                 <tr>
-                                    <th scope="col">ຫນ່ວຍ</th>
+                                    <th scope="col">ລຳດັບ</th>
                                     <th scope="col">ງວດ</th>
                                     <th scope="col">ວັນທີ່</th>
                                     <th scope="col" className="text-primary">( ຫົວໜ້າໜ່ວຍ )</th>
@@ -162,17 +168,16 @@ const Payment_unit = () => {
                                     <th scope="col">ຄ້າງຈ່າຍ</th>
                                     <th scope="col" className="text-success">( ຜູ້ຮັບເງີນ )</th>
                                     <th scope="col">ຈັດການ</th>
-                                    
                                 </tr>
                             </thead>
                             <tbody>
-                                {value.length > 0 ? tableFiller.map((item) => {
+                                {value.length > 0 ? tableFiller.filter((e) => e.Draw == SelectOption.value && e.unitId._id == SelectOpUnit.value).map((item) => {
                                     return (
-                                        <tr key={item._id}>
+                                        <tr>
                                             <th>{x++}</th>
-                                            <td>ງວດທີ ({item.Draw == null ? "Null" : item.Draw})</td>      
+                                            <td>ງວດທີ (<strong className="text-success">{item.Draw == null ? "Null" : item.Draw}</strong>)</td>      
                                             <td>{Moment(item.PayMent_Money_ToDay).format("YYYY-MM-DD")}</td>       
-                                            <th>ນາງ ອາລິນ</th>
+                                            <th>{item.nameVendor}</th>
                                             <th class="text-success">{new Intl.NumberFormat({ style: 'currency', currency: 'LAK' }).format(item.Salable_value)} ₭</th>
                                             <td>{new Intl.NumberFormat({ style: 'currency', currency: 'LAK' }).format(item.Percentage_Sell == null ? "0" : item.Percentage_Sell)} ₭</td>
                                             <td class="text-success">{new Intl.NumberFormat({ style: 'currency', currency: 'LAK' }).format(item.Pour_Actually_Amount)} ₭</td>
@@ -186,13 +191,13 @@ const Payment_unit = () => {
                                             </td>      
                                         </tr>
                                     )
-                                }): ShowEvent.filter((e) => e.Draw == SelectOption.value && e.unitId == SelectOpUnit.value).map((item, index) => {
+                                }): ShowEvent.filter((e) => e.unitId._id == SelectOpUnit.value && e.Draw == SelectOption.value).map((item, index) => {
                                     return (
-                                        <tr key={item._id}>
+                                        <tr>
                                             <th>{x++}</th>
-                                            <td>ງວດທີ ({item.Draw == null ? "Null" : item.Draw})</td>      
+                                            <td>ງວດທີ (<strong className="text-success">{item.Draw == null ? "Null" : item.Draw}</strong>)</td>      
                                             <td>{Moment(item.PayMent_Money_ToDay).format("YYYY-MM-DD")}</td>       
-                                            <th>ນາງ ອາລິນ</th>
+                                            <th>{item.nameVendor}</th>
                                             <th class="text-success">{new Intl.NumberFormat({ style: 'currency', currency: 'LAK' }).format(item.Salable_value)} ₭</th>
                                             <td>{new Intl.NumberFormat({ style: 'currency', currency: 'LAK' }).format(item.Percentage_Sell == null ? "0" : item.Percentage_Sell)} ₭</td>
                                             <td class="text-success">{new Intl.NumberFormat({ style: 'currency', currency: 'LAK' }).format(item.Pour_Actually_Amount)} ₭</td>

@@ -3,9 +3,9 @@ import React, { useState } from "react";
 import { Button, Modal } from 'react-bootstrap';
 import Swal from "sweetalert2";
 import '../../services/enpiot'
-
+import moment from "moment/moment"
 export default function IN_Vending_machine () {
-
+  const [ NumberMachineError , setNumberMachineError] = useState(false)
     const [CreateMachine, setCreateMachine] = useState({})
     const handleChange = (e) => {
         const { name, value} = e.target;
@@ -25,9 +25,71 @@ export default function IN_Vending_machine () {
                     showConfirmButton: false,
                     timer: 1500
                 })
-            }).catch(() => {alert("erorr")})
-        )
+                console.log(CreateMachine)
+            })
+            .catch((error) => {
+                // alert("erorr")
+                console.log(error)
+       let code = 0 ;
+       if(error.response && error.response.data && error.response.data.code){
+
+        code = error.response.data.code
+          if(code == 1){
+            // setNumberMachineError(true)
+              console.log("Error Machine Number")
+            Swal.fire({
+               
+                icon: 'error',
+                title: 'ຂໍ້ມູນທີ່ທ່ານປ້ອນມີແລ້ວ ກະລຸນາປ້ອນຂໍ້ມູນໃໝ່ ',
+                showConfirmButton: false,
+                timer: 1500
+            })
+            return
+          }
+       }
+
+            })
+         ) 
     }
+    async function OnSubMitMachine() {
+    try {
+          const data = await axios.post("http://localhost:3001/machine/createMachine" , CreateMachine)
+
+   if(data.status == 200){
+    Swal.fire({
+        position: 'top-end',
+        width: '400px',
+        icon: 'success',
+        title: 'ບັນທືກຂໍ້ມູນສຳເລັດ',
+        showConfirmButton: false,
+        timer: 1500
+    })
+    console.log(data.data)
+   }
+
+    } catch (error) {
+        console.log(error)
+  let code = 0;
+  if(error.response && error.response.data && error.response.data.code){
+
+    code = error.response.data.code
+    if(code === 1){
+        console.log("Error Machine Number")
+        Swal.fire({
+           
+            icon: 'error',
+            title: 'ຂໍ້ມູນທີ່ທ່ານປ້ອນມີແລ້ວ ກະລຸນາປ້ອນຂໍ້ມູນໃໝ່ ',
+            showConfirmButton: false,
+            timer: 1500
+        })
+       
+    }
+}
+
+    }
+
+    }
+   const [NumMachine , setNumMachine] =useState(null)
 
     const [show, setShow] = useState(false)
     const handleClose = () => setShow(false)
@@ -84,11 +146,11 @@ export default function IN_Vending_machine () {
                         </div>
                         
                     </div>
-                   
-                    <input type="hidden" name="status" value={CreateMachine.status="ວ່າງ"} onChange={handleChange}/>
+                    
+                  
                 </div> 
                 <div class="modal-footer">
-                    <button type="button" onClick={handleClose} class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-x-diamond-fill"></i> Cancel</button>
+                    <button type="button" onClick={OnSubMitMachine} class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-x-diamond-fill"></i> Cancel</button>
                     <button type="submit" class="btn btn-primary"><i class="bi bi-cloud-download-fill"></i> ບັນທືກຂໍ້ມູນ</button>
                 </div>
                 </div>

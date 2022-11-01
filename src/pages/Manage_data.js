@@ -19,6 +19,7 @@ const Manage_data = () => {
             setRedeuce()
         })
     },[reducer])
+   
 
     const [value, setValue] = useState('')
     const [tableFiller, setTablefiller] = useState([])

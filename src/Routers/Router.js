@@ -20,6 +20,7 @@ import Vending_machine from "../pages/Vending_machine";
 import Login from "../components/login";
 import History_Move from "../pages/History_Move";
 import Pay_the_reward from "../pages/Pay_the_reward"
+import Print_payment_unit from '../pages/Event-Printer/Print-payment-unit'
 
 const router = () => {
     return (
@@ -43,6 +44,7 @@ const router = () => {
             <Route path="/Vending_machine" element={<Vending_machine/>}/>
             <Route path="/Unit" element={<Unit/>}/>
             <Route path="/Pay_the_reward" element={<Pay_the_reward/>}/>
+            <Route path="/Print-payment-unit/:value/:ID" element={<Print_payment_unit/>}/>
 
             <Route path="/Login" element={<Login/>}/>
         </Routes>

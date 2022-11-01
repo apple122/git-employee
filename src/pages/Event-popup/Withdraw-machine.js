@@ -58,7 +58,7 @@ const WD_machine = () => {
         }) 
         axios.get(DB.URL + DB.UIDRegister + selectedOption.value).then((res) => {
             setVendor_code(res.data.Vendor_code)
-            setREUID(res.data._id)
+            setREUID(res.data.Vendor_code)
             setDateRe(res.data.DateRegister)
         })
     }else{
@@ -75,7 +75,7 @@ const WD_machine = () => {
     }
 
     const data_uodate = {
-        status: "ວ່າງ",
+        status: "true",
     }
     const upremove_data = {
         upremove: "ຖອນການໃຊ້ງານ",
@@ -91,10 +91,14 @@ const WD_machine = () => {
             }),
 
             axios.put( DB.URL + DB.PutMachine + uidmachine , data_uodate).then((res) => {
-                console.log(res)
+                // console.log(res)
             }),
 
             axios.put( DB.URL + DB.PutRegister + selectedOption.value , upremove_data).then((res) => {
+                // console.log(res)
+                
+            }),
+            axios.delete(DB.URL + DB.DeRegister + selectedOption.value).then((res) => {
                 console.log(res)
             })
           )
