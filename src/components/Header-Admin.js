@@ -18,7 +18,6 @@ const Header = () => {
     axios.get(DB.URL + DB.Profile ,{ headers : {authorization : token}}).then((res) => {
       setUIDname(res.data.fullname)
       setName(res.data.username)
-
       if(res.data.password === res.data.password){
 
       }else{
@@ -107,25 +106,7 @@ const Header = () => {
                     {/* <!-- As a link --> */}
                     <nav class="navbar nav-active float-start">
                         <ul class="container-fluid confluid-active">
-                            <Link to="/Manage_data" class="navbar-brand navbar-light-active" onClick={hide_toggle}><i class="bi bi-kanban-fill"></i> ຈັດການຂໍ້ມູນ</Link>
-                        </ul>
-                        <ul class="container-fluid confluid-active">
-                            <Link to="/Register_sales" class="navbar-brand navbar-light-active" onClick={hide_toggle}><i class="bi bi-r-square-fill"></i> ລົງທະບຽນຄົນຂາຍ</Link>
-                        </ul>
-                        <ul class="container-fluid confluid-active">
-                            <Link to="/Sales" class="navbar-brand navbar-light-active" onClick={hide_toggle}><i class="bi bi-arrows-collapse"></i> ຖອນເຄື່ອງ</Link>
-                        </ul>
-                        <ul class="container-fluid confluid-active">
-                            <Link to="/Move" class="navbar-brand navbar-light-active" onClick={hide_toggle}><i class="bi bi-arrow-repeat"></i> ຍ້າຍເຄື່ອງ</Link>
-                        </ul>
-                        <ul class="container-fluid confluid-active">
-                            <Link to="/Payment_unit" class="navbar-brand navbar-light-active" onClick={hide_toggle}><i class="bi bi-cash"></i> ຖອກເງີນ</Link>
-                        </ul>
-                        <ul class="container-fluid confluid-active">
-                            <Link to="/Pay_the_reward" class="navbar-brand navbar-light-active" onClick={hide_toggle}><i class="bi bi-speedometer2"></i> ຈ່າຍເງີນລາງວັນ</Link>
-                        </ul>
-                        <ul class="container-fluid confluid-active">
-                            <Link to="/Report" class="navbar-brand navbar-light-active" onClick={hide_toggle}><i class="bi bi-speedometer2"></i> ລາຍງານ</Link>
+                            <Link to="/Manage_data" class="navbar-brand navbar-light-active" onClick={hide_toggle}><i class="bi bi-house-fill"></i> ຈັດການຂໍ້ມູນ</Link>
                         </ul>
 
                         <ul class="container-fluid confluid-active">

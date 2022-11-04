@@ -48,13 +48,31 @@ const Manage_data = () => {
             confirmButtonText: 'ລົບຂໍ້ມູນ!'
           }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(DB.URL + DB.DePercentage + _id).then((res) => {
-                    Swal.fire(
-                        'ລົບຂໍ້ມູນສຳເລັດ!',
-                        'Your file has been deleted.',
-                        'success'
-                      )
-                })
+                (async () => {
+
+                    const { value: confirm } = await Swal.fire({
+                      title: 'ຍືນຍັນການລົບຂໍ້ມູນ',
+                      input: 'text',
+                      inputLabel: 'ພີມ " ລົບ " ເພືອທຳການລົບ',
+                      inputPlaceholder: 'Confirm " ລົບ "',
+                      inputAttributes: {
+                        maxlength: 10,
+                        autocapitalize: 'off',
+                        autocorrect: 'off'
+                      }
+                    })
+                    
+                    if (confirm == "ລົບ") {
+                        axios.delete(DB.URL + DB.DePercentage + _id).then((res) => {
+                            Swal.fire(
+                                'ລົບຂໍ້ມູນສຳເລັດ!',
+                                'Your file has been deleted.',
+                                'success'
+                            )
+                        })
+                    }
+                    
+                })()
             }
           })
     }

@@ -132,6 +132,7 @@ export default function Pour_unit () {
                 <form onSubmit={Submit}>
                     <div class="modal-body">
                         <div className="row ">
+
                             <div className="col-md-4">
                                 <div className="form-group">
                                     <label>ເລກທີ່ຫນ່ວຍ</label>
@@ -149,35 +150,10 @@ export default function Pour_unit () {
 
                             <div className="col-md-4">
                                 <div className="form-group">
-                                    <label>ເລກທີ່ເຄື່ອງຂາຍ</label>
-                                    <Select
-                                        defaultValue={SelectOption}
-                                        onChange={setOption}
-                                        options={
-                                            ShowEcentUnit.map((item) => (
-                                                {value: item._id, label: 'ເລກທີ່ໜ່ວຍ: ' + item.Unit_Num}
-                                            ))
-                                        }
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="col-md-4">
-                                <div className="form-group">
-                                    <label>ງວດທີ ງວດລ່າສຸດ ( <strong className="text-success">{Max}</strong> )</label>
+                                    <label>ງວດທີ ງວດລ່າສຸດ ( <strong className="text-success">{Max == -Infinity ? 0 : Max}</strong> )</label>
                                     <div className="input-group">
                                         <span className="input-group-text"><i class="bi bi-123"></i></span>
                                         <input type="number" min="0" className="form-control" onChange={(e) => setDraw(e.target.value)} placeholder="່ປອນງວດທັດໄປ" required/>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="col-md-8">
-                                <div className="form-group">
-                                    <label>ຊື່ ແລະ ນາມສະກຸນ ( ຫົວໜ້າໜ່ວຍ )</label>
-                                    <div className="input-group">
-                                        <span className="input-group-text"><i class="bi bi-person-lines-fill"></i></span>
-                                        <input type="text" className="form-control" onChange={(e) => setnameVendor(e.target.value)} placeholder="ຊື່ ແລະ ນາມສະກຸນ ຫົວໜ້າໜ່ວຍ" required/>
                                     </div>
                                 </div>
                             </div>
@@ -188,6 +164,16 @@ export default function Pour_unit () {
                                     <div className="input-group">
                                         <span className="input-group-text"><i class="bi bi-calendar-check-fill"></i></span>
                                         <input type="date" className="form-control" value={Moment().format("YYYY-MM-DD")} onChange={(e) => setPayMent_Money_ToDay(e.target.value)} required/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="col-md-12">
+                                <div className="form-group">
+                                    <label>ຊື່ ແລະ ນາມສະກຸນ ( ຫົວໜ້າໜ່ວຍ )</label>
+                                    <div className="input-group">
+                                        <span className="input-group-text"><i class="bi bi-person-lines-fill"></i></span>
+                                        <input type="text" className="form-control" onChange={(e) => setnameVendor(e.target.value)} placeholder="ຊື່ ແລະ ນາມສະກຸນ ຫົວໜ້າໜ່ວຍ" required/>
                                     </div>
                                 </div>
                             </div>

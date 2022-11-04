@@ -1,25 +1,18 @@
 import React, { useEffect, useState, AsyncStorage } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import Logo from '../assets/imgs/sbs-logo-update-8.gif'
 import Logo_item1 from '../assets/imgs/machine-8.gif'
 import Logo_item2 from '../assets/imgs/paper-8.gif'
 import './Login.css'
 import axios from "axios";
+import DB from '../services/enpiot'
 
 const Login = () => {
 
-    const Localtion_login = useLocation().pathname
-
-    const [ login, setLogin ] = useState([])
-    useEffect(() => {
-        axios.get('http://localhost:3001/user/getUser').then((res) => {
-            console.log(res.data)
-        })
-    })
-
     const [ username, setUsername ] = useState('')
     const [ Password, setPass ] = useState('')
+    const Navigate = useNavigate()
     async function onSubmit () {
         try {
             const dataform = {
@@ -48,7 +41,7 @@ const Login = () => {
                 }).then((result) => {
                 /* Read more about handling dismissals below */
                 if (result.dismiss === Swal.DismissReason.timer) {
-                    window.location='/Manage_data'
+                    window.location='/conponent'
                 }
                 })
             }

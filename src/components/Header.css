@@ -393,3 +393,9 @@
         padding: 2.5rem;
     }
 }
+
+.content-logout{
+    position: fixed;
+    width: 100%;
+    transform: translateX(25%);
+}

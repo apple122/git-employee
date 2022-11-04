@@ -5,8 +5,9 @@ import DB from '../../services/enpiot'
 import { NumericFormat, NumberFormatBase } from 'react-number-format';
 import Moment from "moment";
 import Swal from "sweetalert2";
+import { Button, Modal } from 'react-bootstrap';
 
-export default function Pour_unit () {
+export default function Up_Payment_unit () {
 
     const [ UserUID, setUIDname ] = useState()
     const [ fullname, setName ] = useState()
@@ -120,21 +121,27 @@ export default function Pour_unit () {
         e.preventDefault()
     }
 
+    const [show, setShow] = useState(false)
+    const handleClose = () => setShow(false)
+    const handleShow = () => setShow(true)
+
     return (
         <>
-        <div class="modal fade" id="Pour_unit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <Button onClick={handleShow} className="btn-sm"><i class="bi bi-pencil-square"></i></Button>
+        <Modal show={show} onHide={handleClose}>
             <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">ຖອກເງິນເຄື່ອງ</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h5 class="modal-title" id="exampleModalLabel">ຖອກເງິນຫນ່ວຍ</h5>
+                        <button type="button" onClick={handleClose} class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                 <form onSubmit={Submit}>
                     <div class="modal-body">
                         <div className="row ">
+
                             <div className="col-md-4">
                                 <div className="form-group">
-                                    <label>ເລກທີ່ເຄື່ອງຂາຍ</label>
+                                    <label>ເລກທີ່ຫນ່ວຍ</label>
                                     <Select
                                         defaultValue={SelectOption}
                                         onChange={setOption}
@@ -149,35 +156,10 @@ export default function Pour_unit () {
 
                             <div className="col-md-4">
                                 <div className="form-group">
-                                    <label>ເລກທີ່ເຄື່ອງຂາຍ</label>
-                                    <Select
-                                        defaultValue={SelectOption}
-                                        onChange={setOption}
-                                        options={
-                                            ShowEcentUnit.map((item) => (
-                                                {value: item._id, label: 'ເລກທີ່ໜ່ວຍ: ' + item.Unit_Num}
-                                            ))
-                                        }
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="col-md-4">
-                                <div className="form-group">
-                                    <label>ງວດທີ ງວດລ່າສຸດ ( <strong className="text-success">{Max == "-Infinity" ? "0" : Max}</strong> )</label>
+                                    <label>ງວດທີ ງວດລ່າສຸດ ( <strong className="text-success">{Max == -Infinity ? 0 : Max}</strong> )</label>
                                     <div className="input-group">
                                         <span className="input-group-text"><i class="bi bi-123"></i></span>
                                         <input type="number" min="0" className="form-control" onChange={(e) => setDraw(e.target.value)} placeholder="່ປອນງວດທັດໄປ" required/>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="col-md-8">
-                                <div className="form-group">
-                                    <label>ຊື່ ແລະ ນາມສະກຸນ ( ຫົວໜ້າໜ່ວຍ )</label>
-                                    <div className="input-group">
-                                        <span className="input-group-text"><i class="bi bi-person-lines-fill"></i></span>
-                                        <input type="text" className="form-control" onChange={(e) => setnameVendor(e.target.value)} placeholder="ຊື່ ແລະ ນາມສະກຸນ ຫົວໜ້າໜ່ວຍ" required/>
                                     </div>
                                 </div>
                             </div>
@@ -188,6 +170,16 @@ export default function Pour_unit () {
                                     <div className="input-group">
                                         <span className="input-group-text"><i class="bi bi-calendar-check-fill"></i></span>
                                         <input type="date" className="form-control" value={Moment().format("YYYY-MM-DD")} onChange={(e) => setPayMent_Money_ToDay(e.target.value)} required/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="col-md-12">
+                                <div className="form-group">
+                                    <label>ຊື່ ແລະ ນາມສະກຸນ ( ຫົວໜ້າໜ່ວຍ )</label>
+                                    <div className="input-group">
+                                        <span className="input-group-text"><i class="bi bi-person-lines-fill"></i></span>
+                                        <input type="text" className="form-control" onChange={(e) => setnameVendor(e.target.value)} placeholder="ຊື່ ແລະ ນາມສະກຸນ ຫົວໜ້າໜ່ວຍ" required/>
                                     </div>
                                 </div>
                             </div>
@@ -270,14 +262,14 @@ export default function Pour_unit () {
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-x-diamond-fill"></i> ກັບຄືນ</button>
+                        <button type="button" onClick={handleClose} class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-x-diamond-fill"></i> ກັບຄືນ</button>
                         <button type="submit" onClick={OnClickSubmit} class="btn btn-primary"><i class="bi bi-cloud-download-fill"></i> ບັນທຶກ </button>
                     </div>
                 </form>
 
                 </div>
             </div>
-        </div>
+        </Modal>
         </>
     )
 }

@@ -71,7 +71,15 @@
     #all{
         font-size: 12px;
     }
-
+    .w-collum{
+        width: fit-content;
+    }
+    
+}
+@media (min-width: 750px){
+    .w-collum{
+        width: 680px;
+    }
 }
 
 .Pad-move{
@@ -357,3 +365,24 @@ li{
   /* #background{
     background-image: linear-gradient(to right, rgba(255, 255, 255, 0.334), rgba(156, 218, 224, 0.334), rgba(172, 156, 224, 0.334), rgba(156, 224, 200, 0.334), rgba(255, 255, 255, 0.334));
   } */
+
+  .div_box {
+    border: 1px solid #aaa;
+    padding: 10px;
+    display: none;
+  }
+
+  .checkbox:checked + .div_box {
+    display: block;
+  }
+
+  .Position-Dropdown{
+    position: relative;
+  }
+  .d-Checkshow{
+    position: absolute;
+    z-index: 2;
+    background-color: white;
+    border-radius: 6px;
+    box-shadow: inset -3px 4px 33px 0px rgba(0,0,0,0.1);
+  }

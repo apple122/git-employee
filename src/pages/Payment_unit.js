@@ -2,13 +2,13 @@ import React, { useEffect, useReducer, useState } from "react";
 import { Link } from "react-router-dom";
 import './style.css'
 import Pour_unit from "./Event-popup/Pour-unit";
-import Pour_machine from "./Event-popup/Pour_machine";
 import DB from '../services/enpiot'
 import Moment from "moment";
 import Select from 'react-select';
 import axios from "axios";
 import { setMinutes } from "date-fns";
 import Swal from "sweetalert2";
+import Up_Payment_unit from "./Event-popup/Up-Payment_unit";
 
 
 const Payment_unit = () => {
@@ -186,12 +186,12 @@ const Payment_unit = () => {
                                             <td class="text-danger">{new Intl.NumberFormat({ style: 'currency', currency: 'LAK' }).format(item.Arrears_Amount)} ₭</td>       
                                             <td>{item.userId == null ? "" : item.userId.fullname}</td> 
                                             <td>
-                                                <Pour_machine id={item._id}/>
+                                                <Up_Payment_unit id={item._id}/>
                                                 <a onClick={() => Delete(item._id)} className="btn btn-sm btn-danger"><i class="bi bi-trash-fill"></i></a>  
                                             </td>      
                                         </tr>
                                     )
-                                }): ShowEvent.filter((e) => e.unitId._id == SelectOpUnit.value && e.Draw == SelectOption.value).map((item, index) => {
+                                }): ShowEvent.filter((e) => e.Draw == SelectOption.value && e.unitId._id == SelectOpUnit.value).map((item, index) => {
                                     return (
                                         <tr>
                                             <th>{x++}</th>
@@ -206,7 +206,7 @@ const Payment_unit = () => {
                                             <td class="text-danger">{new Intl.NumberFormat({ style: 'currency', currency: 'LAK' }).format(item.Arrears_Amount)} ₭</td>       
                                             <td>{item.userId == null ? "" : item.userId.fullname}</td>   
                                             <td>
-                                                <Pour_machine id={item._id}/>
+                                                <Up_Payment_unit id={item._id}/>
                                                 <a onClick={() => Delete(item._id)} className="btn btn-sm btn-danger"><i class="bi bi-trash-fill"></i></a>    
                                             </td>    
                                         </tr>

@@ -67,7 +67,7 @@ export default function Up_manage_data (props) {
                 <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" id="exampleModalLabel"><strong>ຈັດການຂໍ້ມູນ ເປີເຊັນ</strong></h4>
-                    <button type="button"  onClick={handleClose} class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" onClick={handleClose} class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="row modal-body">
                     <div className="col-md-6">

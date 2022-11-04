@@ -4,6 +4,7 @@ import './App.css';
 import Header from './components/Header'
 import Router from './Routers/Router'
 import Login from './components/login'
+import Conponent from './components/component';
 
 function App() {
   
@@ -17,8 +18,7 @@ function App() {
   }else{
     return (
       <>
-        <Header />
-        <Router/>
+        <Conponent />
       </>
     );
   }
