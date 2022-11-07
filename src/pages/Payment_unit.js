@@ -36,7 +36,9 @@ const Payment_unit = () => {
         axios.get(DB.URL + DB.GetUnit).then((res) => {
             setUnit_Num(res.data.reverse())
         })
+
     },[])
+
 
     const [value, setValue] = useState('')
     const [tableFiller, setTablefiller] = useState([])
@@ -54,10 +56,10 @@ const Payment_unit = () => {
         }
     }
 
+
     const Delete = (_id) => {
         Swal.fire({
             title: 'ທ່ານຕ້ອງການລົບຂໍ້ມູນນີ້ແທ້ຫຼືບໍ່?',
-            text: "!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -74,7 +76,9 @@ const Payment_unit = () => {
                 })
             }
           })
+
     }
+    
 
     function OppenWindows () {
         if(SelectOpUnit && SelectOption){
@@ -127,10 +131,12 @@ const Payment_unit = () => {
                             <div className="input-group d-flex justify-content-end">
                                 <span className="input-group-text">ງວດ</span>
                                 <Select
+                                    type="search"
                                     defaultValue={SelectOption}
                                     onChange={setOption}
                                     options={LoopDraw}
                                 />
+                                {console.log(SelectOption.value + ',')}
                             </div>
                         </div>
                         <div className="col-md-3">
@@ -171,7 +177,7 @@ const Payment_unit = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {value.length > 0 ? tableFiller.filter((e) => e.Draw == SelectOption.value && e.unitId._id == SelectOpUnit.value).map((item) => {
+                                {value.length > 0 ? tableFiller.map((item) => {
                                     return (
                                         <tr>
                                             <th>{x++}</th>
@@ -191,7 +197,27 @@ const Payment_unit = () => {
                                             </td>      
                                         </tr>
                                     )
-                                }): ShowEvent.filter((e) => e.Draw == SelectOption.value && e.unitId._id == SelectOpUnit.value).map((item, index) => {
+                                }):SelectOpUnit == '' ? ShowEvent.map((item, index) => {
+                                    return (
+                                        <tr>
+                                            <th>{x++}</th>
+                                            <td>ງວດທີ (<strong className="text-success">{item.Draw == null ? "Null" : item.Draw}</strong>)</td>      
+                                            <td>{Moment(item.PayMent_Money_ToDay).format("YYYY-MM-DD")}</td>       
+                                            <th>{item.nameVendor}</th>
+                                            <th class="text-success">{new Intl.NumberFormat({ style: 'currency', currency: 'LAK' }).format(item.Salable_value)} ₭</th>
+                                            <td>{new Intl.NumberFormat({ style: 'currency', currency: 'LAK' }).format(item.Percentage_Sell == null ? "0" : item.Percentage_Sell)} ₭</td>
+                                            <td class="text-success">{new Intl.NumberFormat({ style: 'currency', currency: 'LAK' }).format(item.Pour_Actually_Amount)} ₭</td>
+                                            <td class="text-success">{new Intl.NumberFormat({ style: 'currency', currency: 'LAK' }).format(item.Pay_Cash)} ₭</td>
+                                            <td class="text-success">{new Intl.NumberFormat({ style: 'currency', currency: 'LAK' }).format(item.Pay_Money_Tranfer)} ₭</td>     
+                                            <td class="text-danger">{new Intl.NumberFormat({ style: 'currency', currency: 'LAK' }).format(item.Arrears_Amount)} ₭</td>       
+                                            <td>{item.userId == null ? "" : item.userId.fullname}</td>   
+                                            <td>
+                                                <Up_Payment_unit id={item._id}/>
+                                                <a onClick={() => Delete(item._id)} className="btn btn-sm btn-danger"><i class="bi bi-trash-fill"></i></a>    
+                                            </td>    
+                                        </tr>
+                                    )
+                                }):ShowEvent.filter((e) => e.unitId == null ? "" : e.unitId._id == SelectOpUnit.value && e.Draw == SelectOption.value).map((item, index) => {
                                     return (
                                         <tr>
                                             <th>{x++}</th>
@@ -212,6 +238,7 @@ const Payment_unit = () => {
                                         </tr>
                                     )
                                 })}
+                                {console.log(ShowEvent)}
                             </tbody>
                         </table>
                     </div>

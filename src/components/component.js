@@ -16,32 +16,31 @@ export default function Conponent () {
     useEffect(() => {
         axios.get(DB.URL + DB.Profile ,{ headers : {authorization : token}}).then((res) => {
             setuserType(res.data.userType)
+        }).catch((error) => {
+            Swal.fire({
+                title: 'ເກິດຂໍ້ຜິດພາດ ກະລຸນາລົງຊື່ເຂົ້າໃຊ້ໄໝ່.',
+                width: 600,
+                padding: '3em',
+                color: '#716add',
+                background: '#fff url(../assets/imgs/wp9223873.jpg)',
+                backdrop: `
+                  rgba(0,0,123,0.4)
+                  url("/images/nyan-cat.gif")
+                  left top
+                  no-repeat
+                `
+              }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                  window.location='./Login'
+                  localStorage.clear()
+                } else if (result.isDenied) {
+                  Swal.fire('Changes are not saved', '', 'info')
+                }
+              })
         })
     }, [])
 
-    function onLogout(){
-        Swal.fire({
-            title: 'ເກິດຂໍ້ຜິດພາດ ກະລຸນາລົງຊື່ເຂົ້າໃຊ້ໄໝ່.',
-            width: 600,
-            padding: '3em',
-            color: '#716add',
-            background: '#fff url(../assets/imgs/wp9223873.jpg)',
-            backdrop: `
-              rgba(0,0,123,0.4)
-              url("/images/nyan-cat.gif")
-              left top
-              no-repeat
-            `
-          }).then((result) => {
-            /* Read more about isConfirmed, isDenied below */
-            if (result.isConfirmed) {
-              window.location='./Login'
-              localStorage.clear()
-            } else if (result.isDenied) {
-              Swal.fire('Changes are not saved', '', 'info')
-            }
-          })
-    }
 
     try {
       if(userType == "Admin"){
@@ -65,6 +64,8 @@ export default function Conponent () {
                     <Router />
                 </>
             )
+        }else{
+           
         }
     } catch (error) {
         alert(error)

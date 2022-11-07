@@ -1,10 +1,19 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useEffect } from "react";
 import { Button, Modal } from 'react-bootstrap';
 import Swal from "sweetalert2";
 import '../../services/enpiot'
+import DB from '../../services/enpiot'
 
 export default function IN_manage_data () {
+
+    const [ Branc, setBranch ] = useState([])
+    useEffect(() => {
+        axios.get(DB.URL + DB.GetBranch).then((res) => {
+            setBranch(res.data.reverse())
+        })
+    }, [])
 
     const [createUnit, setcreateUnit] = useState({})
     const handleChange = (e) => {
@@ -56,10 +65,10 @@ export default function IN_manage_data () {
                         </div>
 
                         <div className="form-group\">
-                            <label>ໜ່ວຍ</label>
+                            <label>ຊື່ແລະນາມສະກຸນ ຫົວໜ້າໜວຍ</label>
                             <div className="input-group">
-                                <span className="input-group-text"><i class="bi bi-at"></i></span>
-                                <input type="text" className="form-control" name="nameUnit" value={createUnit.nameUnit} onChange={handleChange} placeholder="ກະລຸນາປ່ອນ ໜ່ວຍ" required/>
+                                <span className="input-group-text"><i class="bi bi-person-badge"></i></span>
+                                <input type="text" className="form-control" name="nameUnit" value={createUnit.nameUnit} onChange={handleChange} placeholder="ກະລຸນາປ່ອນ ຊື່ແລະນາມສະກຸນ ຫົວໜ້າໜວຍ" required/>
                             </div>
                         </div>
                         
@@ -79,7 +88,12 @@ export default function IN_manage_data () {
                             <label>ສາຂາ</label>
                             <div className="input-group">
                                 <span className="input-group-text"><i class="bi bi-shop-window"></i></span>
-                                <input type="text" className="form-control" name="selectBranch" value={createUnit.selectBranch} onChange={handleChange} placeholder="ກະລຸນາປ່ອນ ສາຂາ" required/>
+                                <select className="form-control" name="selectBranch" onChange={handleChange} required>
+                                    <option>ເລືອກສາຂາ</option>
+                                    {Branc.map((item) => (
+                                        <option value={item._id}>{item.branch}</option>
+                                    ))}
+                                </select>
                             </div>
                         </div>
                     </div>

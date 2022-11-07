@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import Inser_manage from "./Event-popup/Insert_manage";
 import Update_manage from "./Event-popup/Update-manage_data";
+import './Admin.css'
 
 const Manage_data = (props) => {
 
@@ -113,7 +114,7 @@ const Manage_data = (props) => {
                                             <td>{item.phone}</td>
                                             <td>{item.userType}</td>
                                             <td>
-                                                <a href="#" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Update_manage"><i class="bi bi-pencil-square"></i></a> &nbsp;
+                                                <Update_manage id={item._id}/>&nbsp;
                                                 <a href="#" className="btn btn-danger" onClick={() => Delete(item._id)}><i class="bi bi-trash3-fill"></i></a>
                                             </td>
                                         </tr>
@@ -128,8 +129,8 @@ const Manage_data = (props) => {
                                                 <td>{item.phone}</td>
                                                 <td>{item.userType}</td>
                                                 <td>
-                                                    <a href="#" className="btn btn-primary" onClick={() => Update(item._id)} data-bs-toggle="modal" data-bs-target="#Update_manage"><i class="bi bi-pencil-square"></i></a> &nbsp;
-                                                    <a href="#" className="btn btn-danger" onClick={() => Delete(item._id)}><i class="bi bi-trash3-fill"></i></a>
+                                                    <Update_manage id={item._id}/>&nbsp;
+                                                    <a href="#" className="btn btn-sm btn-danger" onClick={() => Delete(item._id)}><i class="bi bi-trash3-fill"></i></a>
                                                 </td>
                                             </tr>
 

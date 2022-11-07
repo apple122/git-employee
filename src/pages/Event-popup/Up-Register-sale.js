@@ -78,7 +78,7 @@ export default function UP_register(props){
             setgetunit(res.data)
         })
 
-        axios.get(DB.URL + DB.StatusMachine).then((res) => {
+        axios.get(DB.URL + DB.GetMachine).then((res) => {
             setGETCreateMachine(res.data)
         })
 
@@ -193,7 +193,7 @@ export default function UP_register(props){
                                             <label>ເລກທີ່ເຄື່ອງຂາຍເລກ</label>
                                             <select className="form-control" onChange={(e)=> setMachineId(e.target.value)}>
                                                 <option value={MachineId} style={{"font-size": "16px", "color":"blue"}}>{NameMac}</option>
-                                                {GETCreateMachine.map((item)=>(
+                                                {GETCreateMachine.filter((e) => e.status == true).map((item)=>(
                                                     <option value={item._id}>{item.NumMachine}</option>
                                                 ))}
 

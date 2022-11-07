@@ -1,0 +1,14 @@
+.Justify-center{
+    display: flex;
+    justify-content: space-evenly;
+    padding: 5% 10% 10%;
+}.Card-bil{
+    width: 500px;
+    height: 600px;
+    box-shadow: inset 0px 0px 13px -4px rgba(0,0,0,0.1);
+}
+.float-end-position{
+    position: absolute;
+    top: 1%;
+    left: 1%;
+}

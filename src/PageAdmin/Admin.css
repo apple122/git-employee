@@ -1,0 +1,5 @@
+.flix-position{
+    position: absolute;
+    z-index: 10;
+    background-color: red;
+}

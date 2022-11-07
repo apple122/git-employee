@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Moment from "moment";
 import {useParams} from 'react-router-dom';
 import DB from '../../services/enpiot'
+import './Event-print.css'
 
 export default function Print_payment_unit (Name) {
     const {value} = useParams()
@@ -32,14 +33,23 @@ export default function Print_payment_unit (Name) {
     function ClickPrint(){
         window.print()
     }
+    function printDiv() {
+        var divContents = document.getElementById("Card-bil").innerHTML;
+        var table = document.getElementById("table").innerHTML;
+        var a = divContents;
+        a.document.write(divContents);
+        a.document.write(table);
+        a.document.close();
+        a.print();
+    }
 
     return (
         <>
-            <div style={{"margin-top": "-7%"}}>
-            <div class="card-body">
-                <p className="btn btn-sm btn-outline-info" onClick={ClickPrint}>Print</p>
-                <p>ໃບບີນ ຫົວໜ້າໜ່ວຍ ( <strong className="text-success">{nameUnit}</strong> ) ເລກທີ່ໜ່ວຍ ( <strong className="text-success">{Unit_Num}</strong> )</p>
-                {/* <table className="table table-bordered">
+            <p className="btn btn-sm btn-outline-info float-end-position" onClick={ClickPrint}>Print</p>
+            <div style={{"margin-top": "-7%"}} className="Justify-center">
+            <div class="card card-body Card-bil" id="Card-bil">
+                <p>ໃບບີນ ຫົວໜ້າໜ່ວຍ ( <strong className="text-success">{nameUnit}</strong> ) ເລກທີ່ໜ່ວຍ ( <strong className="text-success">{Unit_Num}</strong> ) ງວດທີ່ ( <strong className="text-success">{ID}</strong> )</p>
+                <table className="table table-bordered" id="table">
                     <thead>
                         <tr>
                             <th scope="col">ລຳດັບ</th>
@@ -75,7 +85,7 @@ export default function Print_payment_unit (Name) {
                         )
                     })}
                     </tbody>
-                </table> */}
+                </table>
             </div>
             </div>
         </>

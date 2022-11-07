@@ -1,32 +1,27 @@
+import axios from "axios";
 import React from "react";
+import { useState } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import Insert_branch from "./Event-popup/Insert_branch";
 import Update_branch from "./Event-popup/Update-branch";
+import DB from '../services/enpiot'
+import { useReducer } from "react";
 
 
-const branch = () => {
+const Branch = () => {
 
     let x = 1
-    const names = ['James', 'Paul', 'John', 'George', 'Ringo'];
 
-    const Alert = () => {
-        Swal.fire({
-            title: 'Success!',
-            text: 'ຍັງບໍ່ມີຂໍ້ມູນຈິງ',
-            icon: 'success',
-            confirmButtonText: 'Cool'
-          })
-    }
-
-    const Alererror = () => {
-        Swal.fire({
-            title: 'Eroror!',
-            text: 'ຍັງບໍ່ມີຂໍ້ມູນຈິງ',
-            icon: 'error',
-            confirmButtonText: 'Cool'
-          })
-    }
+    const [ Redcur, setRedcur ] = useReducer(x => x + 1, 0)
+    const [ ShowEvent, setShowEvent ] = useState([])
+    useEffect(() => {
+        axios.get(DB.URL + DB.GetBranch).then((res) => {
+            setShowEvent(res.data.reverse())
+            setRedcur()
+        })
+    }, [Redcur])
 
     return (
         <>
@@ -50,28 +45,38 @@ const branch = () => {
                             <input type="search" class="form-control float-start col-md-4" placeholder="ຄົ້ນຫາ"/>
                         </div>
                         <div className="col-12">
-                            <div className="float-end"><button className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Insert_branch"><i class="bi bi-cloud-plus-fill"></i> ເພີມຂໍ້ມູນ</button></div>
+                            <div className="float-end"><Insert_branch /></div>
                         </div>
                     </div>
-                    <label className="label-table-amount"><strong>ລວມທັ້ງໝົດ 8 ຄົນ</strong></label>
+                    <label className="label-table-amount"><strong>ລວມທັ້ງໝົດ ( <strong className="text-black">{ShowEvent.length}</strong> ) ລາຍການ</strong></label>
                     <div className="card">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
                                 <th scope="col">ລຳດັບ</th>
                                 <th scope="col">ສະຂາ</th>
+                                <th scope="col">ແຂວງ</th>
+                                <th scope="col">ເມືອງ</th>
+                                <th scope="col">ບ້ານ</th>
+                                <th scope="col">ເບີໂທຕິດຕໍ່</th>
+                                <th scope="col">ຊື່ຫົວໜ້າສາຂາ</th>
                                 <th>ຈັດການ</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {names.map(item => {
+                                {ShowEvent.map(item => {
                                     return (
                                         <tr className="hover-table">
                                             <th scope="row">{x++}</th>
-                                            <td>@mdo</td>
+                                            <td>{item.branch}</td>
+                                            <td>{item.province}</td>
+                                            <td>{item.district}</td>
+                                            <td>{item.village}</td>
+                                            <td>+865 {item.phone}</td>
+                                            <td>{item.Name_branch_Chief}</td>
                                             <td>
-                                                <a href="#" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Update_branch"><i class="bi bi-pencil-square"></i></a> &nbsp;
-                                                <a href="#" className="btn btn-danger" onClick={() => Alererror()}><i class="bi bi-trash3-fill"></i></a>
+                                                <Update_branch id={item._id}/>
+                                                <a href="#" className="btn btn-sm btn-danger"><i class="bi bi-trash3-fill"></i></a>
                                             </td>
                                         </tr>
                                     )
@@ -80,17 +85,13 @@ const branch = () => {
                                 
                             </tbody>
                         </table>
-
-                        {/* Modol popup */}
-                            <Insert_branch />
-                            <Update_branch />
-                        {/* Modol popup */}
-
                     </div>
                 </div>
+               
             </div>
+           
         </>
     )
 }
 
-export default branch
+export default Branch

@@ -108,7 +108,7 @@ const Unit = () => {
                                 <tr>
                                     <th scope="col">ລຳດັບ</th>
                                     <th scope="col">ເລກໜ່ວຍ</th>
-                                    <th scope="col">ໜ່ວຍ</th>
+                                    <th scope="col">ຊື່ ຫົວໜ້າໜວຍ</th>
                                     <th scope="col">ເບີໂທ</th>
                                     <th scope="col">ສາຂາ</th>
                                     <th scope="col" class="float-center">ຈັດການ</th>
@@ -122,7 +122,7 @@ const Unit = () => {
                                             <td>{item.Unit_Num}</td>
                                             <td>{item.nameUnit}</td>
                                             <td>{item.phone}</td>
-                                            <td>{item.selectBranch}</td>
+                                            <td>{item.selectBranch.branch}</td>
                                             <td>
                                                 <UP_unit id={item._id}/>
                                                 <a href="#" className="btn btn-danger" onClick={() => Delete(item._id)}><i class="bi bi-trash3-fill"></i></a>
@@ -136,7 +136,7 @@ const Unit = () => {
                                                 <td>{item.Unit_Num}</td>
                                                 <td>{item.nameUnit}</td>
                                                 <td>{item.phone}</td>
-                                                <td>{item.selectBranch}</td>
+                                                <td>{item.selectBranch.branch}</td>
                                                 <td>
                                                     <UP_unit id={item._id}/>
                                                     <a href="#" className="btn btn-danger" onClick={() => Delete(item._id)}><i class="bi bi-trash3-fill"></i></a>

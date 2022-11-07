@@ -34,6 +34,8 @@ export default function Pour_unit () {
         if(SelectOption){
             axios.get(DB.URL + DB.GetRegister).then((res) => {
                 setREGIS(res.data.reverse())
+            }).catch((error) => {
+                console.log("ກະລຸນາເລືອກຂໍ້ມູນກອນ")
             })
             axios.get(DB.URL + DB.GetPercentage).then((res) => {
                 setGetPercentage(res.data)
@@ -50,14 +52,21 @@ export default function Pour_unit () {
 
     const [ UIDPrecen, setPrecenUID ] = useState(null)
     const [ PrecentPage, setPrecenPage ] = useState(null)
-    if(SelecOPREIS){
-        axios.get(DB.URL + DB.UIDRegister + SelecOPREIS.value).then((res) => {
-            setPrecenUID(res.data.percentageId)
-        })
-        axios.get(DB.URL + DB.UIDPercentage + UIDPrecen).then((res) => {
-            setPrecenPage(res.data.percentage)
-        })
-    }
+    useEffect(() => {
+        if(SelecOPREIS){
+            axios.get(DB.URL + DB.UIDRegister + SelecOPREIS.value).then((res) => {
+                setPrecenUID(res.data.percentageId)
+                console.log(SelecOPREIS.label)
+            }).catch((error) => {
+                console.log("ກະລຸນາເລືອກຂໍ້ມູນກອນ")
+            })
+            // axios.get(DB.URL + DB.UIDPercentage + UIDPrecen).then((res) => {
+            //     setPrecenPage(res.data.percentage)
+            // }).catch((error) => {
+            //     console.log("ກະລຸນາເລືອກຂໍ້ມູນກອນ")
+            // })
+        }
+    })
 
     // useState Insert 
     const [ nameVendor, setnameVendor ] = useState('')
