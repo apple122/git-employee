@@ -23,6 +23,29 @@ const Branch = () => {
         })
     }, [Redcur])
 
+    const Delete = (_id) => {
+        
+        Swal.fire({
+            title: 'ທ່ານຕ້ອງການລົບຂໍ້ມູນນີ້ແທ້ຫຼືບໍ່?',
+            text: "ກົນ Yes, delete! ເພືອລົບ ຫຼື ກົບ Cancel ເພືອຍົກເລີກ!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                axios.delete(DB.URL + DB.DeBranch + _id).then((res) => {
+                    Swal.fire(
+                        'ລົບຂໍ້ມູນສຳເລັດ!',
+                        'Your file has been deleted.',
+                        'success'
+                      )
+                })
+            }
+          })
+    }
+
     return (
         <>
             <div className="container-content">
@@ -76,7 +99,7 @@ const Branch = () => {
                                             <td>{item.Name_branch_Chief}</td>
                                             <td>
                                                 <Update_branch id={item._id}/>
-                                                <a href="#" className="btn btn-sm btn-danger"><i class="bi bi-trash3-fill"></i></a>
+                                                <a onClick={() => Delete(item._id)} className="btn btn-sm btn-danger"><i class="bi bi-trash3-fill"></i></a>
                                             </td>
                                         </tr>
                                     )

@@ -76,6 +76,11 @@ export default {
     UIDUsers : '/user/getById/',
     UIDWithDraw : ' /WithDraw/WithDrawById/',
     UIDhistoryUpdatePour : '/pourMoneyUpdate/deletePourhistory/',
+    UIDhistoryGETPourUID : '/pourMoneyUpdate/getByPourId/',
+
+    getRegisterByIdMachineId : '/register/getRegisterByIdMachineId/',
+    getregisterByIdUnitId : '/register/getregisterByIdUnitId/',
+    getPourMoneyByUnitId : '/Pour/getPourMoneyByUnitId/',
 
 
 

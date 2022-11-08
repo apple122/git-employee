@@ -18,7 +18,7 @@ export default function IN_Sales () {
 
     const [GETCreateMachine, setGETCreateMachine] = useState([])
     useEffect(() => {
-        axios.get(DB.URL + DB.StatusMachine).then((res) => {
+        axios.get(DB.URL + DB.GetMachine).then((res) => {
             setGETCreateMachine(res.data)
         })
     }, [])
@@ -167,7 +167,7 @@ export default function IN_Sales () {
                                     defaultValue={MachineId}
                                     onChange={setMachineId}
                                     options={
-                                        GETCreateMachine.map((item)=>(
+                                        GETCreateMachine.filter((e) => e.status == true).map((item)=>(
                                             {value: item._id, label: item.NumMachine}
                                         ))
                                     }

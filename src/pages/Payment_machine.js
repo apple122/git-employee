@@ -7,15 +7,12 @@ import DB from '../services/enpiot'
 import Moment from "moment";
 import Select from 'react-select';
 import axios from "axios";
-import { setMinutes } from "date-fns";
 import Swal from "sweetalert2";
 
 
 const Payment_unit = () => {
 
     let x = 1
-    let L = 1
-    let J = 1
 
     const [ reducer, setRedeuce ] = useReducer(x => x + 1, 0)
     const [ SelectOption, setOption ] = useState([])

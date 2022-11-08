@@ -19,11 +19,12 @@ export default function Pour_unit () {
     }, [])
 
     const [ SelectOption, setOption ] = useState([])
-    const [ SelecOPREIS, setOptionREGis ] = useState([])
     const [ GetPourMoney, setGetPourMoney ] = useState([])
     const [ ShowEcentUnit, setShowUnit ] = useState([])
     const [ ShowRegister, setREGIS ] = useState([])
     const [ GetPercentage, setGetPercentage ] = useState([])
+    const [ NameUint, setNameFUID ] = useState([])
+    console.log(NameUint)
     useEffect(() => {
         axios.get(DB.URL + DB.GetUnit).then((res) => {
             setShowUnit(res.data.reverse())
@@ -40,33 +41,21 @@ export default function Pour_unit () {
             axios.get(DB.URL + DB.GetPercentage).then((res) => {
                 setGetPercentage(res.data)
             })
-            
         }
     },[])
+
+    if(SelectOption){
+        axios.get(DB.URL + DB.UIDUnit + SelectOption.value).then((res) => {
+            setNameFUID(res.data.nameUnit)
+        })
+    }
+
     const LoopQnumber = [...new Set(ShowRegister.filter((e) => e.upremove == "ເປິດໃຊ້ງານ").map(item => item.unitId == null ? "" : item.unitId.Unit_Num))]
     const LoopDraw = LoopQnumber.map((item) => (
         {value: item, label: 'ໜ່ວຍ: '+ item}
     ))
     const LoopQnumberDrw = [...new Set(GetPourMoney.map(item => item.Draw))]
     const Max = Math.max(...LoopQnumberDrw)
-
-    const [ UIDPrecen, setPrecenUID ] = useState(null)
-    const [ PrecentPage, setPrecenPage ] = useState(null)
-    useEffect(() => {
-        if(SelecOPREIS){
-            axios.get(DB.URL + DB.UIDRegister + SelecOPREIS.value).then((res) => {
-                setPrecenUID(res.data.percentageId)
-                console.log(SelecOPREIS.label)
-            }).catch((error) => {
-                console.log("ກະລຸນາເລືອກຂໍ້ມູນກອນ")
-            })
-            // axios.get(DB.URL + DB.UIDPercentage + UIDPrecen).then((res) => {
-            //     setPrecenPage(res.data.percentage)
-            // }).catch((error) => {
-            //     console.log("ກະລຸນາເລືອກຂໍ້ມູນກອນ")
-            // })
-        }
-    })
 
     // useState Insert 
     const [ nameVendor, setnameVendor ] = useState('')
@@ -177,16 +166,6 @@ export default function Pour_unit () {
                                 </div>
                             </div>
 
-                            <div className="col-md-12">
-                                <div className="form-group">
-                                    <label>ຊື່ ແລະ ນາມສະກຸນ ( ຫົວໜ້າໜ່ວຍ )</label>
-                                    <div className="input-group">
-                                        <span className="input-group-text"><i class="bi bi-person-lines-fill"></i></span>
-                                        <input type="text" className="form-control" onChange={(e) => setnameVendor(e.target.value)} placeholder="ຊື່ ແລະ ນາມສະກຸນ ຫົວໜ້າໜ່ວຍ" required/>
-                                    </div>
-                                </div>
-                            </div>
-                            
                             <div className="col-md-8">
                                 <div className="form-group">
                                     <label>ມູນຄ່າຂາຍໄດ້</label>
@@ -253,6 +232,17 @@ export default function Pour_unit () {
                                     </div>
                                 </div>
                             </div>
+
+                            <div className="col-md-12">
+                                <div className="form-group">
+                                    <label>ຊື່ ແລະ ນາມສະກຸນ ( ຫົວໜ້າໜ່ວຍ )</label>
+                                    <div className="input-group">
+                                        <span className="input-group-text"><i class="bi bi-person-lines-fill"></i></span>
+                                        <input type="text" className="form-control" value={NameUint} onChange={(e) => setnameVendor(e.target.value)} placeholder="ຊື່ ແລະ ນາມສະກຸນ ຫົວໜ້າໜ່ວຍ" readOnly/>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div className="col-md-12">
                                 <div className="form-group">
                                     <label>ຊື່ ແລະ ນາມສະກຸນ ( ພະນັກງານຜູ້ຮັບເງີນ )</label>

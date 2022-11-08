@@ -11,8 +11,8 @@ export default function UP_unit (props) {
     const [Unit_Num, setUnitId] = useState('')
     const [phone, setphone] = useState('')
     const [nameUnit, setnameUnit] = useState('')
-    const [selectBranch, setselectBranch] = useState('')
-    const [selectBranchUID, setselectBranchUID] = useState('')
+    const [selectBranch, setselectBranch] = useState(null)
+    const [selectBranchUID, setselectBranchUID] = useState(null)
     useEffect(() => {
         axios.get(DB.URL + DB.UIDUnit + propsUID).then((res) => {
             setUnitId(res.data.Unit_Num)
@@ -78,7 +78,7 @@ export default function UP_unit (props) {
                         <div className="form-group">
                             <label>ເລກໜ່ວຍ</label>
                             <div className="input-group">
-                                <span className="input-group-text"><i class="bi bi-person-video2"></i></span>
+                                <span className="input-group-text"><i class="bi bi-hash"></i></span>
                                 <input type="text" className="form-control" name="Unit_Num" value={Unit_Num} onChange={(e) => setUnitId(e.target.value)} placeholder="ກະລຸນາປ່ອນ ຊື່ແລະນາມສະກຸນ" required/>
                             </div>
                         </div>
@@ -86,7 +86,7 @@ export default function UP_unit (props) {
                         <div className="form-group">
                             <label>ເບີໂທ</label>
                             <div className="input-group">
-                                <span className="input-group-text"><i class="bi bi-person-badge"></i></span>
+                                <span className="input-group-text"><i class="bi bi-telephone-plus-fill"></i></span>
                                 <input type="number" min="0" className="form-control" name="phone" value={phone} onChange={(e) => setphone(e.target.value)} placeholder="ກະລຸນາປ່ອນ ເບີໂທ" required/>
                             </div>
                         </div>
@@ -98,7 +98,7 @@ export default function UP_unit (props) {
                         <div className="form-group">
                             <label>ຊື່ແລະນາມສະກຸນ ຫົວໜ້າໜວຍ</label>
                             <div className="input-group">
-                                <span className="input-group-text"><i class="bi bi-hash"></i></span>
+                                <span className="input-group-text"><i class="bi bi-person-badge"></i></span>
                                 <input type="text" className="form-control" name="nameUnit" value={nameUnit} onChange={(e) => setnameUnit(e.target.value)} placeholder="ກະລຸນາປ່ອນ ຊື່ແລະນາມສະກຸນ ຫົວໜ້າໜວຍ" required/>
                             </div>
                         </div>
@@ -108,7 +108,7 @@ export default function UP_unit (props) {
                             <div className="input-group">
                                 <span className="input-group-text"><i class="bi bi-shop-window"></i></span>
                                 <select className="form-control" name="selectBranch" onChange={(e) => setselectBranch(e.target.value)} required>
-                                    <option value={selectBranchUID}>{selectBranch}</option>
+                                    <option value={selectBranchUID == null ? "" : selectBranchUID}>{selectBranch == null ? "" : selectBranch}</option>
                                     {Branc.map((item) => (
                                         <option value={item._id}>{item.branch}</option>
                                     ))}

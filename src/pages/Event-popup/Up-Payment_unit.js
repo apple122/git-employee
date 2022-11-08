@@ -10,7 +10,7 @@ import Swal from "sweetalert2";
 export default function Pour_machine (props) {
     const propsUID = props.id
 
-    const [ SelectOption, setSelectOption ] = useState([])
+    const [ SelectOption, setSelectOption ] = useState(null)
 
     const [ UserUID, setUIDname ] = useState()
     const [ fullname, setName ] = useState()
@@ -35,7 +35,6 @@ export default function Pour_machine (props) {
     const [ Percentage_Sell, setPercentage_Sell ] = useState('')
     const [ nameVendor, setnameVendor ] = useState('')
     const [ Precent, setPrecent ] = useState('')
-    console.log(Precent)
     const [ numberPercentage, setnumberPercentage ] = useState('')
 
     const [ cause_update, setArea ] = useState(null)
@@ -43,39 +42,51 @@ export default function Pour_machine (props) {
 
     const [ unitId, setunitId] = useState(null)
     const [ unitIdName, setunitIdName] = useState('')
+    const [ unitName, setnameUnit] = useState(null)
     useEffect(() => {
-        axios.get(DB.URL + DB.Profile ,{ headers : {authorization : token}}).then((res) => {
-            setUIDname(res.data._id)
-            setName(res.data.fullname)
-          })
-        axios.get(DB.URL + DB.GetPercentage).then((res) => {
-            setGetPercentage(res.data)
-        })
-        axios.get(DB.URL + DB.GetPourMoney).then((res) => {
-            setGetPourMoney(res.data.reverse())
-        })
-        axios.get(DB.URL + DB.GetUnit).then((res) => {
-            setGetUnit(res.data.reverse())
-        })
-        axios.get(DB.URL + DB.UGNhistoryUpdatePour + propsUID).then((res) => {
-            setNumberUpdate(res.data)
-        })
-
-        axios.get(DB.URL + DB.UIDPourMoney + propsUID).then((res) => {
-            setunitId(res.data.unitId._id)
-            setunitIdName(res.data.unitId.Unit_Num)
-            setPayMent_Money_ToDay(res.data.PayMent_Money_ToDay)
-            setDraw(res.data.Draw)
-            setSalable_value(res.data.Salable_value)
-            setArrears_Amount(res.data.Arrears_Amount)
-            setPay_Cash(res.data.Pay_Cash)
-            setPay_Money_Tranfer(res.data.Pay_Money_Tranfer)
-            setPour_Actually_Amount(res.data.Pour_Actually_Amount)
-            setPercentage_Sell(res.data.Percentage_Sell)
-            setnameVendor(res.data.nameVendor)
-            setnumberPercentage(res.data.numberPercentage)
-        })
+        if(propsUID){
+            axios.get(DB.URL + DB.Profile ,{ headers : {authorization : token}}).then((res) => {
+                setUIDname(res.data._id)
+                setName(res.data.fullname)
+              })
+            axios.get(DB.URL + DB.GetPercentage).then((res) => {
+                setGetPercentage(res.data)
+            })
+            axios.get(DB.URL + DB.GetPourMoney).then((res) => {
+                setGetPourMoney(res.data.reverse())
+            })
+            axios.get(DB.URL + DB.GetUnit).then((res) => {
+                setGetUnit(res.data.reverse())
+            })
+            axios.get(DB.URL + DB.UIDhistoryGETPourUID + propsUID).then((res) => {
+                setNumberUpdate(res.data)
+            })
+            
+            axios.get(DB.URL + DB.UIDPourMoney + propsUID).then((res) => {
+                setunitId(res.data.unitId._id)
+                setnameUnit(res.data.unitId.nameUnit)
+                setunitIdName(res.data.unitId.Unit_Num)
+                setPayMent_Money_ToDay(res.data.PayMent_Money_ToDay)
+                setDraw(res.data.Draw)
+                setSalable_value(res.data.Salable_value)
+                setArrears_Amount(res.data.Arrears_Amount)
+                setPay_Cash(res.data.Pay_Cash)
+                setPay_Money_Tranfer(res.data.Pay_Money_Tranfer)
+                setPour_Actually_Amount(res.data.Pour_Actually_Amount)
+                setPercentage_Sell(res.data.Percentage_Sell)
+                setnameVendor(res.data.nameVendor)
+                setnumberPercentage(res.data.numberPercentage)
+            })
+        }else{}
     }, [])
+
+    
+    const [ NameUint, setNameFUID ] = useState([])
+    if(SelectOption){
+        axios.get(DB.URL + DB.UIDUnit + SelectOption.value).then((res) => {
+            setNameFUID(res.data.nameUnit)
+        })
+    }
 
     const SelectUnit_UID = [
         {value: unitId, label: unitIdName}
@@ -88,11 +99,12 @@ export default function Pour_machine (props) {
 
     async function Sub(){
         try {
+            console.log(NumberUpdate)
             if(NumberUpdate == ''){ // ກໍລະນີບໍ່ມີຂໍ້ມູນການອັບເດດ
                 if(cause_update == null){ // ກໍລະນີບໍ່ປ່ອນຂໍ້ມູນສາເຫດການແກ້ໄຂ
                     alert('ກະລູນາປ່ອນສາເຫດທີ່ແກ້ໄຂກອນ')
                 }else{
-                    if(SelectOption.value == null){ // ກໍລະນີ ບໍ່ມີການປ່ຽນແປງຂໍ້ມູນ UnitID
+                    if(SelectOption == null){ // ກໍລະນີ ບໍ່ມີການປ່ຽນແປງຂໍ້ມູນ UnitID
                         const Data = {
                             unitId: unitId,
                             Draw: Draw,
@@ -104,7 +116,6 @@ export default function Pour_machine (props) {
                             Pay_Cash: Pay_Cash,
                             Pay_Money_Tranfer: Pay_Money_Tranfer,
                             userId: UserUID,
-                            nameVendor: nameVendor,
                             numberpercentage: Precent
                             }
                             console.log(Data)
@@ -116,7 +127,8 @@ export default function Pour_machine (props) {
                             cause_update: cause_update,
                             pourId: propsUID
                           }
-                          console.log(Data)
+                          console.log(historyUpdatePour)
+                          console.log("Select : Null")
     
                         const DataSC = await axios.put(DB.URL + DB.PutPourMoney + propsUID , Data)
                         if(DataSC.status == 200) {
@@ -142,35 +154,38 @@ export default function Pour_machine (props) {
                             Pay_Cash: Pay_Cash,
                             Pay_Money_Tranfer: Pay_Money_Tranfer,
                             userId: UserUID,
-                            nameVendor: nameVendor,
                             numberpercentage: Precent
                             }
-                        const historyUpdatePour = {
-                            NumberUpdate: 1,
-                            Date_Update: Moment().format("YYYY-MM-DD"),
-                            nameEmp: fullname,
-                            cause_update: cause_update,
-                            pourId: propsUID
-                            }
-                            console.log(Data)
+                        //     console.log(Data)
+                        // const historyUpdatePour = {
+                        //     NumberUpdate: 1,
+                        //     Date_Update: Moment().format("YYYY-MM-DD"),
+                        //     nameEmp: fullname,
+                        //     cause_update: cause_update,
+                        //     pourId: propsUID
+                        //     }
+                        //     console.log(historyUpdatePour)
+                        //     console.log("Select : Select")
     
                         const DataSC = await axios.put(DB.URL + DB.PutPourMoney + propsUID , Data)
                         if(DataSC.status == 200) {
-                            axios.post(DB.URL + DB.PosthistoryUpdatePour , historyUpdatePour)
-                            Swal.fire({
-                                position: 'top-end',
-                                width: '400px',
-                                icon: 'success',
-                                title: 'ບັນທືກຂໍ້ມູນສຳເລັດ',
-                                showConfirmButton: false,
-                                timer: 1500
-                            })
+                            // axios.post(DB.URL + DB.PosthistoryUpdatePour , historyUpdatePour)
+                            // Swal.fire({
+                            //     position: 'top-end',
+                            //     width: '400px',
+                            //     icon: 'success',
+                            //     title: 'ບັນທືກຂໍ້ມູນສຳເລັດ',
+                            //     showConfirmButton: false,
+                            //     timer: 1500
+                            // })
+                            console.log("Success" + DataSC)
                         }
                     }
                 }
             }else if(NumberUpdate){ // ເມືອມີຂໍ້ມູນແລ້ວ ຈະ + ເພີມຂື້ນ
+                console.log('ເມືອມີຂໍ້ມູນແລ້ວ ຈະ + ເພີມຂື້ນ')
                 const LoopQNumberUpdate = [...new Set(NumberUpdate.map(item => item.NumberUpdate))]
-
+                console.log('NumberText ' + NumberUpdate)
                 if(cause_update == null){ // ກໍລະນີບໍ່ປ່ອນຂໍ້ມູນສາເຫດການແກ້ໄຂ
                     alert('ກະລູນາປ່ອນສາເຫດທີ່ແກ້ໄຂກອນ')
                 }else{
@@ -186,7 +201,6 @@ export default function Pour_machine (props) {
                             Pay_Cash: Pay_Cash,
                             Pay_Money_Tranfer: Pay_Money_Tranfer,
                             userId: UserUID,
-                            nameVendor: nameVendor,
                             numberpercentage: Precent
                             }
     
@@ -197,7 +211,8 @@ export default function Pour_machine (props) {
                             cause_update: cause_update,
                             pourId: propsUID
                           }
-                          console.log(Data)
+                          console.log(historyUpdatePour)
+                          
     
                         const DataSC = await axios.put(DB.URL + DB.PutPourMoney + propsUID , Data)
                         if(DataSC.status == 200) {
@@ -212,6 +227,7 @@ export default function Pour_machine (props) {
                             })
                         }
                     }else{
+                        console.log('Numer' + Math.max(...LoopQNumberUpdate))
                         const Data = {
                             unitId: SelectOption.value,
                             Draw: Draw,
@@ -223,7 +239,6 @@ export default function Pour_machine (props) {
                             Pay_Cash: Pay_Cash,
                             Pay_Money_Tranfer: Pay_Money_Tranfer,
                             userId: UserUID,
-                            nameVendor: nameVendor,
                             numberpercentage: Precent
                             }
                             console.log(Data)
@@ -234,7 +249,7 @@ export default function Pour_machine (props) {
                             cause_update: cause_update,
                             pourId: propsUID
                             }
-    
+                            console.log(historyUpdatePour)
                         const DataSC = await axios.put(DB.URL + DB.PutPourMoney + propsUID , Data)
                         if(DataSC.status == 200) {
                             axios.post(DB.URL + DB.PosthistoryUpdatePour , historyUpdatePour)
@@ -305,16 +320,6 @@ export default function Pour_machine (props) {
                                 </div>
                             </div>
                         </div>
-
-                        <div className="col-md-12">
-                            <div className="form-group">
-                                <label>ຊື່ ແລະ ນາມສະກຸນ ( ຫົວໜ້າໜ່ວຍ )</label>
-                                <div className="input-group">
-                                    <span className="input-group-text"><i class="bi bi-person-lines-fill"></i></span>
-                                    <input type="text" className="form-control" value={nameVendor} onChange={(e) => setnameVendor(e.target.value)} placeholder="ຊື່ ແລະ ນາມສະກຸນ ຫົວໜ້າໜ່ວຍ"/>
-                                </div>
-                            </div>
-                        </div>
                        
                         <div className="col-md-8">
                             <div className="form-group">
@@ -381,6 +386,22 @@ export default function Pour_machine (props) {
                                 </div>
                             </div>
                         </div>
+
+                        <div className="col-md-12">
+                            <div className="form-group">
+                                <label>ຊື່ ແລະ ນາມສະກຸນ ( ຫົວໜ້າໜ່ວຍ )</label>
+                                <div className="input-group">
+                                    <span className="input-group-text"><i class="bi bi-person-lines-fill"></i></span>
+                                    {SelectOption === null && (
+                                        <input type="text" className="form-control" value={unitName} readOnly/>
+                                    )}
+                                    {SelectOption && (
+                                        <input type="text" className="form-control" value={NameUint} readOnly/>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+
                         <div className="col-md-12">
                             <div className="form-group">
                                 <label>ຊື່ ແລະ ນາມສະກຸນ ( ພະນັກງານຜູ້ຮັບເງີນ )</label>
@@ -394,7 +415,7 @@ export default function Pour_machine (props) {
                 </div>
                 <div class="modal-footer">
                     <button type="button" onClick={handleClose} class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-x-diamond-fill"></i> ກັບຄືນ</button>
-                    <Button onClick={handleShowS} className="btn btn-sm"><i class="bi bi-cloud-download-fill"></i> ບັນທຶກ</Button>
+                    <Button onClick={handleShowS} className="btn"><i class="bi bi-cloud-download-fill"></i> ບັນທຶກ</Button>
                 </div>
                 </div>
 

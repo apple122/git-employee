@@ -183,7 +183,7 @@ const Payment_unit = () => {
                                             <th>{x++}</th>
                                             <td>ງວດທີ (<strong className="text-success">{item.Draw == null ? "Null" : item.Draw}</strong>)</td>      
                                             <td>{Moment(item.PayMent_Money_ToDay).format("YYYY-MM-DD")}</td>       
-                                            <th>{item.nameVendor}</th>
+                                            <th>{item.unitId == null ? "" : item.unitId.nameUnit}</th>
                                             <th class="text-success">{new Intl.NumberFormat({ style: 'currency', currency: 'LAK' }).format(item.Salable_value)} ₭</th>
                                             <td>{new Intl.NumberFormat({ style: 'currency', currency: 'LAK' }).format(item.Percentage_Sell == null ? "0" : item.Percentage_Sell)} ₭</td>
                                             <td class="text-success">{new Intl.NumberFormat({ style: 'currency', currency: 'LAK' }).format(item.Pour_Actually_Amount)} ₭</td>
@@ -192,7 +192,7 @@ const Payment_unit = () => {
                                             <td class="text-danger">{new Intl.NumberFormat({ style: 'currency', currency: 'LAK' }).format(item.Arrears_Amount)} ₭</td>       
                                             <td>{item.userId == null ? "" : item.userId.fullname}</td> 
                                             <td>
-                                                <Up_Payment_unit id={item._id}/>
+                                                <Up_Payment_unit id={item._id}/>&nbsp;
                                                 <a onClick={() => Delete(item._id)} className="btn btn-sm btn-danger"><i class="bi bi-trash-fill"></i></a>  
                                             </td>      
                                         </tr>
@@ -203,7 +203,7 @@ const Payment_unit = () => {
                                             <th>{x++}</th>
                                             <td>ງວດທີ (<strong className="text-success">{item.Draw == null ? "Null" : item.Draw}</strong>)</td>      
                                             <td>{Moment(item.PayMent_Money_ToDay).format("YYYY-MM-DD")}</td>       
-                                            <th>{item.nameVendor}</th>
+                                            <th>{item.unitId == null ? "" : item.unitId.nameUnit}</th>
                                             <th class="text-success">{new Intl.NumberFormat({ style: 'currency', currency: 'LAK' }).format(item.Salable_value)} ₭</th>
                                             <td>{new Intl.NumberFormat({ style: 'currency', currency: 'LAK' }).format(item.Percentage_Sell == null ? "0" : item.Percentage_Sell)} ₭</td>
                                             <td class="text-success">{new Intl.NumberFormat({ style: 'currency', currency: 'LAK' }).format(item.Pour_Actually_Amount)} ₭</td>
@@ -212,7 +212,7 @@ const Payment_unit = () => {
                                             <td class="text-danger">{new Intl.NumberFormat({ style: 'currency', currency: 'LAK' }).format(item.Arrears_Amount)} ₭</td>       
                                             <td>{item.userId == null ? "" : item.userId.fullname}</td>   
                                             <td>
-                                                <Up_Payment_unit id={item._id}/>
+                                                <Up_Payment_unit id={item._id}/>&nbsp;
                                                 <a onClick={() => Delete(item._id)} className="btn btn-sm btn-danger"><i class="bi bi-trash-fill"></i></a>    
                                             </td>    
                                         </tr>
@@ -223,7 +223,7 @@ const Payment_unit = () => {
                                             <th>{x++}</th>
                                             <td>ງວດທີ (<strong className="text-success">{item.Draw == null ? "Null" : item.Draw}</strong>)</td>      
                                             <td>{Moment(item.PayMent_Money_ToDay).format("YYYY-MM-DD")}</td>       
-                                            <th>{item.nameVendor}</th>
+                                            <th>{item.unitId == null ? "" : item.unitId.nameUnit}</th>
                                             <th class="text-success">{new Intl.NumberFormat({ style: 'currency', currency: 'LAK' }).format(item.Salable_value)} ₭</th>
                                             <td>{new Intl.NumberFormat({ style: 'currency', currency: 'LAK' }).format(item.Percentage_Sell == null ? "0" : item.Percentage_Sell)} ₭</td>
                                             <td class="text-success">{new Intl.NumberFormat({ style: 'currency', currency: 'LAK' }).format(item.Pour_Actually_Amount)} ₭</td>
@@ -232,13 +232,12 @@ const Payment_unit = () => {
                                             <td class="text-danger">{new Intl.NumberFormat({ style: 'currency', currency: 'LAK' }).format(item.Arrears_Amount)} ₭</td>       
                                             <td>{item.userId == null ? "" : item.userId.fullname}</td>   
                                             <td>
-                                                <Up_Payment_unit id={item._id}/>
+                                                <Up_Payment_unit id={item._id}/>&nbsp;
                                                 <a onClick={() => Delete(item._id)} className="btn btn-sm btn-danger"><i class="bi bi-trash-fill"></i></a>    
                                             </td>    
                                         </tr>
                                     )
                                 })}
-                                {console.log(ShowEvent)}
                             </tbody>
                         </table>
                     </div>

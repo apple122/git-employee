@@ -122,7 +122,7 @@ const Unit = () => {
                                             <td>{item.Unit_Num}</td>
                                             <td>{item.nameUnit}</td>
                                             <td>{item.phone}</td>
-                                            <td>{item.selectBranch.branch}</td>
+                                            <td>{item.selectBranch == null ? "" : item.selectBranch.branch}</td>
                                             <td>
                                                 <UP_unit id={item._id}/>
                                                 <a href="#" className="btn btn-danger" onClick={() => Delete(item._id)}><i class="bi bi-trash3-fill"></i></a>
@@ -136,15 +136,13 @@ const Unit = () => {
                                                 <td>{item.Unit_Num}</td>
                                                 <td>{item.nameUnit}</td>
                                                 <td>{item.phone}</td>
-                                                <td>{item.selectBranch.branch}</td>
+                                                <td>{item.selectBranch == null ? "" : item.selectBranch.branch}</td>
                                                 <td>
                                                     <UP_unit id={item._id}/>
                                                     <a href="#" className="btn btn-danger" onClick={() => Delete(item._id)}><i class="bi bi-trash3-fill"></i></a>
                                                 </td>
                                             </tr>
-
                                         )
-
                                     })
                                 }
                             </tbody>
