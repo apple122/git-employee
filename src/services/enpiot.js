@@ -7,6 +7,7 @@ export default {
     PostCreateMoveMachine : '/move/createMoveMachine',
     PostcreatePercentage : '/percentage/createPercentage',
     PostcreatePourMoney : '/pour/createPourMoney',
+    PostPourMoneyMachine : '/pourMachine/createPourMoneyMachine',
     PostInstalmanet : '/instalment/createInstalment',
     PostPrize : '/prize/createPrize',
     PostRegister : '/register/createRegister',

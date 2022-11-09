@@ -146,7 +146,7 @@ const Payment_unit = () => {
                         </div>
                         {/* <div className="col-md-4"></div> */}
                         <div className="col-md-2">
-                            <button className="btn btn-info" data-bs-toggle="modal" data-bs-target="#Pour_unit"><i class="bi bi-download"></i> ຖອກເງິນເຄື່ອງ</button>
+                            <Pour_machine />
                         </div>
                     </div>
                     <div class="card colums-group-padding scollview-table">
@@ -214,7 +214,7 @@ const Payment_unit = () => {
                     </div>
                 </div>
             </div>
-            <Pour_machine />
+            
 
         </>
     )
